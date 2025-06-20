@@ -9,7 +9,7 @@ ocb:
 	chmod +x ocb
 
 .PHONY: build-src
-build-src:
+build-src: ocb
 	./ocb \
 		--config=builder-config.yaml \
 		--skip-compilation
@@ -35,4 +35,5 @@ docker-push: dist/sacloud-otel-collector_linux_amd64_v1/sacloud-otel-collector  
 		--build-arg VERSION=$(VERSION) \
 		--platform linux/amd64,linux/arm64 \
 		-t ghcr.io/sacloud/sacloud-otel-collector:$(VERSION) \
+		--push \
 		.
