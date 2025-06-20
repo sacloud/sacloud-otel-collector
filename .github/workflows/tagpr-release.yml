@@ -1,0 +1,56 @@
+name: tagpr-release
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release"
+        required: true
+        default: ""
+        type: string
+permissions:
+  contents: write
+  packages: write
+  issues: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  test:
+    name: run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || 'main' }}
+
+      - uses: Songmu/tagpr@v1
+        id: tagpr
+        env:
+          GH_ENTERPRISE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ inputs.tag == '' }}
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+        id: go
+        if: ${{ steps.tagpr.outputs.tag != '' || inputs.tag != '' }}
+
+      - name: go mod download
+        run: |
+          go mod download
+        working-directory: src
+        if: ${{ steps.tagpr.outputs.tag != '' || inputs.tag != '' }}
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          version: '~> v2'
+          args: release
+        env:
+          GOMAXPROCS: 2
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.tagpr.outputs.tag != '' || inputs.tag != '' }}
