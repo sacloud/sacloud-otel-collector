@@ -30,7 +30,7 @@ clean:
 	rm -rf ocb dist sacloud-otel-collector
 
 .PHONY: docker-push
-docker-push: dist/sacloud-otel-collector_linux_amd64_v1/sacloud-otel-collector  dist/sacloud-otel-collector_linux_arm64/sacloud-otel-collector
+docker-push:
 	docker buildx build \
 		--build-arg VERSION=$(VERSION) \
 		--platform linux/amd64,linux/arm64 \
