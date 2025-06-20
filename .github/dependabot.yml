@@ -8,8 +8,6 @@ updates:
       otel:
         patterns:
           - "go.opentelemetry.io/*"
-      otel-github:
-        patterns:
           - "github.com/open-telemetry/*"
   - package-ecosystem: github-actions
     directory: "/"
