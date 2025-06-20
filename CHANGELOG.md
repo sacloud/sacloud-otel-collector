@@ -1,5 +1,7 @@
 # Changelog
 
+## [v0.1.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.1...v0.1.2) - 2025-06-20
+
 ## [v0.1.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.0...v0.1.1) - 2025-06-20
 - Add Docker image build and push to release workflow by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/11
 
