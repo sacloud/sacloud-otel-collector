@@ -5,9 +5,12 @@ updates:
     schedule:
       interval: monthly
     groups:
-      aws-sdk-go-v2:
+      otel:
         patterns:
-          - "github.com/aws/aws-sdk-go-v2*"
+          - "go.opentelemetry.io/*"
+      otel-github:
+        patterns:
+          - "github.com/open-telemetry/*"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
