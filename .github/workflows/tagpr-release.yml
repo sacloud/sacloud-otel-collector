@@ -29,7 +29,7 @@ jobs:
       - uses: Songmu/tagpr@v1
         id: tagpr
         env:
-          GH_ENTERPRISE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ inputs.tag == '' }}
 
       - name: Set up Go
