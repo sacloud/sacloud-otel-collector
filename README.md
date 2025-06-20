@@ -42,7 +42,7 @@ See [Building a custom collector](https://opentelemetry.io/docs/collector/custom
 
 ## Contributing
 
-If you want to add a new component of otel collector, modify [builder-config.yaml](builder-config.yaml). Then run `make` to build the collector.
+If you want to add a new component of otel collector, modify [builder-config.yaml](builder-config.yaml). Then run `make build-src && make` to build the collector.
 
 ## Automation
 

@@ -68,6 +68,7 @@ jobs:
           registry: ghcr.io
           username: $GITHUB_ACTOR
           password: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.tagpr.outputs.tag != '' || inputs.tag != '' }}
 
       - name: Build and push Docker images
         run: |
