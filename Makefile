@@ -35,5 +35,6 @@ docker-push:
 		--build-arg VERSION=$(VERSION) \
 		--platform linux/amd64,linux/arm64 \
 		-t ghcr.io/sacloud/sacloud-otel-collector:$(VERSION) \
+		-t ghcr.io/sacloud/sacloud-otel-collector:latest \
 		--push \
 		.
