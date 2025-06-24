@@ -2,6 +2,34 @@
 
 OpenTelemetry collector for [sacloud](https://github.com/sacloud).
 
+## Usage
+
+### Release Binary
+
+Pre-built binaries are available on [GitHub Releases](https://github.com/sacloud/sacloud-otel-collector/releases):
+
+1. Download the tar.gz archive for your platform from the latest release
+2. Extract the archive: `tar xzf sacloud-otel-collector_*.tar.gz`
+3. Run with your configuration:
+
+```bash
+./sacloud-otel-collector --config config.yml
+```
+
+### Container Image
+
+Container images are available on GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/sacloud/sacloud-otel-collector:latest
+```
+
+Run the collector with your configuration:
+
+```bash
+docker run --rm -v $(pwd)/config.yml:/config.yml ghcr.io/sacloud/sacloud-otel-collector:latest --config /config.yml
+```
+
 ## Build
 
 See [Building a custom collector](https://opentelemetry.io/docs/collector/custom-collector/).
@@ -10,7 +38,7 @@ See [Building a custom collector](https://opentelemetry.io/docs/collector/custom
 2. `make`
     See [Makefile](Makefile) for details.
 
-`build/sacloud-otel-collector` will be created.
+`sacloud-otel-collector` will be created.
 
 ## Contributing
 
