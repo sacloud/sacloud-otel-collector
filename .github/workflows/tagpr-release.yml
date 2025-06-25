@@ -42,7 +42,7 @@ jobs:
       - name: go mod download
         run: |
           go mod download
-        working-directory: src
+        working-directory: cmd/sacloud-otel-collector
         if: ${{ steps.tagpr.outputs.tag != '' || inputs.tag != '' }}
 
       - name: Run GoReleaser
