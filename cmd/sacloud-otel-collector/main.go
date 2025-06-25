@@ -20,7 +20,7 @@ func main() {
 	info := component.BuildInfo{
 		Command:     "sacloud-otel-collector",
 		Description: "OpenTelemetry custom collector for sacloud",
-		Version:     "",
+		Version:     "HEAD",
 	}
 
 	set := otelcol.CollectorSettings{

@@ -1,7 +1,8 @@
 dist:
   name: sacloud-otel-collector
   description: OpenTelemetry custom collector for sacloud
-  output_path: ./src
+  output_path: ./cmd/sacloud-otel-collector
+  version: "HEAD"
 
 exporters:
   - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.125.0
