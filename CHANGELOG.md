@@ -1,5 +1,7 @@
 # Changelog
 
+## [v0.1.5](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.4...v0.1.5) - 2025-06-25
+
 ## [v0.1.4](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.3...v0.1.4) - 2025-06-25
 - move src/ to cmd/sacloud-otel-collector/ by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/17
 
