@@ -2,12 +2,11 @@ version: 2
 project_name: "sacloud-otel-collector"
 before:
   hooks:
-    - sh -c 'cd src && go mod download'
+    - sh -c 'cd cmd/sacloud-otel-collector && go mod download'
 builds:
   - env:
       - CGO_ENABLED=0
-    main: ./
-    dir: ./src
+    dir: ./cmd/sacloud-otel-collector
     binary: sacloud-otel-collector
     goos:
       - linux
