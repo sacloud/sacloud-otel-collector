@@ -45,4 +45,4 @@
 [tagpr]
 	vPrefix = true
 	releaseBranch = main
-	versionFile = -
+	versionFile = cmd/sacloud-otel-collector/version.go
