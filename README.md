@@ -55,6 +55,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | resource | Resource processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/resourceprocessor) |
 | attributes | Attributes processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/attributesprocessor) |
 | transform | Transform processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/transformprocessor) |
+| filter | Filter processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/filterprocessor) |
 
 ### Exporters
 
