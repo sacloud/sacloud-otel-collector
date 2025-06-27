@@ -12,6 +12,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.125.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.125.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.125.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.125.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.125.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.125.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.125.0
