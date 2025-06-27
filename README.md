@@ -30,6 +30,48 @@ Run the collector with your configuration:
 docker run --rm -v $(pwd)/config.yml:/config.yml ghcr.io/sacloud/sacloud-otel-collector:latest --config /config.yml
 ```
 
+## Components
+
+The sacloud-otel-collector includes the following OpenTelemetry components:
+
+For more details, see [builder-config.yaml](builder-config.yaml).
+
+### Receivers
+
+| Component | Description | Documentation |
+|-----------|-------------|---------------|
+| otlp | OpenTelemetry Protocol receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver/otlpreceiver) |
+| prometheus | Prometheus metrics receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/prometheusreceiver) |
+| hostmetrics | Host metrics receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/hostmetricsreceiver) |
+| jaeger | Jaeger traces receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/jaegerreceiver) |
+| kafka | Kafka receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/kafkareceiver) |
+
+### Processors
+
+| Component | Description | Documentation |
+|-----------|-------------|---------------|
+| batch | Batch processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/processor/batchprocessor) |
+| memorylimiter | Memory limiter processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/processor/memorylimiterprocessor) |
+| resource | Resource processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/resourceprocessor) |
+| attributes | Attributes processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/attributesprocessor) |
+| transform | Transform processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/transformprocessor) |
+
+### Exporters
+
+| Component | Description | Documentation |
+|-----------|-------------|---------------|
+| debug | Debug exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/debugexporter) |
+| otlp | OpenTelemetry Protocol exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/otlpexporter) |
+| prometheusremotewrite | Prometheus Remote Write exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/prometheusremotewriteexporter) |
+| otlphttp | OTLP HTTP exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/otlphttpexporter) |
+| file | File exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/fileexporter) |
+
+### Extensions
+
+| Component | Description | Documentation |
+|-----------|-------------|---------------|
+| health_check | Health check extension | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/extension/healthcheckextension) |
+
 ## Build
 
 See [Building a custom collector](https://opentelemetry.io/docs/collector/custom-collector/).
