@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.2.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.5...v0.2.0) - 2025-06-27
+- feat: add Kafka receiver support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/20
+- feat: add Elasticsearch exporter support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/22
+- feat: add Filter processor support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/23
+- feat: add Filelog receiver support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/24
+
 ## [v0.1.5](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.4...v0.1.5) - 2025-06-25
 
 ## [v0.1.4](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.3...v0.1.4) - 2025-06-25
