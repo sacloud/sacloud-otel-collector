@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.2.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.2.0...v0.2.1) - 2025-06-30
+- feat: add deltatocumulative processor support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/25
+
 ## [v0.2.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.1.5...v0.2.0) - 2025-06-27
 - feat: add Kafka receiver support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/20
 - feat: add Elasticsearch exporter support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/22
