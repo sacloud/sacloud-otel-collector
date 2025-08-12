@@ -75,6 +75,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | Component | Description | Documentation |
 |-----------|-------------|---------------|
 | health_check | Health check extension | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/extension/healthcheckextension) |
+| file_storage | File storage extension | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/extension/storage/filestorage) |
 
 ## Build
 
