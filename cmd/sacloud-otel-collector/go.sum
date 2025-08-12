@@ -634,6 +634,8 @@ github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthchecke
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.125.0/go.mod h1:9sqOk3tB/ss8mPe55CcQDk7P/uhbDkuYDq4DCUCh7eI=
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage v0.125.0 h1:cT04h6LstyuEKyonbMnz8Tz8U0+0vuPUxeNXBKmO2dc=
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage v0.125.0/go.mod h1:GeOnmgaagn8/jNZlAsn4Pr6oDdS0xzGDkh6wh1ojMv4=
+github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage v0.125.0 h1:HTfQ4AprvcIFAwmPxcphifLn79IoOgukosWMajdGMfI=
+github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage v0.125.0/go.mod h1:DROjh+xukN0yRKfZ7DaLoZZ/2aBJ3OQLFhEBPCdvhQM=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/common v0.125.0 h1:d9d/fkOBNs89BJZblajk7EUJkc1HTwWwymxsEPSBEms=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/common v0.125.0/go.mod h1:CxOkwlT2SsHtnWe/lsvHzS95JYMcGkPOUoG9epwHyzc=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal v0.125.0 h1:JxtfPyQWRcE3OsC4JV85WEPG5yR4PnWC3L4UVhyyjPk=
@@ -877,6 +879,8 @@ go.elastic.co/apm/v2 v2.7.0 h1:fbsy3BmTTedIbj7+1Ay9Zpdfuztd8RUk7Dm0JvxRW/M=
 go.elastic.co/apm/v2 v2.7.0/go.mod h1:f1Sr3rVJju5winTjsJtKzofdU32L7+Mw/c23cVcn3Io=
 go.elastic.co/fastjson v1.5.0 h1:XAQ7wrNObNnDiXC8qQKblkmLwh0vJjX3Z/jEj6/08SI=
 go.elastic.co/fastjson v1.5.0/go.mod h1:WtvH5wz8z9pDOPqNYSYKoLLv/9zCWZLeejHWuvdL/EM=
+go.etcd.io/bbolt v1.4.0 h1:TU77id3TnN/zKr7CO/uk+fBCwF2jGcMuw2B/FMAzYIk=
+go.etcd.io/bbolt v1.4.0/go.mod h1:AsD+OCi/qPN1giOX1aiLAha3o1U8rAz65bvN4j0sRuk=
 go.mongodb.org/mongo-driver v1.14.0 h1:P98w8egYRjYe3XDjxhYJagTokP/H6HzlsnojRgZRd80=
 go.mongodb.org/mongo-driver v1.14.0/go.mod h1:Vzb0Mk/pa7e6cWw85R4F/endUC3u0U9jGcNU603k65c=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
