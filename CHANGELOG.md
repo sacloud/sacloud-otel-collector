@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.0...v0.3.1) - 2025-08-14
+- feat: add fluentforward receiver component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/31
+
 ## [v0.3.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.2.1...v0.3.0) - 2025-08-12
 - docs: update README to include deltatocumulative processor by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/27
 - feat: add file_storage extension by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/29
