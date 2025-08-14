@@ -4,8 +4,6 @@ module go.opentelemetry.io/collector/cmd/builder
 
 go 1.23.0
 
-toolchain go1.24.6
-
 require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.131.0
@@ -18,6 +16,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.131.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.131.0
@@ -247,6 +246,7 @@ require (
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/ovh/go-ovh v1.8.0 // indirect
+	github.com/philhofer/fwd v1.1.3-0.20240916144458-20a13a1f6b7c // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -281,6 +281,7 @@ require (
 	github.com/tidwall/tinylru v1.1.0 // indirect
 	github.com/tidwall/wal v1.1.8 // indirect
 	github.com/tilinna/clock v1.1.0 // indirect
+	github.com/tinylib/msgp v1.3.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.8.0 // indirect
 	github.com/twmb/franz-go v1.18.1 // indirect
