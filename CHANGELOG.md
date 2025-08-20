@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.1...v0.3.2) - 2025-08-20
+- feat: add resourcedetection processor component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/33
+
 ## [v0.3.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.0...v0.3.1) - 2025-08-14
 - feat: add fluentforward receiver component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/31
 
