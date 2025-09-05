@@ -46,3 +46,4 @@
 	vPrefix = true
 	releaseBranch = main
 	versionFile = cmd/sacloud-otel-collector/version.go
+	release = draft

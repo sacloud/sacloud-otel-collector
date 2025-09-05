@@ -13,6 +13,8 @@ builds:
     goarch:
       - amd64
       - arm64
+release:
+  use_existing_draft: true
 checksum:
   name_template: "checksums.txt"
 snapshot:
