@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.4](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.3...v0.3.4) - 2025-09-11
+- feat: add --version option by @hekki in https://github.com/sacloud/sacloud-otel-collector/pull/40
+
 ## [v0.3.3](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.2...v0.3.3) - 2025-09-05
 - build(deps): bump actions/checkout from 4.2.2 to 5.0.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/36
 - build(deps): bump goreleaser/goreleaser-action from 6.3.0 to 6.4.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/35
