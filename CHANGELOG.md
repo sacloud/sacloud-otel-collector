@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.5](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.4...v0.3.5) - 2025-09-26
+- Add tailsamplingprocessor component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/42
+
 ## [v0.3.4](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.3...v0.3.4) - 2025-09-11
 - feat: add --version option by @hekki in https://github.com/sacloud/sacloud-otel-collector/pull/40
 
