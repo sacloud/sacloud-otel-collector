@@ -13,7 +13,6 @@ build-src: ocb
 	./ocb \
 		--config=builder-config.yaml \
 		--skip-compilation
-	perl -pi -E 's/"__VERSION__",/Version,/' cmd/sacloud-otel-collector/main.go
 
 sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.*
 	cd cmd/sacloud-otel-collector && go build -o ../../sacloud-otel-collector .
