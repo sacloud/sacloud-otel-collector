@@ -54,8 +54,6 @@ func main() {
 
 func runInteractive(params otelcol.CollectorSettings) error {
 	cmd := otelcol.NewCommand(params)
-	cmd.Version = Version
-
 	if err := cmd.Execute(); err != nil {
 		log.Fatalf("collector server run finished with error: %v", err)
 	}
