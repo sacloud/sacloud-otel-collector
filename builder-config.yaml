@@ -10,6 +10,7 @@ exporters:
   - gomod: go.opentelemetry.io/collector/exporter/otlphttpexporter v0.131.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.131.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.131.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.131.0
 
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.131.0

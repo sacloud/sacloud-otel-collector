@@ -3,6 +3,7 @@
 package main
 
 import (
+	awss3exporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter"
 	elasticsearchexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter"
 	fileexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter"
 	prometheusremotewriteexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter"
@@ -82,6 +83,7 @@ func components() (otelcol.Factories, error) {
 		otlphttpexporter.NewFactory(),
 		fileexporter.NewFactory(),
 		elasticsearchexporter.NewFactory(),
+		awss3exporter.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
@@ -93,6 +95,7 @@ func components() (otelcol.Factories, error) {
 	factories.ExporterModules[otlphttpexporter.NewFactory().Type()] = "go.opentelemetry.io/collector/exporter/otlphttpexporter v0.131.0"
 	factories.ExporterModules[fileexporter.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.131.0"
 	factories.ExporterModules[elasticsearchexporter.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.131.0"
+	factories.ExporterModules[awss3exporter.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.131.0"
 
 	factories.Processors, err = otelcol.MakeFactoryMap[processor.Factory](
 		batchprocessor.NewFactory(),

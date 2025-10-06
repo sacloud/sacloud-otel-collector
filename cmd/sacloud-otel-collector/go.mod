@@ -5,6 +5,7 @@ module go.opentelemetry.io/collector/cmd/builder
 go 1.23.0
 
 require (
+	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.131.0
@@ -26,9 +27,9 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.131.0
 	go.opentelemetry.io/collector/component v1.37.0
 	go.opentelemetry.io/collector/confmap v1.37.0
-	go.opentelemetry.io/collector/confmap/provider/envprovider v1.18.0
+	go.opentelemetry.io/collector/confmap/provider/envprovider v1.37.0
 	go.opentelemetry.io/collector/confmap/provider/fileprovider v1.37.0
-	go.opentelemetry.io/collector/confmap/provider/httpprovider v1.18.0
+	go.opentelemetry.io/collector/confmap/provider/httpprovider v1.37.0
 	go.opentelemetry.io/collector/confmap/provider/httpsprovider v1.18.0
 	go.opentelemetry.io/collector/confmap/provider/yamlprovider v1.37.0
 	go.opentelemetry.io/collector/connector v0.131.0
@@ -71,15 +72,21 @@ require (
 	github.com/aws/aws-msk-iam-sasl-signer-go v1.0.4 // indirect
 	github.com/aws/aws-sdk-go v1.55.7 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.36.6 // indirect
+	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.11 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.29.18 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.17.71 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.16.33 // indirect
+	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.17.85 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.3.37 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.6.37 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/ini v1.8.3 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/v4a v1.3.37 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.234.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.12.4 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.7.5 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.12.18 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.18.18 // indirect
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.84.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.25.6 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.30.4 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.34.1 // indirect
@@ -183,6 +190,7 @@ require (
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/ionos-cloud/sdk-go/v6 v6.3.4 // indirect
+	github.com/itchyny/timefmt-go v0.1.6 // indirect
 	github.com/jaegertracing/jaeger-idl v0.5.0 // indirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
 	github.com/jcmturner/dnsutils/v2 v2.0.0 // indirect
@@ -238,6 +246,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders v0.131.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/pdatautil v0.131.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent v0.131.0 // indirect
+	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/batchperresourceattr v0.131.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/core/xidutils v0.131.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/experimentalmetricmetadata v0.131.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/kafka/configkafka v0.131.0 // indirect
