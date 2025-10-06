@@ -21,6 +21,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver v0.131.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.131.0
 	go.opentelemetry.io/collector/component v1.37.0
