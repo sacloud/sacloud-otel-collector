@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.6](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.5...v0.3.6) - 2025-10-06
+- Add journaldreceiver component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/47
+- Add awss3exporter component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/49
+
 ## [v0.3.5](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.4...v0.3.5) - 2025-09-26
 - Add tailsamplingprocessor component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/42
 
