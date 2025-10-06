@@ -2,7 +2,6 @@ dist:
   name: sacloud-otel-collector
   description: OpenTelemetry custom collector for sacloud
   output_path: ./cmd/sacloud-otel-collector
-  version: __VERSION__
 
 exporters:
   - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.131.0
@@ -31,6 +30,7 @@ receivers:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.131.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.131.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.131.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.131.0
 
 providers:
   - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.18.0

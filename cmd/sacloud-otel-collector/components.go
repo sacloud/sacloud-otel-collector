@@ -19,6 +19,7 @@ import (
 	fluentforwardreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver"
 	hostmetricsreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver"
 	jaegerreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver"
+	journaldreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver"
 	kafkareceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver"
 	prometheusreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver"
 	"go.opentelemetry.io/collector/component"
@@ -59,6 +60,7 @@ func components() (otelcol.Factories, error) {
 		kafkareceiver.NewFactory(),
 		filelogreceiver.NewFactory(),
 		fluentforwardreceiver.NewFactory(),
+		journaldreceiver.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
@@ -71,6 +73,7 @@ func components() (otelcol.Factories, error) {
 	factories.ReceiverModules[kafkareceiver.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.131.0"
 	factories.ReceiverModules[filelogreceiver.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.131.0"
 	factories.ReceiverModules[fluentforwardreceiver.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.131.0"
+	factories.ReceiverModules[journaldreceiver.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.131.0"
 
 	factories.Exporters, err = otelcol.MakeFactoryMap[exporter.Factory](
 		debugexporter.NewFactory(),
