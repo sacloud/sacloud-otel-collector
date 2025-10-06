@@ -73,6 +73,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | otlphttp | OTLP HTTP exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/otlphttpexporter) |
 | file | File exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/fileexporter) |
 | elasticsearch | Elasticsearch exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/elasticsearchexporter) |
+| awss3 | AWS S3 exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/awss3exporter) |
 
 ### Extensions
 
