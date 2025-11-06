@@ -98,7 +98,7 @@ See [Building a custom collector](https://opentelemetry.io/docs/collector/custom
 
 See [manual](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/index.html).
 
-```
+```yaml
 receivers:
   otlp:
     protocols:
@@ -142,21 +142,22 @@ processors:
     send_batch_size: 4096
     send_batch_max_size: 4096
 
+# You should replace `****` to your monitoring suite's configurations.
 exporters:
   otlphttp/sakura-monitoring-suite-log:
     endpoint: https://****.logs.monitoring.global.api.sacloud.jp
     headers:
-      Authorization: "Bearer *******"
+      Authorization: "Bearer ****"
   prometheusremotewrite/sakura-monitoring-suite-metrics:
     endpoint: https://****.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write
     headers:
-      Authorization: "Bearer *******"
+      Authorization: "Bearer ****"
     resource_to_telemetry_conversion:
       enabled: true
   otlphttp/sakura-monitoring-suite-trace:
     endpoint: https://****.traces.monitoring.global.api.sacloud.jp
     headers:
-      Authorization: "Bearer *******"
+      Authorization: "Bearer ****"
 
 service:
   pipelines:
