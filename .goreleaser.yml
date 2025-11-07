@@ -25,3 +25,22 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
+
+nfpms:
+  - package_name: sacloud-otel-collector
+    vendor: SAKURA Internet Inc.
+    homepage: https://github.com/sacloud/sacloud-otel-collector
+    description: |-
+      OpenTelemetry collector for SAKURA Cloud
+    license: "Apache 2.0"
+    formats:
+      - deb
+      - rpm
+    maintainer: SAKURA internet Inc. <support@sakura.ad.jp>
+    contents:
+      - src: ./packages/config.yaml
+        dst: /etc/sacloud-otel-collector/config.yaml
+      - src: ./packages/sacloud-otel-collector.env
+        dst: /etc/default/sacloud-otel-collector
+      - src: ./packages/sacloud-otel-collector.service
+        dst: /etc/systemd/system/sacloud-otel-collector.service
