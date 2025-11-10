@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.7](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.6...v0.3.7) - 2025-11-10
+- docs: add sakura monotoring suite config example by @kmikmy in https://github.com/sacloud/sacloud-otel-collector/pull/50
+- Add RPM/DEB package build support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/53
+
 ## [v0.3.6](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.5...v0.3.6) - 2025-10-06
 - Add journaldreceiver component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/47
 - Add awss3exporter component by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/49
