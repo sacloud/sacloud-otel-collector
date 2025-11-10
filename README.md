@@ -30,6 +30,61 @@ Run the collector with your configuration:
 docker run --rm -v $(pwd)/config.yml:/config.yml ghcr.io/sacloud/sacloud-otel-collector:latest --config /config.yml
 ```
 
+### RPM/DEB Package
+
+RPM and DEB packages are available on [GitHub Releases](https://github.com/sacloud/sacloud-otel-collector/releases).
+
+#### Installation
+
+For Debian/Ubuntu:
+```bash
+wget https://github.com/sacloud/sacloud-otel-collector/releases/download/v<version>/sacloud-otel-collector_<version>_amd64.deb
+sudo dpkg -i sacloud-otel-collector_<version>_amd64.deb
+```
+
+For RHEL/CentOS/Fedora:
+```bash
+wget https://github.com/sacloud/sacloud-otel-collector/releases/download/v<version>/sacloud-otel-collector_<version>_amd64.rpm
+sudo rpm -i sacloud-otel-collector_<version>_amd64.rpm
+```
+
+#### Configuration
+
+Edit the configuration file at `/etc/sacloud-otel-collector/config.yaml`:
+
+```bash
+sudo vi /etc/sacloud-otel-collector/config.yaml
+```
+
+The default configuration includes receivers for OTLP, host metrics, and file logs, with exporters configured for SAKURA Cloud Monitoring Suite. You need to replace the `****` placeholders with your actual monitoring suite credentials.
+
+#### Service Management
+
+Enable and start the service:
+
+```bash
+sudo systemctl enable sacloud-otel-collector
+sudo systemctl start sacloud-otel-collector
+```
+
+Check service status:
+
+```bash
+sudo systemctl status sacloud-otel-collector
+```
+
+View logs:
+
+```bash
+sudo journalctl -u sacloud-otel-collector -f
+```
+
+Reload configuration after changes:
+
+```bash
+sudo systemctl reload sacloud-otel-collector
+```
+
 ## Components
 
 The sacloud-otel-collector includes the following OpenTelemetry components:
