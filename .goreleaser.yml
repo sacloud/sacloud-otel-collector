@@ -38,9 +38,9 @@ nfpms:
       - rpm
     maintainer: SAKURA internet Inc. <support@sakura.ad.jp>
     contents:
-      - src: ./packages/config.yaml
+      - src: ./packaging/config.yaml
         dst: /etc/sacloud-otel-collector/config.yaml
-      - src: ./packages/sacloud-otel-collector.env
+      - src: ./packaging/sacloud-otel-collector.env
         dst: /etc/default/sacloud-otel-collector
-      - src: ./packages/sacloud-otel-collector.service
+      - src: ./packaging/sacloud-otel-collector.service
         dst: /etc/systemd/system/sacloud-otel-collector.service
