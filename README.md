@@ -169,6 +169,9 @@ receivers:
           system.cpu.utilization:
             enabled: true
       memory:
+        metrics:
+          system.memory.utilization:
+            enabled: true
       disk:
       filesystem:
         metrics:
@@ -183,7 +186,7 @@ receivers:
     start_at: end
     exclude: []
     include:
-      - /var/log/syslog
+      - /var/log/example.log
 
 processors:
   resourcedetection:

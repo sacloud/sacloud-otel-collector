@@ -9,8 +9,8 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
 Restart=on-failure
 Type=simple
-#User=otel
-#Group=otel
+User=sacloud-otelcol
+Group=sacloud-otelcol
 
 [Install]
 WantedBy=multi-user.target
