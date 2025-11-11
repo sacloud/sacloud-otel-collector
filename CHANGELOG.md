@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.8](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.7...v0.3.8) - 2025-11-11
+- Run collector with dedicated user by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/54
+
 ## [v0.3.7](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.6...v0.3.7) - 2025-11-10
 - docs: add sakura monotoring suite config example by @kmikmy in https://github.com/sacloud/sacloud-otel-collector/pull/50
 - Add RPM/DEB package build support by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/53
