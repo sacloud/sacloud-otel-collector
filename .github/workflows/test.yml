@@ -22,6 +22,13 @@ jobs:
 
       - name: build
         run: |
-            make
-            ./sacloud-otel-collector components
-            ./sacloud-otel-collector --version
+          make
+          ./sacloud-otel-collector components
+          ./sacloud-otel-collector --version
+
+      - name: docker build test
+        run: |
+          make docker-load
+          docker run --rm ghcr.io/sacloud/sacloud-otel-collector:$VERSION --version
+        env:
+          VERSION: ${{ github.sha }}

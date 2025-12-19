@@ -1,5 +1,5 @@
 export CGO_ENABLED=0
-export VERSION=$(shell git describe --tags --abbrev=0)
+export VERSION?=$(shell git describe --tags --abbrev=0)
 ARCH := $(shell uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')
 PLATFORM := linux/$(ARCH)
 
