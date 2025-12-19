@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.8...v0.4.0) - 2025-12-19
+- build(deps): bump actions/setup-go from 5.5.0 to 6.1.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/58
+- build(deps): bump docker/setup-qemu-action from 3.6.0 to 3.7.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/57
+- build(deps): bump actions/checkout from 5.0.0 to 6.0.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/56
+- build(deps): bump docker/login-action from 3.5.0 to 3.6.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/46
+- build(deps): bump Songmu/tagpr from 1.7.0 to 1.9.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/45
+- Change base image from scratch to distroless by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/60
+
 ## [v0.3.8](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.7...v0.3.8) - 2025-11-11
 - Run collector with dedicated user by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/54
 
