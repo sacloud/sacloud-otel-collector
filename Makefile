@@ -1,5 +1,7 @@
 export CGO_ENABLED=0
-export VERSION=$(shell git describe --tags --abbrev=0)
+export VERSION?=$(shell git describe --tags --abbrev=0)
+ARCH := $(shell uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')
+PLATFORM := linux/$(ARCH)
 
 all: sacloud-otel-collector
 
@@ -39,4 +41,14 @@ docker-push:
 		-t ghcr.io/sacloud/sacloud-otel-collector:$(VERSION) \
 		-t ghcr.io/sacloud/sacloud-otel-collector:latest \
 		--push \
+		.
+
+.PHONY: docker-load
+docker-load:
+	docker buildx build \
+		--build-arg VERSION=$(VERSION) \
+		--platform $(PLATFORM) \
+		-t ghcr.io/sacloud/sacloud-otel-collector:$(VERSION) \
+		-t ghcr.io/sacloud/sacloud-otel-collector:latest \
+		--load \
 		.
