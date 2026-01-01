@@ -23,6 +23,9 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	// Configure endpoint
 	prwCfg.ClientConfig.Endpoint = cfg.MetricsEndpointURL()
 
+	// Configure timeout
+	prwCfg.ClientConfig.Timeout = cfg.GetTimeout()
+
 	// Configure authentication header
 	if prwCfg.ClientConfig.Headers == nil {
 		prwCfg.ClientConfig.Headers = make(map[string]configopaque.String)
@@ -31,6 +34,9 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 
 	// Enable resource to telemetry conversion
 	prwCfg.ResourceToTelemetrySettings.Enabled = true
+
+	// Apply retry configuration
+	prwCfg.BackOffConfig = cfg.GetRetryConfig()
 
 	// Apply remote write queue configuration (use defaults if not explicitly configured)
 	rwq := cfg.Metrics.RemoteWriteQueue
@@ -67,11 +73,17 @@ func newLogsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (e
 	// Configure endpoint
 	otlpCfg.ClientConfig.Endpoint = cfg.LogsEndpointURL()
 
+	// Configure timeout
+	otlpCfg.ClientConfig.Timeout = cfg.GetTimeout()
+
 	// Configure authentication header
 	if otlpCfg.ClientConfig.Headers == nil {
 		otlpCfg.ClientConfig.Headers = make(map[string]configopaque.String)
 	}
 	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Logs.Token))
+
+	// Apply retry configuration
+	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
 	// Apply sending queue configuration (use defaults if not explicitly configured)
 	if isZeroSendingQueue(cfg.Logs.SendingQueue) {
@@ -102,11 +114,17 @@ func newTracesExporter(ctx context.Context, set exporter.Settings, cfg *Config) 
 	// Configure endpoint
 	otlpCfg.ClientConfig.Endpoint = cfg.TracesEndpointURL()
 
+	// Configure timeout
+	otlpCfg.ClientConfig.Timeout = cfg.GetTimeout()
+
 	// Configure authentication header
 	if otlpCfg.ClientConfig.Headers == nil {
 		otlpCfg.ClientConfig.Headers = make(map[string]configopaque.String)
 	}
 	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Traces.Token))
+
+	// Apply retry configuration
+	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
 	// Apply sending queue configuration (use defaults if not explicitly configured)
 	if isZeroSendingQueue(cfg.Traces.SendingQueue) {

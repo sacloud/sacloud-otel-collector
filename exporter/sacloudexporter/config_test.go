@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 )
 
@@ -359,5 +360,146 @@ func TestDefaultRemoteWriteQueueConfig(t *testing.T) {
 	}
 	if cfg.NumConsumers != 2 {
 		t.Errorf("DefaultRemoteWriteQueueConfig().NumConsumers = %v, want %v", cfg.NumConsumers, 2)
+	}
+}
+
+func TestConfig_GetTimeout(t *testing.T) {
+	tests := []struct {
+		name    string
+		timeout time.Duration
+		want    time.Duration
+	}{
+		{
+			name:    "zero value returns default",
+			timeout: 0,
+			want:    30 * time.Second,
+		},
+		{
+			name:    "custom timeout",
+			timeout: 60 * time.Second,
+			want:    60 * time.Second,
+		},
+		{
+			name:    "short timeout",
+			timeout: 5 * time.Second,
+			want:    5 * time.Second,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cfg := &Config{
+				TimeoutConfig: exporterhelper.TimeoutConfig{Timeout: tt.timeout},
+			}
+			if got := cfg.GetTimeout(); got != tt.want {
+				t.Errorf("Config.GetTimeout() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestIsZeroBackOffConfig(t *testing.T) {
+	tests := []struct {
+		name string
+		cfg  configretry.BackOffConfig
+		want bool
+	}{
+		{
+			name: "zero value",
+			cfg:  configretry.BackOffConfig{},
+			want: true,
+		},
+		{
+			name: "enabled only",
+			cfg: configretry.BackOffConfig{
+				Enabled: true,
+			},
+			want: false,
+		},
+		{
+			name: "initial_interval only",
+			cfg: configretry.BackOffConfig{
+				InitialInterval: 5 * time.Second,
+			},
+			want: false,
+		},
+		{
+			name: "max_interval only",
+			cfg: configretry.BackOffConfig{
+				MaxInterval: 30 * time.Second,
+			},
+			want: false,
+		},
+		{
+			name: "max_elapsed_time only",
+			cfg: configretry.BackOffConfig{
+				MaxElapsedTime: 5 * time.Minute,
+			},
+			want: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isZeroBackOffConfig(tt.cfg); got != tt.want {
+				t.Errorf("isZeroBackOffConfig() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestConfig_GetRetryConfig(t *testing.T) {
+	defaultCfg := configretry.NewDefaultBackOffConfig()
+
+	tests := []struct {
+		name       string
+		cfg        configretry.BackOffConfig
+		wantEnable bool
+	}{
+		{
+			name:       "zero value returns default (enabled)",
+			cfg:        configretry.BackOffConfig{},
+			wantEnable: true,
+		},
+		{
+			name: "custom config with enabled=false",
+			cfg: configretry.BackOffConfig{
+				Enabled:         false,
+				InitialInterval: 10 * time.Second, // non-zero to avoid being treated as zero config
+			},
+			wantEnable: false,
+		},
+		{
+			name: "custom config with enabled=true",
+			cfg: configretry.BackOffConfig{
+				Enabled:         true,
+				InitialInterval: 10 * time.Second,
+			},
+			wantEnable: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cfg := &Config{
+				BackOffConfig: tt.cfg,
+			}
+			got := cfg.GetRetryConfig()
+			if got.Enabled != tt.wantEnable {
+				t.Errorf("Config.GetRetryConfig().Enabled = %v, want %v", got.Enabled, tt.wantEnable)
+			}
+			// For zero config, verify it returns the actual default values
+			if isZeroBackOffConfig(tt.cfg) {
+				if got.InitialInterval != defaultCfg.InitialInterval {
+					t.Errorf("Config.GetRetryConfig().InitialInterval = %v, want %v", got.InitialInterval, defaultCfg.InitialInterval)
+				}
+				if got.MaxInterval != defaultCfg.MaxInterval {
+					t.Errorf("Config.GetRetryConfig().MaxInterval = %v, want %v", got.MaxInterval, defaultCfg.MaxInterval)
+				}
+				if got.MaxElapsedTime != defaultCfg.MaxElapsedTime {
+					t.Errorf("Config.GetRetryConfig().MaxElapsedTime = %v, want %v", got.MaxElapsedTime, defaultCfg.MaxElapsedTime)
+				}
+			}
+		})
 	}
 }

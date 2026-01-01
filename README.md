@@ -278,6 +278,32 @@ exporters:
           max_size: 4194304
 ```
 
+##### Advanced: Timeout and Retry Configuration
+
+The exporter includes sensible defaults for timeout (30 seconds) and retry (enabled with exponential backoff). You can customize these settings if needed:
+
+```yaml
+exporters:
+  sacloud:
+    # Timeout for HTTP requests (default: 30s)
+    timeout: 30s
+    # Retry configuration (default: enabled with exponential backoff)
+    retry_on_failure:
+      enabled: true
+      initial_interval: 5s    # Time to wait after first failure
+      max_interval: 30s       # Maximum backoff interval
+      max_elapsed_time: 5m    # Maximum total retry time before giving up
+    metrics:
+      endpoint: "123456789012"
+      token: "${SACLOUD_METRICS_TOKEN}"
+    logs:
+      endpoint: "123456789012"
+      token: "${SACLOUD_LOGS_TOKEN}"
+    traces:
+      endpoint: "123456789012"
+      token: "${SACLOUD_TRACES_TOKEN}"
+```
+
 #### Using standard exporters
 
 Alternatively, you can use standard exporters directly:

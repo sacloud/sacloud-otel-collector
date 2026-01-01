@@ -8,6 +8,7 @@ import (
 
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
+	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 )
 
@@ -29,10 +30,19 @@ const (
 	// Default queue settings for metrics (RemoteWriteQueue)
 	defaultRemoteWriteQueueSize    = 10000
 	defaultRemoteWriteNumConsumers = 2
+
+	// Default timeout for HTTP requests
+	defaultTimeout = 30 * time.Second
 )
 
 // Config defines configuration for the SAKURA Cloud exporter.
 type Config struct {
+	// TimeoutConfig for timeout. Default is 30 seconds.
+	exporterhelper.TimeoutConfig `mapstructure:",squash"`
+
+	// BackOffConfig for retry on failure. Default is enabled with exponential backoff.
+	configretry.BackOffConfig `mapstructure:"retry_on_failure"`
+
 	// Metrics configuration for SAKURA Cloud Monitoring Suite metrics storage.
 	Metrics MetricsEndpointConfig `mapstructure:"metrics"`
 
@@ -196,4 +206,25 @@ func isZeroSendingQueue(q exporterhelper.QueueBatchConfig) bool {
 // isZeroRemoteWriteQueue returns true if the RemoteWriteQueue is not configured (zero value).
 func isZeroRemoteWriteQueue(q RemoteWriteQueue) bool {
 	return !q.Enabled && q.QueueSize == 0 && q.NumConsumers == 0
+}
+
+// GetTimeout returns the configured timeout or the default if not set.
+func (cfg *Config) GetTimeout() time.Duration {
+	if cfg.TimeoutConfig.Timeout == 0 {
+		return defaultTimeout
+	}
+	return cfg.TimeoutConfig.Timeout
+}
+
+// GetRetryConfig returns the configured retry config or the default if not set.
+func (cfg *Config) GetRetryConfig() configretry.BackOffConfig {
+	if isZeroBackOffConfig(cfg.BackOffConfig) {
+		return configretry.NewDefaultBackOffConfig()
+	}
+	return cfg.BackOffConfig
+}
+
+// isZeroBackOffConfig returns true if the BackOffConfig is not configured (zero value).
+func isZeroBackOffConfig(cfg configretry.BackOffConfig) bool {
+	return !cfg.Enabled && cfg.InitialInterval == 0 && cfg.MaxInterval == 0 && cfg.MaxElapsedTime == 0
 }
