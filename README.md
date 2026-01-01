@@ -156,16 +156,23 @@ See [manual](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/index.
 
 #### Using the sacloud exporter (recommended)
 
-The `sacloud` exporter simplifies configuration for SAKURA Cloud Monitoring Suite.
-You can specify either endpoint identifiers (e.g., `123456789012`) or FQDNs (e.g., `123456789012.logs.monitoring.global.api.sacloud.jp`) from the control panel.
+The `sacloud` exporter simplifies configuration for SAKURA Cloud Monitoring Suite with sensible defaults.
 
-The exporter includes sensible default queue settings optimized for SAKURA Cloud Monitoring Suite limits:
-- **Logs/Traces**: `sending_queue` with `sizer: bytes`, 10MiB buffer, 4MiB max batch size, 2 consumers
-- **Metrics**: `remote_write_queue` with 10000 queue size, 2 consumers
+**Features:**
 
-These defaults ensure safe operation within the 5MB per request limit without any additional configuration.
+| Feature | Default | Description |
+|---------|---------|-------------|
+| Endpoint | - | Endpoint ID (e.g., `123456789012`) or full URL |
+| Compression | Enabled | snappy for metrics, gzip for logs/traces |
+| Timeout | 30s | HTTP request timeout |
+| Retry | Enabled | Exponential backoff (initial: 5s, max: 30s, max elapsed: 5m) |
+| Queue | Enabled | Optimized for 5MB per request limit |
 
-See also [documentation](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/about.html#monitoring-suite-specification-limit).
+**Queue defaults:**
+- **Logs/Traces**: 10MiB buffer, 4MiB max batch size, 2 consumers
+- **Metrics**: 10000 queue size, 2 consumers
+
+See also [SAKURA Cloud Monitoring Suite limits](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/about.html#monitoring-suite-specification-limit).
 
 ```yaml
 receivers:
