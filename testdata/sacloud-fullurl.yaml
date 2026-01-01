@@ -1,0 +1,29 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+exporters:
+  sacloud:
+    metrics:
+      endpoint: "https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write"
+      token: "test-token"
+    logs:
+      endpoint: "https://123456789012.logs.monitoring.global.api.sacloud.jp"
+      token: "test-token"
+    traces:
+      endpoint: "https://123456789012.traces.monitoring.global.api.sacloud.jp"
+      token: "test-token"
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [sacloud]
+    logs:
+      receivers: [otlp]
+      exporters: [sacloud]
+    traces:
+      receivers: [otlp]
+      exporters: [sacloud]
