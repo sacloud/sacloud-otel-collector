@@ -6,6 +6,7 @@ import (
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter"
 	"go.opentelemetry.io/collector/component"
+	"go.opentelemetry.io/collector/config/configcompression"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/exporter/otlphttpexporter"
@@ -31,6 +32,9 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 		prwCfg.ClientConfig.Headers = make(map[string]configopaque.String)
 	}
 	prwCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Metrics.Token))
+
+	// Enable compression (snappy is required by Prometheus remote write protocol)
+	prwCfg.ClientConfig.Compression = configcompression.TypeSnappy
 
 	// Enable resource to telemetry conversion
 	prwCfg.ResourceToTelemetrySettings.Enabled = true
@@ -82,6 +86,9 @@ func newLogsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (e
 	}
 	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Logs.Token))
 
+	// Enable compression
+	otlpCfg.ClientConfig.Compression = configcompression.TypeGzip
+
 	// Apply retry configuration
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
@@ -122,6 +129,9 @@ func newTracesExporter(ctx context.Context, set exporter.Settings, cfg *Config) 
 		otlpCfg.ClientConfig.Headers = make(map[string]configopaque.String)
 	}
 	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Traces.Token))
+
+	// Enable compression
+	otlpCfg.ClientConfig.Compression = configcompression.TypeGzip
 
 	// Apply retry configuration
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
