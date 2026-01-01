@@ -3,6 +3,7 @@ package sacloudexporter
 import (
 	"errors"
 	"fmt"
+	"strings"
 
 	"go.opentelemetry.io/collector/config/configopaque"
 )
@@ -28,9 +29,10 @@ type Config struct {
 
 // EndpointConfig defines configuration for each signal type.
 type EndpointConfig struct {
-	// Endpoint is the endpoint identifier from SAKURA Cloud control panel.
-	// This will be expanded to full URL automatically.
-	// Example: "abc123" -> "https://abc123.metrics.monitoring.global.api.sacloud.jp/..."
+	// Endpoint can be either:
+	// - An endpoint identifier from SAKURA Cloud control panel (e.g., "123456789012")
+	// - A full FQDN (e.g., "123456789012.logs.monitoring.global.api.sacloud.jp")
+	// If only an identifier is provided, it will be expanded to full URL automatically.
 	Endpoint string `mapstructure:"endpoint"`
 
 	// Token is the Bearer token for authentication.
@@ -67,11 +69,21 @@ func (cfg *Config) Validate() error {
 	return nil
 }
 
+// isFQDN returns true if the endpoint looks like a FQDN (contains a dot).
+func isFQDN(endpoint string) bool {
+	return strings.Contains(endpoint, ".")
+}
+
 // MetricsEndpointURL returns the full URL for metrics endpoint.
 func (cfg *Config) MetricsEndpointURL() string {
 	if cfg.Metrics.Endpoint == "" {
 		return ""
 	}
+	if isFQDN(cfg.Metrics.Endpoint) {
+		// FQDN provided, add https:// prefix and metrics path
+		return "https://" + cfg.Metrics.Endpoint + "/prometheus/api/v1/write"
+	}
+	// ID provided, expand to full URL
 	return fmt.Sprintf(metricsEndpointPattern, cfg.Metrics.Endpoint)
 }
 
@@ -80,6 +92,11 @@ func (cfg *Config) LogsEndpointURL() string {
 	if cfg.Logs.Endpoint == "" {
 		return ""
 	}
+	if isFQDN(cfg.Logs.Endpoint) {
+		// FQDN provided, add https:// prefix
+		return "https://" + cfg.Logs.Endpoint
+	}
+	// ID provided, expand to full URL
 	return fmt.Sprintf(logsEndpointPattern, cfg.Logs.Endpoint)
 }
 
@@ -88,5 +105,10 @@ func (cfg *Config) TracesEndpointURL() string {
 	if cfg.Traces.Endpoint == "" {
 		return ""
 	}
+	if isFQDN(cfg.Traces.Endpoint) {
+		// FQDN provided, add https:// prefix
+		return "https://" + cfg.Traces.Endpoint
+	}
+	// ID provided, expand to full URL
 	return fmt.Sprintf(tracesEndpointPattern, cfg.Traces.Endpoint)
 }

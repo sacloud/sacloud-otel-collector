@@ -157,7 +157,7 @@ See [manual](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/index.
 #### Using the sacloud exporter (recommended)
 
 The `sacloud` exporter simplifies configuration for SAKURA Cloud Monitoring Suite.
-You only need to specify endpoint identifiers and tokens from the control panel.
+You can specify either endpoint identifiers (e.g., `123456789012`) or FQDNs (e.g., `123456789012.logs.monitoring.global.api.sacloud.jp`) from the control panel.
 
 ```yaml
 receivers:
@@ -208,14 +208,14 @@ processors:
 exporters:
   sacloud:
     metrics:
-      endpoint: "your-metrics-endpoint-id"  # e.g., "abc123"
-      token: "${SACLOUD_METRICS_TOKEN}"
+      endpoint: "123456789012"
+      token: "${SACLOUD_METRICS_TOKEN}" # met-***************
     logs:
-      endpoint: "your-logs-endpoint-id"
-      token: "${SACLOUD_LOGS_TOKEN}"
+      endpoint: "123456789012"
+      token: "${SACLOUD_LOGS_TOKEN}" # log-***************
     traces:
-      endpoint: "your-traces-endpoint-id"
-      token: "${SACLOUD_TRACES_TOKEN}"
+      endpoint: "123456789012"
+      token: "${SACLOUD_TRACES_TOKEN}" # trc-***************
 
 service:
   pipelines:
