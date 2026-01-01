@@ -11,6 +11,11 @@ exporters:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.131.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.131.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.131.0
+  - gomod: github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0
+    path: ./exporter/sacloudexporter
+
+replaces:
+  - github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter => ./exporter/sacloudexporter
 
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.131.0

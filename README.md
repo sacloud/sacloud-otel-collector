@@ -129,6 +129,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | file | File exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/fileexporter) |
 | elasticsearch | Elasticsearch exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/elasticsearchexporter) |
 | awss3 | AWS S3 exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/awss3exporter) |
+| sacloud | SAKURA Cloud Monitoring Suite exporter | See [Config examples](#sakuracloud-monitoring-suite) |
 
 ### Extensions
 
@@ -152,6 +153,89 @@ See [Building a custom collector](https://opentelemetry.io/docs/collector/custom
 ### Sakuracloud Monitoring Suite
 
 See [manual](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/index.html).
+
+#### Using the sacloud exporter (recommended)
+
+The `sacloud` exporter simplifies configuration for SAKURA Cloud Monitoring Suite.
+You only need to specify endpoint identifiers and tokens from the control panel.
+
+```yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu:
+        metrics:
+          system.cpu.utilization:
+            enabled: true
+      memory:
+        metrics:
+          system.memory.utilization:
+            enabled: true
+      disk:
+      filesystem:
+        metrics:
+          system.filesystem.utilization:
+            enabled: true
+      network:
+      paging:
+        metrics:
+          system.paging.utilization:
+            enabled: true
+  filelog:
+    start_at: end
+    exclude: []
+    include:
+      - /var/log/example.log
+
+processors:
+  resourcedetection:
+    detectors: [system]
+    system:
+      hostname_sources: [os]
+  batch:
+    timeout: 1s
+    send_batch_size: 4096
+    send_batch_max_size: 4096
+
+# Replace endpoint identifiers and tokens with your monitoring suite's configurations.
+exporters:
+  sacloud:
+    metrics:
+      endpoint: "your-metrics-endpoint-id"  # e.g., "abc123"
+      token: "${SACLOUD_METRICS_TOKEN}"
+    logs:
+      endpoint: "your-logs-endpoint-id"
+      token: "${SACLOUD_LOGS_TOKEN}"
+    traces:
+      endpoint: "your-traces-endpoint-id"
+      token: "${SACLOUD_TRACES_TOKEN}"
+
+service:
+  pipelines:
+    metrics:
+      receivers: [hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [sacloud]
+    logs:
+      receivers: [filelog]
+      processors: [resourcedetection, batch]
+      exporters: [sacloud]
+    traces:
+      receivers: [otlp]
+      processors: [resourcedetection, batch]
+      exporters: [sacloud]
+```
+
+#### Using standard exporters
+
+Alternatively, you can use standard exporters directly:
 
 ```yaml
 receivers:
