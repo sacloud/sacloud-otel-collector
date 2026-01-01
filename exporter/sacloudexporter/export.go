@@ -32,6 +32,19 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	// Enable resource to telemetry conversion
 	prwCfg.ResourceToTelemetrySettings.Enabled = true
 
+	// Apply remote write queue configuration (use defaults if not explicitly configured)
+	rwq := cfg.Metrics.RemoteWriteQueue
+	if isZeroRemoteWriteQueue(rwq) {
+		rwq = DefaultRemoteWriteQueueConfig()
+	}
+	prwCfg.RemoteWriteQueue.Enabled = rwq.Enabled
+	if rwq.QueueSize > 0 {
+		prwCfg.RemoteWriteQueue.QueueSize = rwq.QueueSize
+	}
+	if rwq.NumConsumers > 0 {
+		prwCfg.RemoteWriteQueue.NumConsumers = rwq.NumConsumers
+	}
+
 	// Create new settings with the correct component type
 	prwSet := exporter.Settings{
 		ID:                component.NewIDWithName(factory.Type(), set.ID.Name()),
@@ -60,6 +73,13 @@ func newLogsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (e
 	}
 	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Logs.Token))
 
+	// Apply sending queue configuration (use defaults if not explicitly configured)
+	if isZeroSendingQueue(cfg.Logs.SendingQueue) {
+		otlpCfg.QueueConfig = DefaultSendingQueueConfig()
+	} else {
+		otlpCfg.QueueConfig = cfg.Logs.SendingQueue
+	}
+
 	// Create new settings with the correct component type
 	otlpSet := exporter.Settings{
 		ID:                component.NewIDWithName(factory.Type(), set.ID.Name()),
@@ -87,6 +107,13 @@ func newTracesExporter(ctx context.Context, set exporter.Settings, cfg *Config) 
 		otlpCfg.ClientConfig.Headers = make(map[string]configopaque.String)
 	}
 	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Traces.Token))
+
+	// Apply sending queue configuration (use defaults if not explicitly configured)
+	if isZeroSendingQueue(cfg.Traces.SendingQueue) {
+		otlpCfg.QueueConfig = DefaultSendingQueueConfig()
+	} else {
+		otlpCfg.QueueConfig = cfg.Traces.SendingQueue
+	}
 
 	// Create new settings with the correct component type
 	otlpSet := exporter.Settings{

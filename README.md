@@ -159,6 +159,14 @@ See [manual](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/index.
 The `sacloud` exporter simplifies configuration for SAKURA Cloud Monitoring Suite.
 You can specify either endpoint identifiers (e.g., `123456789012`) or FQDNs (e.g., `123456789012.logs.monitoring.global.api.sacloud.jp`) from the control panel.
 
+The exporter includes sensible default queue settings optimized for SAKURA Cloud Monitoring Suite limits:
+- **Logs/Traces**: `sending_queue` with `sizer: bytes`, 10MiB buffer, 4MiB max batch size, 2 consumers
+- **Metrics**: `remote_write_queue` with 10000 queue size, 2 consumers
+
+These defaults ensure safe operation within the 5MB per request limit without any additional configuration.
+
+See also [documentation](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/about.html#monitoring-suite-specification-limit).
+
 ```yaml
 receivers:
   otlp:
@@ -199,38 +207,75 @@ processors:
     detectors: [system]
     system:
       hostname_sources: [os]
-  batch:
-    timeout: 1s
-    send_batch_size: 4096
-    send_batch_max_size: 4096
 
 # Replace endpoint identifiers and tokens with your monitoring suite's configurations.
 exporters:
   sacloud:
     metrics:
-      endpoint: "123456789012"
+      endpoint: "123456789012" # or "https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write"
       token: "${SACLOUD_METRICS_TOKEN}" # met-***************
     logs:
-      endpoint: "123456789012"
+      endpoint: "123456789012" # or "https://123456789012.logs.monitoring.global.api.sacloud.jp"
       token: "${SACLOUD_LOGS_TOKEN}" # log-***************
     traces:
-      endpoint: "123456789012"
+      endpoint: "123456789012" # or "https://123456789012.traces.monitoring.global.api.sacloud.jp"
       token: "${SACLOUD_TRACES_TOKEN}" # trc-***************
 
 service:
   pipelines:
     metrics:
       receivers: [hostmetrics]
-      processors: [resourcedetection, batch]
+      processors: [resourcedetection]
       exporters: [sacloud]
     logs:
       receivers: [filelog]
-      processors: [resourcedetection, batch]
+      processors: [resourcedetection]
       exporters: [sacloud]
     traces:
       receivers: [otlp]
-      processors: [resourcedetection, batch]
+      processors: [resourcedetection]
       exporters: [sacloud]
+```
+
+##### Advanced: Queue Configuration
+
+The default queue settings work well for most use cases. If you need to customize queue behavior, you can override the defaults:
+
+```yaml
+exporters:
+  sacloud:
+    metrics:
+      endpoint: "123456789012"
+      token: "${SACLOUD_METRICS_TOKEN}"
+      # Override default remote_write_queue for metrics
+      remote_write_queue:
+        enabled: true
+        queue_size: 10000
+        num_consumers: 2
+    logs:
+      endpoint: "123456789012"
+      token: "${SACLOUD_LOGS_TOKEN}"
+      # Override default sending_queue for logs
+      sending_queue:
+        enabled: true
+        sizer: bytes
+        queue_size: 10485760  # 10MiB
+        num_consumers: 2
+        batch:
+          flush_timeout: 10s
+          max_size: 4194304   # 4MiB per request
+    traces:
+      endpoint: "123456789012"
+      token: "${SACLOUD_TRACES_TOKEN}"
+      # Same options as logs
+      sending_queue:
+        enabled: true
+        sizer: bytes
+        queue_size: 10485760
+        num_consumers: 2
+        batch:
+          flush_timeout: 10s
+          max_size: 4194304
 ```
 
 #### Using standard exporters
