@@ -160,17 +160,13 @@ The `sacloud` exporter simplifies configuration for SAKURA Cloud Monitoring Suit
 
 **Features:**
 
-| Feature | Default | Description |
-|---------|---------|-------------|
-| Endpoint | - | Endpoint ID (e.g., `123456789012`) or full URL |
-| Compression | Enabled | snappy for metrics, gzip for logs/traces |
-| Timeout | 30s | HTTP request timeout |
-| Retry | Enabled | Exponential backoff (initial: 5s, max: 30s, max elapsed: 5m) |
-| Queue | Enabled | Optimized for 5MB per request limit |
-
-**Queue defaults:**
-- **Logs/Traces**: 10MiB buffer, 4MiB max batch size, 2 consumers
-- **Metrics**: 10000 queue size, 2 consumers
+| Feature | Description |
+|---------|-------------|
+| Endpoint | Endpoint ID (e.g., `123456789012`) or full URL |
+| Compression | snappy for metrics, gzip for logs/traces |
+| Timeout | 30s (configurable) |
+| Retry | Exponential backoff (configurable) |
+| Queue | Optimized for 5MB per request limit |
 
 See also [SAKURA Cloud Monitoring Suite limits](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/about.html#monitoring-suite-specification-limit).
 
@@ -242,47 +238,6 @@ service:
       receivers: [otlp]
       processors: [resourcedetection]
       exporters: [sacloud]
-```
-
-##### Advanced: Queue Configuration
-
-The default queue settings work well for most use cases. If you need to customize queue behavior, you can override the defaults:
-
-```yaml
-exporters:
-  sacloud:
-    metrics:
-      endpoint: "123456789012"
-      token: "${SACLOUD_METRICS_TOKEN}"
-      # Override default remote_write_queue for metrics
-      remote_write_queue:
-        enabled: true
-        queue_size: 10000
-        num_consumers: 2
-    logs:
-      endpoint: "123456789012"
-      token: "${SACLOUD_LOGS_TOKEN}"
-      # Override default sending_queue for logs
-      sending_queue:
-        enabled: true
-        sizer: bytes
-        queue_size: 10485760  # 10MiB
-        num_consumers: 2
-        batch:
-          flush_timeout: 10s
-          max_size: 4194304   # 4MiB per request
-    traces:
-      endpoint: "123456789012"
-      token: "${SACLOUD_TRACES_TOKEN}"
-      # Same options as logs
-      sending_queue:
-        enabled: true
-        sizer: bytes
-        queue_size: 10485760
-        num_consumers: 2
-        batch:
-          flush_timeout: 10s
-          max_size: 4194304
 ```
 
 ##### Advanced: Timeout and Retry Configuration

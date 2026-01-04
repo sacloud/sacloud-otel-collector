@@ -57,46 +57,24 @@ type Config struct {
 type MetricsEndpointConfig struct {
 	// Endpoint can be either:
 	// - An endpoint identifier from SAKURA Cloud control panel (e.g., "123456789012")
-	// - A full FQDN (e.g., "123456789012.metrics.monitoring.global.api.sacloud.jp")
+	// - A full URL (e.g., "https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write")
 	// If only an identifier is provided, it will be expanded to full URL automatically.
 	Endpoint string `mapstructure:"endpoint"`
 
 	// Token is the Bearer token for authentication.
 	Token configopaque.String `mapstructure:"token"`
-
-	// RemoteWriteQueue allows to configure the remote write queue.
-	RemoteWriteQueue RemoteWriteQueue `mapstructure:"remote_write_queue"`
-}
-
-// RemoteWriteQueue allows to configure the remote write queue for metrics.
-// This mirrors prometheusremotewriteexporter.RemoteWriteQueue.
-type RemoteWriteQueue struct {
-	// Enabled if false the queue is not enabled, the export requests
-	// are executed synchronously.
-	Enabled bool `mapstructure:"enabled"`
-
-	// QueueSize is the maximum number of OTLP metric batches allowed
-	// in the queue at a given time.
-	QueueSize int `mapstructure:"queue_size"`
-
-	// NumConsumers configures the number of workers used by
-	// the collector to fan out remote write requests.
-	NumConsumers int `mapstructure:"num_consumers"`
 }
 
 // EndpointConfig defines configuration for logs/traces signals.
 type EndpointConfig struct {
 	// Endpoint can be either:
 	// - An endpoint identifier from SAKURA Cloud control panel (e.g., "123456789012")
-	// - A full FQDN (e.g., "123456789012.logs.monitoring.global.api.sacloud.jp")
+	// - A full URL (e.g., "https://123456789012.logs.monitoring.global.api.sacloud.jp")
 	// If only an identifier is provided, it will be expanded to full URL automatically.
 	Endpoint string `mapstructure:"endpoint"`
 
 	// Token is the Bearer token for authentication.
 	Token configopaque.String `mapstructure:"token"`
-
-	// SendingQueue defines configuration for queueing and batching.
-	SendingQueue exporterhelper.QueueBatchConfig `mapstructure:"sending_queue"`
 }
 
 // Validate checks if the configuration is valid.
@@ -173,9 +151,9 @@ func (cfg *Config) TracesEndpointURL() string {
 	return fmt.Sprintf(tracesEndpointPattern, cfg.Traces.Endpoint)
 }
 
-// DefaultSendingQueueConfig returns the default QueueBatchConfig for logs/traces.
+// defaultSendingQueueConfig returns the default QueueBatchConfig for logs/traces.
 // This configuration ensures safe operation within SAKURA Cloud Monitoring Suite limits.
-func DefaultSendingQueueConfig() exporterhelper.QueueBatchConfig {
+func defaultSendingQueueConfig() exporterhelper.QueueBatchConfig {
 	return exporterhelper.QueueBatchConfig{
 		Enabled:      true,
 		Sizer:        exporterhelper.RequestSizerTypeBytes,
@@ -187,25 +165,6 @@ func DefaultSendingQueueConfig() exporterhelper.QueueBatchConfig {
 			MaxSize:      defaultBatchMaxSize,
 		}),
 	}
-}
-
-// DefaultRemoteWriteQueueConfig returns the default RemoteWriteQueue for metrics.
-func DefaultRemoteWriteQueueConfig() RemoteWriteQueue {
-	return RemoteWriteQueue{
-		Enabled:      true,
-		QueueSize:    defaultRemoteWriteQueueSize,
-		NumConsumers: defaultRemoteWriteNumConsumers,
-	}
-}
-
-// isZeroSendingQueue returns true if the SendingQueue is not configured (zero value).
-func isZeroSendingQueue(q exporterhelper.QueueBatchConfig) bool {
-	return !q.Enabled && q.QueueSize == 0 && q.NumConsumers == 0
-}
-
-// isZeroRemoteWriteQueue returns true if the RemoteWriteQueue is not configured (zero value).
-func isZeroRemoteWriteQueue(q RemoteWriteQueue) bool {
-	return !q.Enabled && q.QueueSize == 0 && q.NumConsumers == 0
 }
 
 // GetTimeout returns the configured timeout or the default if not set.

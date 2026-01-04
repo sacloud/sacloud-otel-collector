@@ -15,32 +15,12 @@ exporters:
     metrics:
       endpoint: "123456789012"
       token: "test-token"
-      remote_write_queue:
-        enabled: true
-        queue_size: 10000
-        num_consumers: 2
     logs:
       endpoint: "123456789012"
       token: "test-token"
-      sending_queue:
-        enabled: true
-        sizer: bytes
-        queue_size: 10485760
-        num_consumers: 2
-        batch:
-          flush_timeout: 10s
-          max_size: 4194304
     traces:
       endpoint: "123456789012"
       token: "test-token"
-      sending_queue:
-        enabled: true
-        sizer: bytes
-        queue_size: 10485760
-        num_consumers: 2
-        batch:
-          flush_timeout: 10s
-          max_size: 4194304
 
 service:
   pipelines:

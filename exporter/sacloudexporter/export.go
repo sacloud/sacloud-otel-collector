@@ -42,18 +42,10 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	// Apply retry configuration
 	prwCfg.BackOffConfig = cfg.GetRetryConfig()
 
-	// Apply remote write queue configuration (use defaults if not explicitly configured)
-	rwq := cfg.Metrics.RemoteWriteQueue
-	if isZeroRemoteWriteQueue(rwq) {
-		rwq = DefaultRemoteWriteQueueConfig()
-	}
-	prwCfg.RemoteWriteQueue.Enabled = rwq.Enabled
-	if rwq.QueueSize > 0 {
-		prwCfg.RemoteWriteQueue.QueueSize = rwq.QueueSize
-	}
-	if rwq.NumConsumers > 0 {
-		prwCfg.RemoteWriteQueue.NumConsumers = rwq.NumConsumers
-	}
+	// Apply remote write queue configuration
+	prwCfg.RemoteWriteQueue.Enabled = true
+	prwCfg.RemoteWriteQueue.QueueSize = defaultRemoteWriteQueueSize
+	prwCfg.RemoteWriteQueue.NumConsumers = defaultRemoteWriteNumConsumers
 
 	// Create new settings with the correct component type
 	prwSet := exporter.Settings{
@@ -92,12 +84,8 @@ func newLogsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (e
 	// Apply retry configuration
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
-	// Apply sending queue configuration (use defaults if not explicitly configured)
-	if isZeroSendingQueue(cfg.Logs.SendingQueue) {
-		otlpCfg.QueueConfig = DefaultSendingQueueConfig()
-	} else {
-		otlpCfg.QueueConfig = cfg.Logs.SendingQueue
-	}
+	// Apply sending queue configuration
+	otlpCfg.QueueConfig = defaultSendingQueueConfig()
 
 	// Create new settings with the correct component type
 	otlpSet := exporter.Settings{
@@ -136,12 +124,8 @@ func newTracesExporter(ctx context.Context, set exporter.Settings, cfg *Config) 
 	// Apply retry configuration
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
-	// Apply sending queue configuration (use defaults if not explicitly configured)
-	if isZeroSendingQueue(cfg.Traces.SendingQueue) {
-		otlpCfg.QueueConfig = DefaultSendingQueueConfig()
-	} else {
-		otlpCfg.QueueConfig = cfg.Traces.SendingQueue
-	}
+	// Apply sending queue configuration
+	otlpCfg.QueueConfig = defaultSendingQueueConfig()
 
 	// Create new settings with the correct component type
 	otlpSet := exporter.Settings{
