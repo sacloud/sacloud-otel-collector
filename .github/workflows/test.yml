@@ -20,18 +20,12 @@ jobs:
           go-version: "1.25"
         id: go
 
-      - name: build
+      - name: build and test
         run: |
           make
           ./sacloud-otel-collector components
           ./sacloud-otel-collector --version
-
-      - name: validate configs
-        run: |
-          for f in testdata/*.yaml; do
-            echo "Validating $f..."
-            ./sacloud-otel-collector validate --config "$f"
-          done
+          make test
 
       - name: docker build test
         run: |
