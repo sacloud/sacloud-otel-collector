@@ -452,6 +452,4 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0 => /home/fujiwara/src/github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter
-
-replace github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter => ./exporter/sacloudexporter
+replace github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0 => ../../exporter/sacloudexporter
