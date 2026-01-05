@@ -47,6 +47,9 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	prwCfg.RemoteWriteQueue.QueueSize = defaultRemoteWriteQueueSize
 	prwCfg.RemoteWriteQueue.NumConsumers = defaultRemoteWriteNumConsumers
 
+	// Apply remote write batch configuration
+	prwCfg.MaxBatchSizeBytes = defaultRemoteWriteBatchSizeBytes
+
 	// Create new settings with the correct component type
 	prwSet := exporter.Settings{
 		ID:                component.NewIDWithName(factory.Type(), set.ID.Name()),

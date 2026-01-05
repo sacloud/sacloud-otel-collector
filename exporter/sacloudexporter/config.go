@@ -28,8 +28,9 @@ const (
 	defaultBatchFlushTimeout   = 10 * time.Second // batch logs for efficiency
 
 	// Default queue settings for metrics (RemoteWriteQueue)
-	defaultRemoteWriteQueueSize    = 10000
-	defaultRemoteWriteNumConsumers = 2
+	defaultRemoteWriteQueueSize      = 10000
+	defaultRemoteWriteNumConsumers   = 2
+	defaultRemoteWriteBatchSizeBytes = 4 * 1024 * 1024 // 4 MiB per request (under 5 MB limit)
 
 	// Default timeout for HTTP requests
 	defaultTimeout = 30 * time.Second
