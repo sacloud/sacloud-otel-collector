@@ -21,6 +21,13 @@ build-src: ocb
 sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.*
 	cd cmd/sacloud-otel-collector && go build -o ../../sacloud-otel-collector .
 
+.PHONY: test
+test: sacloud-otel-collector
+	@for f in testdata/*.yaml; do \
+		echo "Validating $$f..."; \
+		./sacloud-otel-collector validate --config "$$f"; \
+	done
+
 .PHONY: dist
 dist:
 	goreleaser build --snapshot --clean

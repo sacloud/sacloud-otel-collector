@@ -129,6 +129,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | file | File exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/fileexporter) |
 | elasticsearch | Elasticsearch exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/elasticsearchexporter) |
 | awss3 | AWS S3 exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/awss3exporter) |
+| sacloud | SAKURA Cloud Monitoring Suite exporter | See [Config examples](#sakuracloud-monitoring-suite) |
 
 ### Extensions
 
@@ -152,6 +153,122 @@ See [Building a custom collector](https://opentelemetry.io/docs/collector/custom
 ### Sakuracloud Monitoring Suite
 
 See [manual](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/index.html).
+
+#### Using the sacloud exporter (recommended)
+
+The `sacloud` exporter simplifies configuration for SAKURA Cloud Monitoring Suite with sensible defaults.
+
+**Features:**
+
+| Feature | Description |
+|---------|-------------|
+| Endpoint | Endpoint ID (e.g., `123456789012`) or full URL |
+| Compression | snappy for metrics, gzip for logs/traces |
+| Timeout | 30s (configurable) |
+| Retry | Exponential backoff (configurable) |
+| Queue | Optimized for 5MB per request limit |
+
+See also [SAKURA Cloud Monitoring Suite limits](https://manual.sakura.ad.jp/cloud/appliance/monitoring-suite/about.html#monitoring-suite-specification-limit).
+
+```yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu:
+        metrics:
+          system.cpu.utilization:
+            enabled: true
+      memory:
+        metrics:
+          system.memory.utilization:
+            enabled: true
+      disk:
+      filesystem:
+        metrics:
+          system.filesystem.utilization:
+            enabled: true
+      network:
+      paging:
+        metrics:
+          system.paging.utilization:
+            enabled: true
+  filelog:
+    start_at: end
+    exclude: []
+    include:
+      - /var/log/example.log
+
+processors:
+  resourcedetection:
+    detectors: [system]
+    system:
+      hostname_sources: [os]
+
+# Replace endpoint identifiers and tokens with your monitoring suite's configurations.
+exporters:
+  sacloud:
+    metrics:
+      endpoint: "123456789012" # or "https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write"
+      token: "${SACLOUD_METRICS_TOKEN}" # met-***************
+    logs:
+      endpoint: "123456789012" # or "https://123456789012.logs.monitoring.global.api.sacloud.jp"
+      token: "${SACLOUD_LOGS_TOKEN}" # log-***************
+    traces:
+      endpoint: "123456789012" # or "https://123456789012.traces.monitoring.global.api.sacloud.jp"
+      token: "${SACLOUD_TRACES_TOKEN}" # trc-***************
+
+service:
+  pipelines:
+    metrics:
+      receivers: [hostmetrics]
+      processors: [resourcedetection]
+      exporters: [sacloud]
+    logs:
+      receivers: [filelog]
+      processors: [resourcedetection]
+      exporters: [sacloud]
+    traces:
+      receivers: [otlp]
+      processors: [resourcedetection]
+      exporters: [sacloud]
+```
+
+##### Advanced: Timeout and Retry Configuration
+
+The exporter includes sensible defaults for timeout (30 seconds) and retry (enabled with exponential backoff). You can customize these settings if needed:
+
+```yaml
+exporters:
+  sacloud:
+    # Timeout for HTTP requests (default: 30s)
+    timeout: 30s
+    # Retry configuration (default: enabled with exponential backoff)
+    retry_on_failure:
+      enabled: true
+      initial_interval: 5s    # Time to wait after first failure
+      max_interval: 30s       # Maximum backoff interval
+      max_elapsed_time: 5m    # Maximum total retry time before giving up
+    metrics:
+      endpoint: "123456789012"
+      token: "${SACLOUD_METRICS_TOKEN}"
+    logs:
+      endpoint: "123456789012"
+      token: "${SACLOUD_LOGS_TOKEN}"
+    traces:
+      endpoint: "123456789012"
+      token: "${SACLOUD_TRACES_TOKEN}"
+```
+
+#### Using standard exporters
+
+Alternatively, you can use standard exporters directly:
 
 ```yaml
 receivers:

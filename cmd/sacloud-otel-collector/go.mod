@@ -25,6 +25,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.131.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.131.0
+	github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0
 	go.opentelemetry.io/collector/component v1.37.0
 	go.opentelemetry.io/collector/confmap v1.37.0
 	go.opentelemetry.io/collector/confmap/provider/envprovider v1.37.0
@@ -443,3 +444,5 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.2 // indirect
 	sigs.k8s.io/yaml v1.5.0 // indirect
 )
+
+replace github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter => ../../exporter/sacloudexporter

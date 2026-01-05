@@ -1,0 +1,35 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+exporters:
+  sacloud:
+    timeout: 60s
+    retry_on_failure:
+      enabled: true
+      initial_interval: 10s
+      max_interval: 60s
+      max_elapsed_time: 10m
+    metrics:
+      endpoint: "123456789012"
+      token: "test-token"
+    logs:
+      endpoint: "123456789012"
+      token: "test-token"
+    traces:
+      endpoint: "123456789012"
+      token: "test-token"
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [sacloud]
+    logs:
+      receivers: [otlp]
+      exporters: [sacloud]
+    traces:
+      receivers: [otlp]
+      exporters: [sacloud]

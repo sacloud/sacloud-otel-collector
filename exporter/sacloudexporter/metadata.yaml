@@ -1,0 +1,9 @@
+type: sacloud
+
+status:
+  class: exporter
+  stability:
+    development: [metrics, logs, traces]
+  distributions: []
+  codeowners:
+    active: []
