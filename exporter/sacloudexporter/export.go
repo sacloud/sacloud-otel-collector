@@ -8,6 +8,7 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configcompression"
 	"go.opentelemetry.io/collector/config/configopaque"
+	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/exporter/otlphttpexporter"
 )
@@ -28,10 +29,7 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	prwCfg.ClientConfig.Timeout = cfg.GetTimeout()
 
 	// Configure authentication header
-	if prwCfg.ClientConfig.Headers == nil {
-		prwCfg.ClientConfig.Headers = make(map[string]configopaque.String)
-	}
-	prwCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Metrics.Token))
+	prwCfg.ClientConfig.Headers.Set("Authorization", configopaque.String("Bearer "+string(cfg.Metrics.Token)))
 
 	// Enable compression (snappy is required by Prometheus remote write protocol)
 	prwCfg.ClientConfig.Compression = configcompression.TypeSnappy
@@ -76,10 +74,7 @@ func newLogsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (e
 	otlpCfg.ClientConfig.Timeout = cfg.GetTimeout()
 
 	// Configure authentication header
-	if otlpCfg.ClientConfig.Headers == nil {
-		otlpCfg.ClientConfig.Headers = make(map[string]configopaque.String)
-	}
-	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Logs.Token))
+	otlpCfg.ClientConfig.Headers.Set("Authorization", configopaque.String("Bearer "+string(cfg.Logs.Token)))
 
 	// Enable compression
 	otlpCfg.ClientConfig.Compression = configcompression.TypeGzip
@@ -88,7 +83,7 @@ func newLogsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (e
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
 	// Apply sending queue configuration
-	otlpCfg.QueueConfig = defaultSendingQueueConfig()
+	otlpCfg.QueueConfig = configoptional.Some(defaultSendingQueueConfig())
 
 	// Create new settings with the correct component type
 	otlpSet := exporter.Settings{
@@ -116,10 +111,7 @@ func newTracesExporter(ctx context.Context, set exporter.Settings, cfg *Config) 
 	otlpCfg.ClientConfig.Timeout = cfg.GetTimeout()
 
 	// Configure authentication header
-	if otlpCfg.ClientConfig.Headers == nil {
-		otlpCfg.ClientConfig.Headers = make(map[string]configopaque.String)
-	}
-	otlpCfg.ClientConfig.Headers["Authorization"] = configopaque.String("Bearer " + string(cfg.Traces.Token))
+	otlpCfg.ClientConfig.Headers.Set("Authorization", configopaque.String("Bearer "+string(cfg.Traces.Token)))
 
 	// Enable compression
 	otlpCfg.ClientConfig.Compression = configcompression.TypeGzip
@@ -128,7 +120,7 @@ func newTracesExporter(ctx context.Context, set exporter.Settings, cfg *Config) 
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
 	// Apply sending queue configuration
-	otlpCfg.QueueConfig = defaultSendingQueueConfig()
+	otlpCfg.QueueConfig = configoptional.Some(defaultSendingQueueConfig())
 
 	// Create new settings with the correct component type
 	otlpSet := exporter.Settings{
