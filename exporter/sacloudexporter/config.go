@@ -156,7 +156,6 @@ func (cfg *Config) TracesEndpointURL() string {
 // This configuration ensures safe operation within SAKURA Cloud Monitoring Suite limits.
 func defaultSendingQueueConfig() exporterhelper.QueueBatchConfig {
 	return exporterhelper.QueueBatchConfig{
-		Enabled:      true,
 		Sizer:        exporterhelper.RequestSizerTypeBytes,
 		QueueSize:    defaultSendingQueueSize,
 		NumConsumers: defaultSendingNumConsumers,
