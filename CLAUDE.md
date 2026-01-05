@@ -37,3 +37,25 @@ To add new components to the collector:
 - All available components are listed in `builder-config.yaml`
 - The README.md maintains a table of all components with links to official documentation
 - Configuration details for each component should reference the official OpenTelemetry documentation
+
+## Upgrading OpenTelemetry Collector Version
+
+When upgrading to a new OpenTelemetry Collector version:
+
+1. **Update ocb binary first** - The ocb version in `Makefile` must match the component versions in `builder-config.yaml`. Using an old ocb with new components may generate incompatible code.
+
+2. **Version mapping** - Provider versions use a different scheme:
+   - Collector v0.142.0 → Providers v1.48.0
+   - The pattern is: provider version = collector version + ~1.0 offset
+
+3. **Update all versions consistently** in `builder-config.yaml`:
+   - All exporters, receivers, processors, extensions: `v0.x.0`
+   - All providers: `v1.x.0` (corresponding version)
+
+4. **Fix replace directives** - After `make build-src`, check `cmd/sacloud-otel-collector/go.mod` for absolute paths in replace directives. They should be relative paths like `../../exporter/sacloudexporter`.
+
+5. **Document breaking changes** - Create/update `docs/UPGRADE_vX_to_vY.md` for significant version upgrades with breaking changes.
+
+6. **Verify documentation** - After writing upgrade documentation, fetch each URL and verify that the linked PR/issue content matches the description. PR numbers from changelogs are often incorrect.
+
+7. **Verify build** - Run `make sacloud-otel-collector && make test` to ensure the upgrade works.
