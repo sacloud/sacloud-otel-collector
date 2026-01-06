@@ -16,6 +16,8 @@ build-src: ocb
 		--config=builder-config.yaml \
 		--skip-compilation
 	perl -pi -E 's{^\s*Version:\s*.*,}{Version: Version,}' cmd/sacloud-otel-collector/main.go
+	# Fix absolute paths in replace directives to relative paths
+	perl -pi -E 's{=> \S+/(exporter/sacloudexporter)$$}{=> ../../$$1}' cmd/sacloud-otel-collector/go.mod
 	cd cmd/sacloud-otel-collector && go fmt ./...
 
 sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.*
