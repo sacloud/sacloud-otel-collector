@@ -3,6 +3,7 @@
 package main
 
 import (
+	mackerelotlpexporter "github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter"
 	awss3exporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter"
 	elasticsearchexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter"
 	fileexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter"
@@ -89,6 +90,7 @@ func components() (otelcol.Factories, error) {
 		elasticsearchexporter.NewFactory(),
 		awss3exporter.NewFactory(),
 		sacloudexporter.NewFactory(),
+		mackerelotlpexporter.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
@@ -102,6 +104,7 @@ func components() (otelcol.Factories, error) {
 	factories.ExporterModules[elasticsearchexporter.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.142.0"
 	factories.ExporterModules[awss3exporter.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.142.0"
 	factories.ExporterModules[sacloudexporter.NewFactory().Type()] = "github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0"
+	factories.ExporterModules[mackerelotlpexporter.NewFactory().Type()] = "github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.6.0"
 
 	factories.Processors, err = otelcol.MakeFactoryMap[processor.Factory](
 		batchprocessor.NewFactory(),

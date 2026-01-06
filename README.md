@@ -130,6 +130,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | elasticsearch | Elasticsearch exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/elasticsearchexporter) |
 | awss3 | AWS S3 exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/awss3exporter) |
 | sacloud | SAKURA Cloud Monitoring Suite exporter | See [Config examples](#sakuracloud-monitoring-suite) |
+| mackerelotlp | Mackerel OTLP exporter | [Documentation](https://github.com/mackerelio/opentelemetry-collector-mackerel/tree/main/exporter/mackerelotlpexporter) |
 
 ### Extensions
 
