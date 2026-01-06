@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.5.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.4.0...v0.5.0) - 2026-01-06
+- Add sacloud exporter for SAKURA Cloud Monitoring Suite by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/65
+- Upgrade to OpenTelemetry Collector v0.142.0 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/67
+- Add mackerelotlpexporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/68
+
 ## [v0.4.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.3.8...v0.4.0) - 2025-12-19
 - build(deps): bump actions/setup-go from 5.5.0 to 6.1.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/58
 - build(deps): bump docker/setup-qemu-action from 3.6.0 to 3.7.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/57
