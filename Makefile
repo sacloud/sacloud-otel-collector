@@ -20,7 +20,7 @@ build-src: ocb
 	perl -pi -E 's{=> \S+/(exporter/sacloudexporter)$$}{=> ../../$$1}' cmd/sacloud-otel-collector/go.mod
 	cd cmd/sacloud-otel-collector && go fmt ./...
 
-sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.*
+sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.* exporter/sacloudexporter/*.go exporter/sacloudexporter/*
 	cd cmd/sacloud-otel-collector && go build -o ../../sacloud-otel-collector .
 
 .PHONY: test
