@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.5.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.5.0...v0.5.1) - 2026-01-09
+- Add README for sacloudexporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/69
+- Fix packaging v0.5 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/71
+- build(deps): bump actions/checkout from 6.0.0 to 6.0.1 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/64
+- build(deps): bump docker/setup-buildx-action from 3.11.1 to 3.12.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/63
+- build(deps): bump Songmu/tagpr from 1.9.0 to 1.10.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/62
+
 ## [v0.5.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.4.0...v0.5.0) - 2026-01-06
 - Add sacloud exporter for SAKURA Cloud Monitoring Suite by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/65
 - Upgrade to OpenTelemetry Collector v0.142.0 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/67
