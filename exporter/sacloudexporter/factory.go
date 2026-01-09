@@ -2,6 +2,7 @@ package sacloudexporter
 
 import (
 	"context"
+	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/exporter"
@@ -34,7 +35,7 @@ func createMetricsExporter(
 ) (exporter.Metrics, error) {
 	oCfg := cfg.(*Config)
 	if oCfg.Metrics.Endpoint == "" {
-		return nil, nil
+		return nil, fmt.Errorf("metrics.endpoint is not set")
 	}
 	return newMetricsExporter(ctx, set, oCfg)
 }
@@ -46,7 +47,7 @@ func createLogsExporter(
 ) (exporter.Logs, error) {
 	oCfg := cfg.(*Config)
 	if oCfg.Logs.Endpoint == "" {
-		return nil, nil
+		return nil, fmt.Errorf("logs.endpoint is not set")
 	}
 	return newLogsExporter(ctx, set, oCfg)
 }
@@ -58,7 +59,7 @@ func createTracesExporter(
 ) (exporter.Traces, error) {
 	oCfg := cfg.(*Config)
 	if oCfg.Traces.Endpoint == "" {
-		return nil, nil
+		return nil, fmt.Errorf("traces.endpoint is not set")
 	}
 	return newTracesExporter(ctx, set, oCfg)
 }

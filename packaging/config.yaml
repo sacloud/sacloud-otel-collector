@@ -37,29 +37,20 @@ processors:
     detectors: [system]
     system:
       hostname_sources: [os]
-  batch:
-    timeout: 1s
-    # Adjust the send_batch_size/send_batch_max_size so that
-    # the payload size of a single request does not exceed 5 MiB.
-    send_batch_size: 4096
-    send_batch_max_size: 4096
 
-# You should replace `****` to your monitoring suite's configurations.
+# You should set environment variables SACLOUD_*
 exporters:
-  otlphttp/sakura-monitoring-suite-log:
-    endpoint: https://****.logs.monitoring.global.api.sacloud.jp
-    headers:
-      Authorization: "Bearer ****"
-  prometheusremotewrite/sakura-monitoring-suite-metrics:
-    endpoint: https://****.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write
-    headers:
-      Authorization: "Bearer ****"
-    resource_to_telemetry_conversion:
-      enabled: true
-  otlphttp/sakura-monitoring-suite-trace:
-    endpoint: https://****.traces.monitoring.global.api.sacloud.jp
-    headers:
-      Authorization: "Bearer ****"
+  debug:
+  sacloud:
+    metrics:
+      endpoint: "${SACLOUD_METRICS_ENDPOINT}"
+      token: "${SACLOUD_METRICS_TOKEN}"
+    logs:
+      endpoint: "${SACLOUD_LOGS_ENDPOINT}"
+      token: "${SACLOUD_LOGS_TOKEN}"
+    traces:
+      endpoint: "${SACLOUD_TRACES_ENDPOINT}"
+      token: "${SACLOUD_TRACES_TOKEN}"
 
 service:
   pipelines:
@@ -68,22 +59,22 @@ service:
         - hostmetrics
       processors:
         - resourcedetection
-        - batch
       exporters:
-        - prometheusremotewrite/sakura-monitoring-suite-metrics
+        - sacloud
+        - debug
     logs:
       receivers:
         - filelog
       processors:
         - resourcedetection
-        - batch
       exporters:
-        - otlphttp/sakura-monitoring-suite-log
+        - sacloud
+        - debug
     traces:
       receivers:
         - otlp
       processors:
         - resourcedetection
-        - batch
       exporters:
-        - otlphttp/sakura-monitoring-suite-trace
+        - sacloud
+        - debug
