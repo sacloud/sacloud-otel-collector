@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.5.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.5.1...v0.5.2) - 2026-02-20
+- build(deps): bump docker/login-action from 3.6.0 to 3.7.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/75
+- build(deps): bump actions/checkout from 6.0.1 to 6.0.2 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/74
+- build(deps): bump actions/setup-go from 6.1.0 to 6.2.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/72
+- build(deps): bump Songmu/tagpr from 1.10.0 to 1.14.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/73
+- Validate endpoint format in sacloud exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/78
+
 ## [v0.5.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.5.0...v0.5.1) - 2026-01-09
 - Add README for sacloudexporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/69
 - Fix packaging v0.5 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/71
