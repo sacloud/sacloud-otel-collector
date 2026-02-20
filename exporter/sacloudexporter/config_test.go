@@ -94,6 +94,46 @@ func TestConfig_Validate(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "valid full URL endpoint",
+			cfg: Config{
+				Metrics: MetricsEndpointConfig{
+					Endpoint: "https://custom.endpoint.example.com",
+					Token:    "test-token",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid endpoint - http URL",
+			cfg: Config{
+				Metrics: MetricsEndpointConfig{
+					Endpoint: "http://example.com",
+					Token:    "test-token",
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "invalid endpoint - bare hostname",
+			cfg: Config{
+				Logs: EndpointConfig{
+					Endpoint: "example.com",
+					Token:    "test-token",
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "invalid endpoint - alphanumeric mix",
+			cfg: Config{
+				Traces: EndpointConfig{
+					Endpoint: "abc123",
+					Token:    "test-token",
+				},
+			},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -101,6 +141,34 @@ func TestConfig_Validate(t *testing.T) {
 			err := tt.cfg.Validate()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Config.Validate() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestValidateEndpoint(t *testing.T) {
+	tests := []struct {
+		endpoint string
+		wantErr  bool
+	}{
+		{"", false},
+		{"123456789012", false},
+		{"0", false},
+		{"https://example.com", false},
+		{"https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write", false},
+		{"http://example.com", true},
+		{"example.com", true},
+		{"abc123", true},
+		{"abc", true},
+		{"123abc", true},
+		{"12345 6789", true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.endpoint, func(t *testing.T) {
+			err := validateEndpoint(tt.endpoint, "test")
+			if (err != nil) != tt.wantErr {
+				t.Errorf("validateEndpoint(%q) error = %v, wantErr %v", tt.endpoint, err, tt.wantErr)
 			}
 		})
 	}
