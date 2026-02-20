@@ -3,6 +3,7 @@ package sacloudexporter
 import (
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
 
@@ -78,6 +79,22 @@ type EndpointConfig struct {
 	Token configopaque.String `mapstructure:"token"`
 }
 
+var numericIDPattern = regexp.MustCompile(`^[0-9]+$`)
+
+// validateEndpoint checks that the endpoint is either a numeric ID or a full URL starting with "https://".
+func validateEndpoint(endpoint, field string) error {
+	if endpoint == "" {
+		return nil
+	}
+	if isFullURL(endpoint) {
+		return nil
+	}
+	if numericIDPattern.MatchString(endpoint) {
+		return nil
+	}
+	return fmt.Errorf(`%s.endpoint must be a numeric ID or a full URL starting with "https://"`, field)
+}
+
 // Validate checks if the configuration is valid.
 func (cfg *Config) Validate() error {
 	var errs []error
@@ -85,6 +102,17 @@ func (cfg *Config) Validate() error {
 	// At least one endpoint must be configured
 	if cfg.Metrics.Endpoint == "" && cfg.Logs.Endpoint == "" && cfg.Traces.Endpoint == "" {
 		errs = append(errs, errors.New("at least one of metrics, logs, or traces endpoint must be configured"))
+	}
+
+	// Validate endpoint formats
+	if err := validateEndpoint(cfg.Metrics.Endpoint, "metrics"); err != nil {
+		errs = append(errs, err)
+	}
+	if err := validateEndpoint(cfg.Logs.Endpoint, "logs"); err != nil {
+		errs = append(errs, err)
+	}
+	if err := validateEndpoint(cfg.Traces.Endpoint, "traces"); err != nil {
+		errs = append(errs, err)
 	}
 
 	// Validate metrics config if endpoint is set
