@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.6.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.5.2...v0.6.0) - 2026-03-04
+- Fix package download URL by @tar-xzvff in https://github.com/sacloud/sacloud-otel-collector/pull/79
+- build(deps): bump actions/setup-go from 6.2.0 to 6.3.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/82
+- build(deps): bump goreleaser/goreleaser-action from 6.4.0 to 7.0.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/81
+- build(deps): bump Songmu/tagpr from 1.14.0 to 1.17.1 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/80
+- Update Go versions: CI with 1.25/1.26, release with 1.26 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/83
+
 ## [v0.5.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.5.1...v0.5.2) - 2026-02-20
 - build(deps): bump docker/login-action from 3.6.0 to 3.7.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/75
 - build(deps): bump actions/checkout from 6.0.1 to 6.0.2 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/74
