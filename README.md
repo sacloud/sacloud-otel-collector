@@ -38,14 +38,14 @@ RPM and DEB packages are available on [GitHub Releases](https://github.com/saclo
 
 For Debian/Ubuntu:
 ```bash
-wget https://github.com/sacloud/sacloud-otel-collector/releases/download/v<version>/sacloud-otel-collector_<version>_amd64.deb
-sudo dpkg -i sacloud-otel-collector_<version>_amd64.deb
+wget https://github.com/sacloud/sacloud-otel-collector/releases/download/v<version>/sacloud-otel-collector_<version>_linux_amd64.deb
+sudo dpkg -i sacloud-otel-collector_<version>_linux_amd64.deb
 ```
 
 For RHEL/CentOS/Fedora:
 ```bash
-wget https://github.com/sacloud/sacloud-otel-collector/releases/download/v<version>/sacloud-otel-collector_<version>_amd64.rpm
-sudo rpm -i sacloud-otel-collector_<version>_amd64.rpm
+wget https://github.com/sacloud/sacloud-otel-collector/releases/download/v<version>/sacloud-otel-collector_<version>_linux_amd64.rpm
+sudo rpm -i sacloud-otel-collector_<version>_linux_amd64.rpm
 ```
 
 #### Configuration
