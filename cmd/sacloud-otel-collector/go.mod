@@ -15,6 +15,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.142.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/deltatocumulativeprocessor v0.142.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.142.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.142.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor v0.142.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.142.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor v0.142.0
