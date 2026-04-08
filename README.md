@@ -117,6 +117,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | deltatocumulative | Delta to cumulative processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/deltatocumulativeprocessor) |
 | resourcedetection | Resource detection processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/resourcedetectionprocessor) |
 | tailsampling | Tail sampling processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/tailsamplingprocessor) |
+| groupbyattrs | Group by attributes processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/groupbyattrsprocessor) |
 
 ### Exporters
 
