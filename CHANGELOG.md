@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.6.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.6.0...v0.6.1) - 2026-04-08
+- build(deps): bump actions/setup-go from 6.3.0 to 6.4.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/88
+- build(deps): bump docker/login-action from 3.7.0 to 4.0.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/87
+- build(deps): bump docker/setup-qemu-action from 3.7.0 to 4.0.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/86
+- build(deps): bump docker/setup-buildx-action from 3.12.0 to 4.0.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/85
+- Add groupbyattrs processor by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/90
+
 ## [v0.6.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.5.2...v0.6.0) - 2026-03-04
 - Fix package download URL by @tar-xzvff in https://github.com/sacloud/sacloud-otel-collector/pull/79
 - build(deps): bump actions/setup-go from 6.2.0 to 6.3.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/82
