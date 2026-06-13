@@ -105,14 +105,14 @@ func TestConfig_Validate(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "invalid endpoint - http URL",
+			name: "valid full URL endpoint - http",
 			cfg: Config{
 				Metrics: MetricsEndpointConfig{
 					Endpoint: "http://example.com",
 					Token:    "test-token",
 				},
 			},
-			wantErr: true,
+			wantErr: false,
 		},
 		{
 			name: "invalid endpoint - bare hostname",
@@ -156,7 +156,7 @@ func TestValidateEndpoint(t *testing.T) {
 		{"0", false},
 		{"https://example.com", false},
 		{"https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write", false},
-		{"http://example.com", true},
+		{"http://example.com", false},
 		{"example.com", true},
 		{"abc123", true},
 		{"abc", true},
@@ -183,7 +183,7 @@ func TestIsFullURL(t *testing.T) {
 		{"https://123456789012.logs.monitoring.global.api.sacloud.jp", true},
 		{"123456789012", false},
 		{"example.com", false},
-		{"http://example.com", false}, // only https is supported
+		{"http://example.com", true},
 		{"", false},
 	}
 

@@ -81,7 +81,7 @@ type EndpointConfig struct {
 
 var numericIDPattern = regexp.MustCompile(`^[0-9]+$`)
 
-// validateEndpoint checks that the endpoint is either a numeric ID or a full URL starting with "https://".
+// validateEndpoint checks that the endpoint is either a numeric ID or a full URL starting with "http://" or "https://".
 func validateEndpoint(endpoint, field string) error {
 	if endpoint == "" {
 		return nil
@@ -92,7 +92,7 @@ func validateEndpoint(endpoint, field string) error {
 	if numericIDPattern.MatchString(endpoint) {
 		return nil
 	}
-	return fmt.Errorf(`%s.endpoint must be a numeric ID or a full URL starting with "https://"`, field)
+	return fmt.Errorf(`%s.endpoint must be a numeric ID or a full URL starting with "http://" or "https://"`, field)
 }
 
 // Validate checks if the configuration is valid.
@@ -136,9 +136,9 @@ func (cfg *Config) Validate() error {
 	return nil
 }
 
-// isFullURL returns true if the endpoint is a full URL (starts with https://).
+// isFullURL returns true if the endpoint is a full URL (starts with http:// or https://).
 func isFullURL(endpoint string) bool {
-	return strings.HasPrefix(endpoint, "https://")
+	return strings.HasPrefix(endpoint, "http://") || strings.HasPrefix(endpoint, "https://")
 }
 
 // MetricsEndpointURL returns the full URL for metrics endpoint.
