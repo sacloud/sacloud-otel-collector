@@ -36,9 +36,9 @@ At least one of the following signal configurations must be specified:
 
 The `endpoint` field accepts either:
 - An endpoint identifier from SAKURA Cloud control panel (e.g., `"123456789012"`)
-- A full URL (e.g., `"https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write"`)
+- A full URL starting with `http://` or `https://` (e.g., `"https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write"`)
 
-If only an identifier is provided, it will be expanded to the full URL automatically.
+If only an identifier is provided, it will be expanded to the full URL (with `https://`) automatically.
 
 ### Optional Settings
 
