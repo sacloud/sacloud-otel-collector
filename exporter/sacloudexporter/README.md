@@ -3,10 +3,10 @@
 <!-- status autance added by mdatagen. Do not edit. -->
 | Status                   |                                              |
 | ------------------------ | -------------------------------------------- |
-| Stability                | [development]: metrics, logs, traces         |
+| Stability                | [alpha]: metrics, logs, traces               |
 | Distributions            | [sacloud-otel-collector]                     |
 
-[development]: https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/component-stability.md#development
+[alpha]: https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/component-stability.md#alpha
 [sacloud-otel-collector]: https://github.com/sacloud/sacloud-otel-collector
 
 <!-- end autance added section -->
