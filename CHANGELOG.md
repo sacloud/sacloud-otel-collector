@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.7.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.6.1...v0.7.0) - 2026-06-13
+- build(deps): bump docker/setup-qemu-action from 4.0.0 to 4.1.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/98
+- build(deps): bump Songmu/tagpr from 1.17.1 to 1.19.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/97
+- build(deps): bump goreleaser/goreleaser-action from 7.0.0 to 7.2.2 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/96
+- build(deps): bump docker/login-action from 4.0.0 to 4.2.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/95
+- build(deps): bump docker/setup-buildx-action from 4.0.0 to 4.1.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/94
+- build(deps): bump google.golang.org/grpc from 1.77.0 to 1.79.3 in /exporter/sacloudexporter by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/100
+- Bump vulnerable transitive deps to patched versions by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/105
+- Upgrade OpenTelemetry Collector to v0.154.0 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/106
+- Allow http:// endpoints in sacloud exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/107
+- Promote sacloud exporter stability to alpha by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/108
+
 ## [v0.6.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.6.0...v0.6.1) - 2026-04-08
 - build(deps): bump actions/setup-go from 6.3.0 to 6.4.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/88
 - build(deps): bump docker/login-action from 3.7.0 to 4.0.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/87
