@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.7.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.0...v0.7.1) - 2026-07-07
+- Add kafka exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/113
+- Add Windows and macOS binaries to release builds by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/115
+- Add e2e test against sakumock on Linux, macOS and Windows CI by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/116
+
 ## [v0.7.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.6.1...v0.7.0) - 2026-06-13
 - build(deps): bump docker/setup-qemu-action from 4.0.0 to 4.1.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/98
 - build(deps): bump Songmu/tagpr from 1.17.1 to 1.19.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/97
