@@ -8,12 +8,18 @@ OpenTelemetry collector for [sacloud](https://github.com/sacloud).
 
 Pre-built binaries are available on [GitHub Releases](https://github.com/sacloud/sacloud-otel-collector/releases):
 
-1. Download the tar.gz archive for your platform from the latest release
-2. Extract the archive: `tar xzf sacloud-otel-collector_*.tar.gz`
+1. Download the archive for your platform from the latest release (tar.gz for Linux/macOS, zip for Windows)
+2. Extract the archive: `tar xzf sacloud-otel-collector_*.tar.gz` (Linux/macOS) or unzip `sacloud-otel-collector_*.zip` (Windows)
 3. Run with your configuration:
 
 ```bash
 ./sacloud-otel-collector --config config.yml
+```
+
+On Windows:
+
+```powershell
+.\sacloud-otel-collector.exe --config config.yml
 ```
 
 ### Container Image
