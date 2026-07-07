@@ -49,7 +49,9 @@ jobs:
         uses: goreleaser/goreleaser-action@5daf1e915a5f0af01ddbcd89a43b8061ff4f1a89 # v7.2.2
         with:
           version: "~> v2"
-          args: release
+          # Limit concurrent builds: linking this collector peaks at ~4GB per
+          # target, and the default parallelism (CPU count) OOMs the runner.
+          args: release --parallelism 2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.tagpr.outputs.tag != '' || inputs.tag != '' }}
