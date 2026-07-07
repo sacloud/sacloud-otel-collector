@@ -10,9 +10,16 @@ builds:
     binary: sacloud-otel-collector
     goos:
       - linux
+      - windows
+      - darwin
     goarch:
       - amd64
       - arm64
+archives:
+  - formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
 release:
   use_existing_draft: true
 checksum:
