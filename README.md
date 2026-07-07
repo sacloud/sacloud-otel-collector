@@ -371,7 +371,7 @@ If you want to add a new component of otel collector, modify [builder-config.yam
 
 ### E2E test
 
-CI runs an end-to-end test on Linux, macOS and Windows: a filelog receiver reads a file and the `sacloud` exporter sends the logs to the [sakumock](https://github.com/sacloud/sakumock) monitoring-suite data plane, asserting the dumped payload. To run it locally:
+CI runs an end-to-end test on Linux, macOS and Windows for each push to the `main` branch: a filelog receiver reads a file and the `sacloud` exporter sends the logs to the [sakumock](https://github.com/sacloud/sakumock) monitoring-suite data plane, asserting the dumped payload. To run it locally:
 
 ```bash
 make
