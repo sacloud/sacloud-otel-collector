@@ -24,11 +24,6 @@ import (
 	"time"
 )
 
-const (
-	dataPlaneAddr   = "127.0.0.1:28084"
-	healthCheckAddr = "127.0.0.1:13133"
-)
-
 func TestFilelogToSakumock(t *testing.T) {
 	collector, err := filepath.Abs(filepath.Join("..", collectorBinName()))
 	if err != nil {
@@ -41,6 +36,11 @@ func TestFilelogToSakumock(t *testing.T) {
 	if err != nil {
 		t.Skip("sakumock-monitoringsuite not found in PATH; skipping e2e")
 	}
+
+	// Both servers are external processes, so their ports must be picked
+	// before they start; freeLoopbackAddr is racy but good enough here.
+	dataPlaneAddr := freeLoopbackAddr(t)   // sakumock data plane (collector exports here)
+	healthCheckAddr := freeLoopbackAddr(t) // collector health_check (readiness probe)
 
 	dumpDir := t.TempDir()
 	startProcess(t, "sakumock", sakumock,
@@ -147,6 +147,19 @@ func randomHex(t *testing.T) string {
 func readFile(path string) string {
 	b, _ := os.ReadFile(path)
 	return string(b)
+}
+
+// freeLoopbackAddr reserves a loopback port by binding and immediately
+// closing a listener.
+func freeLoopbackAddr(t *testing.T) string {
+	t.Helper()
+	l, err := net.Listen("tcp", "127.0.0.1:0")
+	if err != nil {
+		t.Fatalf("allocate free port: %v", err)
+	}
+	addr := l.Addr().String()
+	_ = l.Close()
+	return addr
 }
 
 func waitListen(t *testing.T, addr string, timeout time.Duration) {

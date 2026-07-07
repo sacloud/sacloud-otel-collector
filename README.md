@@ -375,7 +375,7 @@ CI runs an end-to-end test on Linux, macOS and Windows: a filelog receiver reads
 
 ```bash
 make
-go install github.com/sacloud/sakumock/monitoringsuite/cmd/sakumock-monitoringsuite@latest
+go install github.com/sacloud/sakumock/monitoringsuite/cmd/sakumock-monitoringsuite@v0.6.0
 cd e2e && go test -v ./...
 ```
 
