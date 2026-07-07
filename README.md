@@ -375,6 +375,16 @@ service:
 
 If you want to add a new component of otel collector, modify [builder-config.yaml](builder-config.yaml). Then run `make build-src && make` to build the collector.
 
+### E2E test
+
+CI runs an end-to-end test on Linux, macOS and Windows for each push to the `main` branch: a filelog receiver reads a file and the `sacloud` exporter sends the logs to the [sakumock](https://github.com/sacloud/sakumock) monitoring-suite data plane, asserting the dumped payload. To run it locally:
+
+```bash
+make
+go install github.com/sacloud/sakumock/monitoringsuite/cmd/sakumock-monitoringsuite@v0.6.0
+cd e2e && go test -v ./...
+```
+
 ## Automation
 
 GitHub Actions are used to automate the build and release process. The following steps are performed:
