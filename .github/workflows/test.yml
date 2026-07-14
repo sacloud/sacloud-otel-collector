@@ -51,10 +51,10 @@ jobs:
         with:
           go-version: "1.26"
 
-      - name: build and test
+      - name: build
         shell: bash
         run: |
-          go build -o ../../sacloud-otel-collector.exe .
-          ../../sacloud-otel-collector.exe components
-          ../../sacloud-otel-collector.exe --version
+          go build -o ../../sacloud-otel-collector$(go env GOEXE) .
+          ../../sacloud-otel-collector$(go env GOEXE) components
+          ../../sacloud-otel-collector$(go env GOEXE) --version
         working-directory: cmd/sacloud-otel-collector

@@ -65,10 +65,14 @@ service:
 
 func createEventSource(t *testing.T, source string) {
 	t.Helper()
-	// New-EventLog fails if the source already exists; ignore errors.
-	_ = exec.Command("powershell", "-Command",
-		fmt.Sprintf(`New-EventLog -LogName Application -Source %q -ErrorAction SilentlyContinue`, source),
-	).Run()
+	cmd := exec.Command("powershell", "-Command",
+		fmt.Sprintf(`if (-not [System.Diagnostics.EventLog]::SourceExists(%q)) { New-EventLog -LogName Application -Source %q }`,
+			source, source),
+	)
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		t.Fatalf("createEventSource failed: %v\n%s", err, out)
+	}
 }
 
 func writeEventLog(t *testing.T, source, message string) {
