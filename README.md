@@ -109,6 +109,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | filelog | File log receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver) |
 | fluentforward | Fluent Forward receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/fluentforwardreceiver) |
 | journald | Journald receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/journaldreceiver) |
+| windowseventlog | Windows Event Log receiver (Windows only) | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowseventlogreceiver) |
 
 ### Processors
 

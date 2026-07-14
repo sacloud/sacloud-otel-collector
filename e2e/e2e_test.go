@@ -25,22 +25,10 @@ import (
 )
 
 func TestFilelogToSakumock(t *testing.T) {
-	collector, err := filepath.Abs(filepath.Join("..", collectorBinName()))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if _, err := os.Stat(collector); err != nil {
-		t.Skipf("%s not found (build it with `make`); skipping e2e", collector)
-	}
-	sakumock, err := exec.LookPath("sakumock-monitoringsuite")
-	if err != nil {
-		t.Skip("sakumock-monitoringsuite not found in PATH; skipping e2e")
-	}
+	collector, sakumock := findBinaries(t)
 
-	// Both servers are external processes, so their ports must be picked
-	// before they start; freeLoopbackAddr is racy but good enough here.
-	dataPlaneAddr := freeLoopbackAddr(t)   // sakumock data plane (collector exports here)
-	healthCheckAddr := freeLoopbackAddr(t) // collector health_check (readiness probe)
+	dataPlaneAddr := freeLoopbackAddr(t)
+	healthCheckAddr := freeLoopbackAddr(t)
 
 	dumpDir := t.TempDir()
 	startProcess(t, "sakumock", sakumock,
@@ -78,10 +66,7 @@ service:
       receivers: [filelog]
       exporters: [sacloud]
 `, filepath.ToSlash(logFile), dataPlaneAddr, healthCheckAddr)
-	cfgFile := filepath.Join(t.TempDir(), "config.yaml")
-	if err := os.WriteFile(cfgFile, []byte(cfg), 0o644); err != nil {
-		t.Fatal(err)
-	}
+	cfgFile := writeConfigFile(t, cfg)
 
 	collectorLog := startProcess(t, "collector", collector, "--config", cfgFile)
 	waitListen(t, healthCheckAddr, 60*time.Second)
@@ -93,6 +78,31 @@ service:
 		t.Errorf("no otlp-logs-* dump containing %q in %s; collector log:\n%s",
 			marker, dumpDir, readFile(collectorLog))
 	}
+}
+
+func findBinaries(t *testing.T) (collector, sakumock string) {
+	t.Helper()
+	collector, err := filepath.Abs(filepath.Join("..", collectorBinName()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := os.Stat(collector); err != nil {
+		t.Skipf("%s not found (build it with `make`); skipping e2e", collector)
+	}
+	sakumock, err = exec.LookPath("sakumock-monitoringsuite")
+	if err != nil {
+		t.Skip("sakumock-monitoringsuite not found in PATH; skipping e2e")
+	}
+	return collector, sakumock
+}
+
+func writeConfigFile(t *testing.T, cfg string) string {
+	t.Helper()
+	cfgFile := filepath.Join(t.TempDir(), "config.yaml")
+	if err := os.WriteFile(cfgFile, []byte(cfg), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	return cfgFile
 }
 
 func collectorBinName() string {
