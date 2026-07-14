@@ -374,7 +374,7 @@ service:
 
 ## Contributing
 
-If you want to add a new component of otel collector, modify [builder-config.yaml](builder-config.yaml). Then run `make build-src && make` to build the collector.
+If you want to add a new component of otel collector, see the [Component Policy](docs/COMPONENT_POLICY.md) for the criteria, then modify [builder-config.yaml](builder-config.yaml). Then run `make build-src && make` to build the collector.
 
 ### E2E test
 
