@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.7.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.1...v0.7.2) - 2026-07-14
+- Limit goreleaser build parallelism to avoid runner OOM by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/117
+- Add windowseventlogreceiver and Windows CI by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/119
+
 ## [v0.7.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.0...v0.7.1) - 2026-07-07
 - Add kafka exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/113
 - Add Windows and macOS binaries to release builds by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/115
