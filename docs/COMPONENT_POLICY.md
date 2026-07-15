@@ -12,7 +12,11 @@ The purpose of this collector is to collect telemetry on SAKURA Cloud environmen
 
 ### 1. Relevance to the purpose (required)
 
-The component must be useful for collecting telemetry on SAKURA Cloud environments or forwarding it to Monitoring Suite and other common destinations.
+The component must fall into one of the following categories:
+
+- **Platform / infrastructure telemetry** — collecting telemetry from SAKURA Cloud platform features and APIs, or from the OS and container runtime layer (not tied to a specific application).
+- **Generic ingestion** — receiving telemetry from applications running on customer VMs via standard protocols (OTLP, Prometheus, etc.). Application-specific receivers are out of scope; applications should emit telemetry through these generic protocols.
+- **Forwarding** — exporting telemetry to SAKURA Cloud Monitoring Suite or other widely used observability backends.
 
 ### 2. Generality (required)
 
@@ -59,7 +63,11 @@ See the [Contributing](../README.md#contributing) section of the README.
 
 ### 1. 目的適合性(必須)
 
-さくらのクラウド環境でのテレメトリ収集、または Monitoring Suite やその他の一般的な送信先への転送に有用なコンポーネントであること。
+コンポーネントが以下のいずれかに該当すること。
+
+- **プラットフォーム・インフラのテレメトリ** — さくらのクラウドのプラットフォーム機能・API、または OS やコンテナランタイムなど特定アプリケーションに依存しない基盤レイヤーからテレメトリを収集するもの。
+- **汎用プロトコルによる受信** — 顧客 VM 上のアプリケーションから OTLP や Prometheus などの標準プロトコルでテレメトリを受け取るもの。アプリケーション専用の receiver は対象外とし、アプリケーション側でこれらの汎用プロトコルを通じてテレメトリを送信する想定とする。
+- **転送** — SAKURA Cloud Monitoring Suite やその他の広く使われている観測バックエンドへテレメトリを送信するもの。
 
 ### 2. 汎用性(必須)
 
