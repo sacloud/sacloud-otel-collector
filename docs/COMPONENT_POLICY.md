@@ -66,7 +66,7 @@ See the [Contributing](../README.md#contributing) section of the README.
 - 特定のミドルウェア・アプリケーション専用の receiver(例: nginx, mysql, redis)は原則追加しません。Prometheus, filelog, OTLP receiver など既存のコンポーネントで収集できる場合はそちらを使用します。
 - 既存コンポーネントの設定で実現可能な処理(例: transform processor で書けるもの)のために新しい processor を追加しません。
 
-### 3. Stability
+### 3. 安定性
 
 - 対象シグナルについて原則 beta 以上 であること。コンポーネントの README または `metadata.yaml` の stability 表を確認してください。
 - alpha は「代替手段がなく、具体的なユースケースがある」「メンテナンスが継続的に行われている」場合のみ許容します(前例: journald, windowseventlog, deltatocumulative)。
