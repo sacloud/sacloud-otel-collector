@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.7.3](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.2...v0.7.3) - 2026-07-21
+- Add component policy document by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/120
+- Update mackerelotlpexporter to v0.15.0 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/122
+- Install sakumock release binary in e2e workflow by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/123
+
 ## [v0.7.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.1...v0.7.2) - 2026-07-14
 - Limit goreleaser build parallelism to avoid runner OOM by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/117
 - Add windowseventlogreceiver and Windows CI by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/119
