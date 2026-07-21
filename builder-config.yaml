@@ -14,7 +14,7 @@ exporters:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter v0.154.0
   - gomod: github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0
     path: ./exporter/sacloudexporter
-  - gomod: github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.14.0
+  - gomod: github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.0
 
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.154.0
