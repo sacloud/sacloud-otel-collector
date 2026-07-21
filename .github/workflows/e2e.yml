@@ -31,9 +31,25 @@ jobs:
 
       - name: Install sakumock
         shell: bash
-        run: go install "github.com/sacloud/sakumock/monitoringsuite/cmd/sakumock-monitoringsuite@${SAKUMOCK_VERSION}"
+        run: |
+          case "$RUNNER_OS" in
+            Linux) os=linux; ext=tar.gz ;;
+            macOS) os=darwin; ext=tar.gz ;;
+            Windows) os=windows; ext=zip ;;
+          esac
+          case "$RUNNER_ARCH" in
+            X64) arch=amd64 ;;
+            ARM64) arch=arm64 ;;
+          esac
+          asset="sakumock_${SAKUMOCK_VERSION#v}_${os}_${arch}.${ext}"
+          gh release download "$SAKUMOCK_VERSION" -R sacloud/sakumock -p "$asset" -O "$RUNNER_TEMP/$asset"
+          mkdir -p "$RUNNER_TEMP/sakumock-bin"
+          # bsdtar on the Windows runner extracts zip archives as well
+          tar xf "$RUNNER_TEMP/$asset" -C "$RUNNER_TEMP/sakumock-bin"
+          echo "$RUNNER_TEMP/sakumock-bin" >> "$GITHUB_PATH"
         env:
-          SAKUMOCK_VERSION: v0.6.0
+          SAKUMOCK_VERSION: v0.7.1
+          GH_TOKEN: ${{ github.token }}
 
       - name: Run e2e test
         shell: bash

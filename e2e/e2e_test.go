@@ -5,9 +5,9 @@
 // contains what was written.
 //
 // It skips unless ../sacloud-otel-collector (built by `make`) exists and
-// sakumock-monitoringsuite is on PATH:
-//
-//	go install github.com/sacloud/sakumock/monitoringsuite/cmd/sakumock-monitoringsuite@latest
+// sakumock is on PATH (CI downloads the release binary; locally either grab
+// one from https://github.com/sacloud/sakumock/releases or run
+// `go install github.com/sacloud/sakumock/cmd/sakumock@latest`).
 package e2e_test
 
 import (
@@ -31,7 +31,7 @@ func TestFilelogToSakumock(t *testing.T) {
 	healthCheckAddr := freeLoopbackAddr(t)
 
 	dumpDir := t.TempDir()
-	startProcess(t, "sakumock", sakumock,
+	startProcess(t, "sakumock", sakumock, "monitoringsuite",
 		"--enable-data-plane",
 		"--data-plane-addr", dataPlaneAddr,
 		"--data-plane-dump-dir", dumpDir,
@@ -89,9 +89,9 @@ func findBinaries(t *testing.T) (collector, sakumock string) {
 	if _, err := os.Stat(collector); err != nil {
 		t.Skipf("%s not found (build it with `make`); skipping e2e", collector)
 	}
-	sakumock, err = exec.LookPath("sakumock-monitoringsuite")
+	sakumock, err = exec.LookPath("sakumock")
 	if err != nil {
-		t.Skip("sakumock-monitoringsuite not found in PATH; skipping e2e")
+		t.Skip("sakumock not found in PATH; skipping e2e")
 	}
 	return collector, sakumock
 }
