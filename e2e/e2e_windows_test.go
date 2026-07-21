@@ -16,7 +16,7 @@ func TestWindowsEventLogToSakumock(t *testing.T) {
 	healthCheckAddr := freeLoopbackAddr(t)
 
 	dumpDir := t.TempDir()
-	startProcess(t, "sakumock", sakumock,
+	startProcess(t, "sakumock", sakumock, "monitoringsuite",
 		"--enable-data-plane",
 		"--data-plane-addr", dataPlaneAddr,
 		"--data-plane-dump-dir", dumpDir,
