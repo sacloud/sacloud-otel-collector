@@ -127,7 +127,7 @@ func components() (otelcol.Factories, error) {
 		awss3exporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.154.0",
 		kafkaexporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter v0.154.0",
 		sacloudexporter.NewFactory().Type():               "github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0",
-		mackerelotlpexporter.NewFactory().Type():          "github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.14.0",
+		mackerelotlpexporter.NewFactory().Type():          "github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.0",
 	})
 
 	factories.Processors, err = otelcol.MakeFactoryMap[processor.Factory](
