@@ -42,10 +42,17 @@ jobs:
             ARM64) arch=arm64 ;;
           esac
           asset="sakumock_${SAKUMOCK_VERSION#v}_${os}_${arch}.${ext}"
-          gh release download "$SAKUMOCK_VERSION" -R sacloud/sakumock -p "$asset" -O "$RUNNER_TEMP/$asset"
-          mkdir -p "$RUNNER_TEMP/sakumock-bin"
-          # bsdtar on the Windows runner extracts zip archives as well
-          tar xf "$RUNNER_TEMP/$asset" -C "$RUNNER_TEMP/sakumock-bin"
+          # Work with paths relative to RUNNER_TEMP: git-bash GNU tar
+          # misparses drive letters (D:\...) as remote host names
+          cd "$RUNNER_TEMP"
+          gh release download "$SAKUMOCK_VERSION" -R sacloud/sakumock -p "$asset" -O "$asset" --clobber
+          mkdir -p sakumock-bin
+          if [ "$ext" = zip ]; then
+            # git-bash GNU tar cannot extract zip; 7z is preinstalled on the Windows runner
+            7z x -y "$asset" -osakumock-bin >/dev/null
+          else
+            tar xf "$asset" -C sakumock-bin
+          fi
           echo "$RUNNER_TEMP/sakumock-bin" >> "$GITHUB_PATH"
         env:
           SAKUMOCK_VERSION: v0.7.1
