@@ -375,10 +375,10 @@ service:
 
 ### Self-monitoring
 
-The `selfmetrics` receiver collects the collector's own internal metrics
-(e.g. sent/failed data points, queue size, memory usage) so that you can send
-them to any exporter through a normal metrics pipeline. It works without any
-configuration:
+The `selfmetrics` receiver collects the collector's own internal telemetry
+metrics (see the [internal telemetry documentation](https://opentelemetry.io/docs/collector/internal-telemetry/)
+for available metrics) so that you can send them to any exporter through a
+normal metrics pipeline. It works without any configuration:
 
 ```yaml
 receivers:

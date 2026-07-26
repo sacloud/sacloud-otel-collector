@@ -1,10 +1,14 @@
 # Selfmetrics Receiver
 
 The `selfmetrics` receiver collects the collector's own internal telemetry
-metrics (e.g. `otelcol_exporter_sent_metric_points`, `otelcol_exporter_queue_size`,
-`otelcol_process_memory_rss`) by scraping the collector's internal telemetry
-Prometheus endpoint, so they can be sent through a normal metrics pipeline to
-any configured exporter.
+metrics by scraping the collector's internal telemetry Prometheus endpoint,
+so they can be sent through a normal metrics pipeline to any configured
+exporter.
+
+The set of available metrics depends on the collector version, the telemetry
+level, and the active components. See the official
+[internal telemetry documentation](https://opentelemetry.io/docs/collector/internal-telemetry/)
+for the list of metrics.
 
 It is a thin wrapper around the
 [Prometheus receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/prometheusreceiver)
@@ -61,8 +65,7 @@ service:
   target address, which is the same on every host by default. When running
   multiple collectors, add a processor such as `resourcedetection` to the
   pipeline to distinguish hosts.
-- To get more detailed metrics (e.g. batch processor internals), raise the
-  telemetry level:
+- To get more detailed metrics, raise the telemetry level:
 
   ```yaml
   service:
