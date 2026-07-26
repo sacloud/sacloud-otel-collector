@@ -1,0 +1,11 @@
+receivers:
+  selfmetrics:
+
+exporters:
+  debug:
+
+service:
+  pipelines:
+    metrics:
+      receivers: [selfmetrics]
+      exporters: [debug]

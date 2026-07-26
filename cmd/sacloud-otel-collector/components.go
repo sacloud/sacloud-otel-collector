@@ -28,6 +28,7 @@ import (
 	prometheusreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver"
 	windowseventlogreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver"
 	sacloudexporter "github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter"
+	selfmetricsreceiver "github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/connector"
 	"go.opentelemetry.io/collector/exporter"
@@ -86,6 +87,7 @@ func components() (otelcol.Factories, error) {
 		fluentforwardreceiver.NewFactory(),
 		journaldreceiver.NewFactory(),
 		windowseventlogreceiver.NewFactory(),
+		selfmetricsreceiver.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
@@ -100,6 +102,7 @@ func components() (otelcol.Factories, error) {
 		fluentforwardreceiver.NewFactory().Type():   "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.154.0",
 		journaldreceiver.NewFactory().Type():        "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.154.0",
 		windowseventlogreceiver.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.154.0",
+		selfmetricsreceiver.NewFactory().Type():     "github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0",
 	})
 
 	factories.Exporters, err = otelcol.MakeFactoryMap[exporter.Factory](

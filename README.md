@@ -110,6 +110,7 @@ For more details, see [builder-config.yaml](builder-config.yaml).
 | fluentforward | Fluent Forward receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/fluentforwardreceiver) |
 | journald | Journald receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/journaldreceiver) |
 | windowseventlog | Windows Event Log receiver (Windows only) | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/windowseventlogreceiver) |
+| selfmetrics | Collector self-monitoring metrics receiver | [Documentation](receiver/selfmetricsreceiver/README.md) |
 
 ### Processors
 
@@ -371,6 +372,27 @@ service:
       exporters:
         - otlphttp/sakura-monitoring-suite-trace
 ```
+
+### Self-monitoring
+
+The `selfmetrics` receiver collects the collector's own internal telemetry
+metrics (see the [internal telemetry documentation](https://opentelemetry.io/docs/collector/internal-telemetry/)
+for available metrics) so that you can send them to any exporter through a
+normal metrics pipeline. It works without any configuration:
+
+```yaml
+receivers:
+  selfmetrics:
+
+service:
+  pipelines:
+    metrics:
+      receivers: [selfmetrics]
+      processors: [resourcedetection]
+      exporters: [sacloud]
+```
+
+See [selfmetrics receiver](receiver/selfmetricsreceiver/README.md) for details.
 
 ## Contributing
 

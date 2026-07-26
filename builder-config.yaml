@@ -38,6 +38,8 @@ receivers:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.154.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.154.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.154.0
+  - gomod: github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0
+    path: ./receiver/selfmetricsreceiver
 
 providers:
   - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.60.0

@@ -17,10 +17,10 @@ build-src: ocb
 		--skip-compilation
 	perl -pi -E 's{^\s*Version:\s*.*,}{Version: Version,}' cmd/sacloud-otel-collector/main.go
 	# Fix absolute paths in replace directives to relative paths
-	perl -pi -E 's{=> \S+/(exporter/sacloudexporter)$$}{=> ../../$$1}' cmd/sacloud-otel-collector/go.mod
+	perl -pi -E 's{=> \S+/((?:exporter|receiver)/[\w-]+)$$}{=> ../../$$1}' cmd/sacloud-otel-collector/go.mod
 	cd cmd/sacloud-otel-collector && go fmt ./...
 
-sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.* exporter/sacloudexporter/*.go exporter/sacloudexporter/*
+sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.* exporter/sacloudexporter/*.go exporter/sacloudexporter/* receiver/selfmetricsreceiver/*.go receiver/selfmetricsreceiver/*
 	cd cmd/sacloud-otel-collector && go build -o ../../sacloud-otel-collector .
 
 .PHONY: test
