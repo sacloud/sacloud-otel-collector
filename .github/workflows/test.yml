@@ -21,8 +21,28 @@ jobs:
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: ${{ matrix.go-version }}
-          cache-dependency-path: "**/go.sum"
+          # setup-go's cache matches keys exactly, and almost every change
+          # in this repo updates go.sum, so it would rarely hit. Use
+          # actions/cache below with restore-keys for prefix fallback.
+          cache: false
         id: go
+
+      - name: Get Go cache paths
+        id: go-env
+        shell: bash
+        run: |
+          echo "gocache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
+          echo "gomodcache=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore Go caches
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ${{ steps.go-env.outputs.gocache }}
+            ${{ steps.go-env.outputs.gomodcache }}
+          key: go-${{ runner.os }}-go${{ matrix.go-version }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            go-${{ runner.os }}-go${{ matrix.go-version }}-
 
       - name: build and test
         run: |
@@ -51,7 +71,24 @@ jobs:
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: "1.26"
-          cache-dependency-path: "**/go.sum"
+          cache: false
+
+      - name: Get Go cache paths
+        id: go-env
+        shell: bash
+        run: |
+          echo "gocache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
+          echo "gomodcache=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore Go caches
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ${{ steps.go-env.outputs.gocache }}
+            ${{ steps.go-env.outputs.gomodcache }}
+          key: go-${{ runner.os }}-go1.26-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            go-${{ runner.os }}-go1.26-
 
       - name: build
         shell: bash
