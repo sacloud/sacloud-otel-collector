@@ -1,0 +1,9 @@
+type: selfmetrics
+
+status:
+  class: receiver
+  stability:
+    alpha: [metrics]
+  distributions: []
+  codeowners:
+    active: []

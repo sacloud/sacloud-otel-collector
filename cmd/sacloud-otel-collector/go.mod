@@ -30,6 +30,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.154.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.154.0
 	github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0
+	github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0
 	go.opentelemetry.io/collector/component v1.61.0
 	go.opentelemetry.io/collector/confmap v1.61.0
 	go.opentelemetry.io/collector/confmap/provider/envprovider v1.60.0
@@ -474,5 +475,7 @@ require (
 	sigs.k8s.io/structured-merge-diff/v6 v6.3.2 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
+
+replace github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0 => ../../receiver/selfmetricsreceiver
 
 replace github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0 => ../../exporter/sacloudexporter
