@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.7.4](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.3...v0.7.4) - 2026-07-26
+
+- Add selfmetrics receiver for collector self-monitoring by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/124
+- Enable Go build cache in test and release workflows by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/127
+- build(deps): bump Songmu/tagpr from 1.19.0 to 1.20.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/112
+- build(deps): bump google.golang.org/grpc from 1.82.0 to 1.82.1 in /cmd/sacloud-otel-collector by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/125
+- Unify Go cache key across workflows by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/128
+- build(deps): bump GitHub Actions (checkout v7, setup-go v7, goreleaser-action v7.2.3) by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/129
+- build(deps): bump google.golang.org/grpc from 1.81.1 to 1.82.1 in /receiver/selfmetricsreceiver by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/130
+
 ## [v0.7.3](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.2...v0.7.3) - 2026-07-21
 - Add component policy document by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/120
 - Update mackerelotlpexporter to v0.15.0 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/122
