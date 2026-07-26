@@ -279,99 +279,16 @@ exporters:
 
 #### Using standard exporters
 
-Alternatively, you can use standard exporters directly:
+It is also possible to send telemetry to the SAKURA Cloud Monitoring Suite
+without the sacloud exporter, using the standard `otlphttp` and
+`prometheusremotewrite` exporters with the endpoint URLs and Bearer tokens.
 
-```yaml
-receivers:
-  otlp:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:4317
-      http:
-        endpoint: 0.0.0.0:4318
-  hostmetrics:
-    collection_interval: 10s
-    scrapers:
-      cpu:
-        metrics:
-          system.cpu.utilization:
-            enabled: true
-      memory:
-        metrics:
-          system.memory.utilization:
-            enabled: true
-      disk:
-      filesystem:
-        metrics:
-          system.filesystem.utilization:
-            enabled: true
-      network:
-      paging:
-        metrics:
-          system.paging.utilization:
-            enabled: true
-  filelog:
-    start_at: end
-    exclude: []
-    include:
-      - /var/log/example.log
-
-processors:
-  resourcedetection:
-    detectors: [system]
-    system:
-      hostname_sources: [os]
-  batch:
-    timeout: 1s
-    # Adjust the send_batch_size/send_batch_max_size so that
-    # the payload size of a single request does not exceed 5 MiB.
-    send_batch_size: 4096
-    send_batch_max_size: 4096
-
-# You should replace `****` to your monitoring suite's configurations.
-exporters:
-  otlphttp/sakura-monitoring-suite-log:
-    endpoint: https://****.logs.monitoring.global.api.sacloud.jp
-    headers:
-      Authorization: "Bearer ****"
-  prometheusremotewrite/sakura-monitoring-suite-metrics:
-    endpoint: https://****.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write
-    headers:
-      Authorization: "Bearer ****"
-    resource_to_telemetry_conversion:
-      enabled: true
-  otlphttp/sakura-monitoring-suite-trace:
-    endpoint: https://****.traces.monitoring.global.api.sacloud.jp
-    headers:
-      Authorization: "Bearer ****"
-
-service:
-  pipelines:
-    metrics:
-      receivers:
-        - hostmetrics
-      processors:
-        - resourcedetection
-        - batch
-      exporters:
-        - prometheusremotewrite/sakura-monitoring-suite-metrics
-    logs:
-      receivers:
-        - filelog
-      processors:
-        - resourcedetection
-        - batch
-      exporters:
-        - otlphttp/sakura-monitoring-suite-log
-    traces:
-      receivers:
-        - otlp
-      processors:
-        - resourcedetection
-        - batch
-      exporters:
-        - otlphttp/sakura-monitoring-suite-trace
-```
+However, this is not recommended. You have to tune the batch settings
+yourself, and a misconfigured batch can produce requests exceeding the
+Monitoring Suite's request size limit; such requests are rejected and their
+telemetry is lost. The sacloud exporter applies batching and queue defaults
+that stay within the limits, so use it unless you have a specific reason
+not to.
 
 ### Self-monitoring
 
