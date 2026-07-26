@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.7.5](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.4...v0.7.5) - 2026-07-26
+
+- Bump google.golang.org/grpc to 1.82.1 in sacloudexporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/131
+- build(deps): bump actions/checkout from 7.0.0 to 7.0.1 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/111
+- Use actions/cache with restore-keys for Go caches by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/133
+
 ## [v0.7.4](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.3...v0.7.4) - 2026-07-26
 
 - Add selfmetrics receiver for collector self-monitoring by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/124
