@@ -5,6 +5,7 @@ go 1.25.0
 require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.154.0
 	go.opentelemetry.io/collector/component v1.60.0
+	go.opentelemetry.io/collector/component/componenttest v0.154.0
 	go.opentelemetry.io/collector/config/configcompression v1.60.0
 	go.opentelemetry.io/collector/config/configopaque v1.60.0
 	go.opentelemetry.io/collector/config/configoptional v1.60.0
@@ -126,6 +127,8 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.69.0 // indirect
 	go.opentelemetry.io/otel v1.44.0 // indirect
 	go.opentelemetry.io/otel/metric v1.44.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.44.0 // indirect
+	go.opentelemetry.io/otel/sdk/metric v1.44.0 // indirect
 	go.opentelemetry.io/otel/trace v1.44.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect

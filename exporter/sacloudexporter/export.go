@@ -44,8 +44,15 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	// The prometheusremotewrite exporter's queue has no storage extension
 	// support, so sending_queue.storage cannot be applied to metrics.
 	if cfg.SendingQueue.Storage != nil {
-		set.Logger.Warn("sending_queue.storage is not supported for metrics and will be ignored",
-			zap.Stringer("storage", cfg.SendingQueue.Storage))
+		if cfg.Logs.Endpoint == "" && cfg.Traces.Endpoint == "" {
+			// Storage has no effect at all in a metrics-only setup;
+			// this is most likely a misconfiguration.
+			set.Logger.Warn("sending_queue.storage has no effect: it is not supported for metrics and no logs/traces endpoints are configured",
+				zap.Stringer("storage", cfg.SendingQueue.Storage))
+		} else {
+			set.Logger.Info("sending_queue.storage applies to logs/traces only; metrics are not persisted",
+				zap.Stringer("storage", cfg.SendingQueue.Storage))
+		}
 	}
 
 	// Apply remote write queue configuration
