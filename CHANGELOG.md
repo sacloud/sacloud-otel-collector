@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.7.6](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.5...v0.7.6) - 2026-07-28
+
+- Remove standard exporters config example from README by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/134
+- Update mackerelotlpexporter to v0.15.1 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/136
+
 ## [v0.7.5](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.4...v0.7.5) - 2026-07-26
 
 - Bump google.golang.org/grpc to 1.82.1 in sacloudexporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/131
