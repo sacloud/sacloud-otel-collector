@@ -11,6 +11,7 @@ import (
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/exporter/otlphttpexporter"
+	"go.uber.org/zap"
 )
 
 // newMetricsExporter creates a new metrics exporter using prometheusremotewriteexporter.
@@ -39,6 +40,13 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 
 	// Apply retry configuration
 	prwCfg.BackOffConfig = cfg.GetRetryConfig()
+
+	// The prometheusremotewrite exporter's queue has no storage extension
+	// support, so sending_queue.storage cannot be applied to metrics.
+	if cfg.SendingQueue.Storage != nil {
+		set.Logger.Warn("sending_queue.storage is not supported for metrics and will be ignored",
+			zap.Stringer("storage", cfg.SendingQueue.Storage))
+	}
 
 	// Apply remote write queue configuration
 	prwCfg.RemoteWriteQueue.Enabled = true
@@ -83,9 +91,11 @@ func newLogsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (e
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
 	// Apply sending queue configuration
-	otlpCfg.QueueConfig = configoptional.Some(defaultSendingQueueConfig())
+	otlpCfg.QueueConfig = configoptional.Some(cfg.sendingQueueConfig())
 
-	// Create new settings with the correct component type
+	// Create new settings with the correct component type.
+	// The rewritten ID is part of the persistent queue's storage key;
+	// changing it would orphan data already queued in a storage extension.
 	otlpSet := exporter.Settings{
 		ID:                component.NewIDWithName(factory.Type(), set.ID.Name()),
 		TelemetrySettings: set.TelemetrySettings,
@@ -120,9 +130,11 @@ func newTracesExporter(ctx context.Context, set exporter.Settings, cfg *Config) 
 	otlpCfg.RetryConfig = cfg.GetRetryConfig()
 
 	// Apply sending queue configuration
-	otlpCfg.QueueConfig = configoptional.Some(defaultSendingQueueConfig())
+	otlpCfg.QueueConfig = configoptional.Some(cfg.sendingQueueConfig())
 
-	// Create new settings with the correct component type
+	// Create new settings with the correct component type.
+	// The rewritten ID is part of the persistent queue's storage key;
+	// changing it would orphan data already queued in a storage extension.
 	otlpSet := exporter.Settings{
 		ID:                component.NewIDWithName(factory.Type(), set.ID.Name()),
 		TelemetrySettings: set.TelemetrySettings,

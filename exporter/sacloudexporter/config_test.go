@@ -4,11 +4,14 @@ import (
 	"testing"
 	"time"
 
+	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 )
 
 func TestConfig_Validate(t *testing.T) {
+	storageID := component.MustNewID("file_storage")
+
 	tests := []struct {
 		name    string
 		cfg     Config
@@ -110,6 +113,19 @@ func TestConfig_Validate(t *testing.T) {
 				Metrics: MetricsEndpointConfig{
 					Endpoint: "http://example.com",
 					Token:    "test-token",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid config with sending_queue storage",
+			cfg: Config{
+				Logs: EndpointConfig{
+					Endpoint: "123456789012",
+					Token:    "test-token",
+				},
+				SendingQueue: SendingQueueConfig{
+					Storage: &storageID,
 				},
 			},
 			wantErr: false,
@@ -443,6 +459,53 @@ func TestConfig_GetRetryConfig(t *testing.T) {
 				if got.MaxElapsedTime != defaultCfg.MaxElapsedTime {
 					t.Errorf("Config.GetRetryConfig().MaxElapsedTime = %v, want %v", got.MaxElapsedTime, defaultCfg.MaxElapsedTime)
 				}
+			}
+		})
+	}
+}
+
+func TestConfig_SendingQueueConfig(t *testing.T) {
+	storageID := component.MustNewID("file_storage")
+
+	tests := []struct {
+		name    string
+		storage *component.ID
+	}{
+		{
+			name:    "no storage uses in-memory queue",
+			storage: nil,
+		},
+		{
+			name:    "storage is propagated to the queue config",
+			storage: &storageID,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cfg := &Config{
+				SendingQueue: SendingQueueConfig{Storage: tt.storage},
+			}
+			got := cfg.sendingQueueConfig()
+			if got.StorageID != tt.storage {
+				t.Errorf("sendingQueueConfig().StorageID = %v, want %v", got.StorageID, tt.storage)
+			}
+			// Fixed defaults must not change regardless of storage
+			if got.QueueSize != defaultSendingQueueSize {
+				t.Errorf("sendingQueueConfig().QueueSize = %v, want %v", got.QueueSize, defaultSendingQueueSize)
+			}
+			if got.NumConsumers != defaultSendingNumConsumers {
+				t.Errorf("sendingQueueConfig().NumConsumers = %v, want %v", got.NumConsumers, defaultSendingNumConsumers)
+			}
+			batch := got.Batch.Get()
+			if batch == nil {
+				t.Fatal("sendingQueueConfig().Batch is not set")
+			}
+			if batch.MaxSize != defaultBatchMaxSize {
+				t.Errorf("sendingQueueConfig().Batch.MaxSize = %v, want %v", batch.MaxSize, defaultBatchMaxSize)
+			}
+			if batch.FlushTimeout != defaultBatchFlushTimeout {
+				t.Errorf("sendingQueueConfig().Batch.FlushTimeout = %v, want %v", batch.FlushTimeout, defaultBatchFlushTimeout)
 			}
 		})
 	}

@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
@@ -53,6 +54,20 @@ type Config struct {
 
 	// Traces configuration for SAKURA Cloud Monitoring Suite traces storage.
 	Traces EndpointConfig `mapstructure:"traces"`
+
+	// SendingQueue configuration. Only the storage extension reference is
+	// exposed; other queue settings are fixed to safe defaults for the
+	// SAKURA Cloud Monitoring Suite limits.
+	SendingQueue SendingQueueConfig `mapstructure:"sending_queue"`
+}
+
+// SendingQueueConfig defines the user-configurable subset of the sending queue.
+type SendingQueueConfig struct {
+	// Storage is the ID of a storage extension (e.g. file_storage) to enable
+	// a persistent queue for logs and traces. If unset, an in-memory queue is
+	// used. Metrics are not supported: the underlying prometheusremotewrite
+	// exporter has no storage extension support.
+	Storage *component.ID `mapstructure:"storage"`
 }
 
 // MetricsEndpointConfig defines configuration for metrics signal.
@@ -180,13 +195,15 @@ func (cfg *Config) TracesEndpointURL() string {
 	return fmt.Sprintf(tracesEndpointPattern, cfg.Traces.Endpoint)
 }
 
-// defaultSendingQueueConfig returns the default QueueBatchConfig for logs/traces.
-// This configuration ensures safe operation within SAKURA Cloud Monitoring Suite limits.
-func defaultSendingQueueConfig() exporterhelper.QueueBatchConfig {
+// sendingQueueConfig returns the QueueBatchConfig for logs/traces: fixed
+// defaults that ensure safe operation within SAKURA Cloud Monitoring Suite
+// limits, plus the user-configured storage extension if any.
+func (cfg *Config) sendingQueueConfig() exporterhelper.QueueBatchConfig {
 	return exporterhelper.QueueBatchConfig{
 		Sizer:        exporterhelper.RequestSizerTypeBytes,
 		QueueSize:    defaultSendingQueueSize,
 		NumConsumers: defaultSendingNumConsumers,
+		StorageID:    cfg.SendingQueue.Storage,
 		Batch: configoptional.Some(exporterhelper.BatchConfig{
 			FlushTimeout: defaultBatchFlushTimeout,
 			Sizer:        exporterhelper.RequestSizerTypeBytes,
