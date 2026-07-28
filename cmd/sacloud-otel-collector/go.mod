@@ -5,7 +5,7 @@ module go.opentelemetry.io/collector/cmd/builder
 go 1.25.0
 
 require (
-	github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.0
+	github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.1
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.154.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.154.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.154.0
