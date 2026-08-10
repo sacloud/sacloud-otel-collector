@@ -49,6 +49,9 @@ If only an identifier is provided, it will be expanded to the full URL (with `ht
 | `retry_on_failure.initial_interval` | `5s` | Initial retry interval |
 | `retry_on_failure.max_interval` | `30s` | Maximum retry interval |
 | `retry_on_failure.max_elapsed_time` | `5m` | Maximum elapsed time for retries |
+| `sending_queue.storage` | (none) | ID of a storage extension (e.g. `file_storage`) to persist the sending queue for logs and traces. If unset, an in-memory queue is used. Not supported for metrics (the underlying prometheusremotewrite exporter has no storage support). |
+
+Other sending queue settings (queue size, batch size, number of consumers) are intentionally not configurable: they are fixed to values that operate safely within SAKURA Cloud Monitoring Suite limits.
 
 ## Example
 
@@ -92,6 +95,30 @@ exporters:
     metrics:
       endpoint: "123456789012"
       token: "${SACLOUD_METRICS_TOKEN}"
+```
+
+### With a persistent sending queue (logs/traces)
+
+Configure a [file_storage](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/extension/storage/filestorage) extension and reference it from `sending_queue.storage`. Queued logs and traces then survive collector restarts. Metrics are not affected by this setting.
+
+```yaml
+extensions:
+  file_storage:
+    directory: /var/lib/otelcol/storage
+
+exporters:
+  sacloud:
+    sending_queue:
+      storage: file_storage
+    logs:
+      endpoint: "123456789012"
+      token: "${SACLOUD_LOGS_TOKEN}"
+    traces:
+      endpoint: "123456789012"
+      token: "${SACLOUD_TRACES_TOKEN}"
+
+service:
+  extensions: [file_storage]
 ```
 
 ## Internal Behavior
