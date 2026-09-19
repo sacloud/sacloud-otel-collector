@@ -88,3 +88,23 @@ func TestNewMetricsExporter_StorageLog(t *testing.T) {
 		})
 	}
 }
+
+func TestNewMetricsExporter_NoDeprecatedResourceToTelemetry(t *testing.T) {
+	core, observed := observer.New(zapcore.InfoLevel)
+	set := exporter.Settings{
+		ID:                component.NewID(component.MustNewType("sacloud")),
+		TelemetrySettings: componenttest.NewNopTelemetrySettings(),
+	}
+	set.Logger = zap.New(core)
+
+	cfg := &Config{
+		Metrics: MetricsEndpointConfig{Endpoint: "123456789012", Token: "token"},
+	}
+	if _, err := newMetricsExporter(context.Background(), set, cfg); err != nil {
+		t.Fatalf("newMetricsExporter() error = %v", err)
+	}
+
+	if logs := observed.FilterMessageSnippet("resource_to_telemetry_conversion").All(); len(logs) != 0 {
+		t.Fatalf("expected no resource_to_telemetry_conversion deprecation log, got %v", logs)
+	}
+}

@@ -125,7 +125,7 @@ service:
 
 ### Metrics
 - Uses Prometheus Remote Write protocol with Snappy compression
-- Resource attributes are converted to metric labels (`resource_to_telemetry_settings.enabled: true`)
+- Resource attributes are converted to metric labels (`resource_constant_labels.included: ["*"]`)
 - Default queue size: 10,000 items
 - Default batch size: 4 MiB per request
 

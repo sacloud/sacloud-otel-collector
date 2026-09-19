@@ -35,8 +35,8 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	// Enable compression (snappy is required by Prometheus remote write protocol)
 	prwCfg.ClientConfig.Compression = configcompression.TypeSnappy
 
-	// Enable resource to telemetry conversion
-	prwCfg.ResourceToTelemetrySettings.Enabled = true
+	// Convert all resource attributes to metric labels
+	prwCfg.ResourceConstantLabels.Included = []string{"*"}
 
 	// Apply retry configuration
 	prwCfg.BackOffConfig = cfg.GetRetryConfig()
