@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.8.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.6...v0.8.0) - 2026-09-19
+
+- Add sending_queue.storage support to sacloud exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/137
+- Drop synthetic scrape metrics from selfmetrics receiver by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/138
+- Rename CLAUDE.md to AGENTS.md by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/146
+- build(deps): bump Songmu/tagpr from 1.20.0 to 1.20.2 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/145
+- build(deps): bump docker/setup-buildx-action from 4.1.0 to 4.3.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/144
+- build(deps): bump docker/login-action from 4.2.0 to 4.6.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/140
+- build(deps): bump docker/setup-qemu-action from 4.1.0 to 4.2.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/139
+- Upgrade OpenTelemetry Collector to v0.161.0 by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/147
+
 ## [v0.7.6](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.5...v0.7.6) - 2026-07-28
 
 - Remove standard exporters config example from README by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/134
