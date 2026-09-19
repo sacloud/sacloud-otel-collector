@@ -21,9 +21,9 @@ v0.161.0 ships `grpc` v1.83.2, `thrift` v0.24.0, `otel/sdk` v1.46.0, `otlploggrp
 
 ## Impact Summary
 
-The components used by the default `config.yaml` (`otlp` receiver, `batch` processor, `debug` exporter, `health_check` extension) are **not affected** by any config-level breaking change in this range. If you only use those, your existing configuration continues to validate and run unchanged.
+Whether you are affected depends on which components your configuration uses. Review the section of each component you use under [Breaking Changes by Component](#breaking-changes-by-component); the [Core Collector Changes](#core-collector-changes) apply to every configuration. Components that need no action are listed under [Components with No Breaking Changes](#components-with-no-breaking-changes).
 
-The breaking changes below matter only if your configuration uses the affected components. The most important classes of change are:
+The most important classes of change are:
 
 1. **Silent behavior changes** — `hostmetrics` CPU metrics are no longer reported per logical CPU by default, and the OTTL `set` function no longer ignores `nil` values.
 2. **Config-invalidating removals** — the `kafka` exporter/receiver removed several deprecated config fields, and the OTTL `Base64Decode` converter was removed; configs that still use them will be rejected by `validate`.
