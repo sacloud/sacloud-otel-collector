@@ -32,6 +32,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ inputs.tag == '' }}
 
+      - name: Add upgrading guide link to release notes
+        run: .github/scripts/add-upgrade-guide-link.sh "$TAG"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.tagpr.outputs.tag || inputs.tag }}
+        if: ${{ steps.tagpr.outputs.tag != '' || inputs.tag != '' }}
+
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:

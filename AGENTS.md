@@ -55,6 +55,7 @@ When upgrading to a new OpenTelemetry Collector version:
 4. **Fix replace directives** - After `make build-src`, check `cmd/sacloud-otel-collector/go.mod` for absolute paths in replace directives. They should be relative paths like `../../exporter/sacloudexporter`.
 
 5. **Document breaking changes** - Create/update `docs/UPGRADE_vX_to_vY.md` for significant version upgrades with breaking changes.
+   - Name it `docs/UPGRADE_vX.Y_to_vX.Z.md` (e.g. `UPGRADE_v0.7_to_v0.8.md`). The release workflow automatically links it from the release notes of `vX.Z.0`.
 
 6. **Verify documentation** - After writing upgrade documentation, fetch each URL and verify that the linked PR/issue content matches the description. PR numbers from changelogs are often incorrect.
 
