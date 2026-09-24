@@ -63,6 +63,8 @@ jobs:
   test-windows:
     name: test build (Windows)
     runs-on: windows-latest
+    env:
+      GO_VERSION: "1.27"
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -70,7 +72,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
-          go-version: "1.27"
+          go-version: ${{ env.GO_VERSION }}
           cache: false
 
       - name: Get Go cache paths
@@ -86,9 +88,9 @@ jobs:
           path: |
             ${{ steps.go-env.outputs.gocache }}
             ${{ steps.go-env.outputs.gomodcache }}
-          key: go-${{ runner.os }}-go1.26-${{ hashFiles('**/go.sum') }}
+          key: go-${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('**/go.sum') }}
           restore-keys: |
-            go-${{ runner.os }}-go1.26-
+            go-${{ runner.os }}-go${{ env.GO_VERSION }}-
 
       - name: build
         shell: bash
