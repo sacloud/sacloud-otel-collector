@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.8.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.8.0...v0.8.1) - 2026-09-24
+
+- Fix Go version in Windows CI cache key by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/149
+- Link upgrading guide from release notes automatically by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/148
+- Generate README component tables from builder-config.yaml by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/151
+
 ## [v0.8.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.6...v0.8.0) - 2026-09-19
 
 - Add sending_queue.storage support to sacloud exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/137
