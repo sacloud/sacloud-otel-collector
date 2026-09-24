@@ -44,6 +44,9 @@ jobs:
           restore-keys: |
             go-${{ runner.os }}-go${{ matrix.go-version }}-
 
+      - name: check README component links
+        run: make check-readme-links
+
       - name: build and test
         run: |
           make

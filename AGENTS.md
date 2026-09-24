@@ -29,13 +29,14 @@ To add new components to the collector:
 1. Edit `builder-config.yaml` and add the component's gomod reference
 2. Run `make build-src` to regenerate the source
 3. Run `make sacloud-otel-collector` to build the binary
-4. Update the README.md component table if needed
+4. Add the component to the README.md component table. The documentation link may use any ref (e.g. `tree/main/...`); run `make readme-links` to pin it to the version in `builder-config.yaml`
 5. Commit changes with descriptive message
 
 ## Component Management
 
 - All available components are listed in `builder-config.yaml`
 - The README.md maintains a table of all components with links to official documentation
+- Documentation links are pinned to the component versions in `builder-config.yaml` by `scripts/update-readme-links.pl` (run by `make build-src` / `make readme-links`). CI runs `make check-readme-links` to detect stale or missing links
 - Configuration details for each component should reference the official OpenTelemetry documentation
 
 ## Upgrading OpenTelemetry Collector Version
