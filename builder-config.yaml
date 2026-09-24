@@ -5,41 +5,102 @@ dist:
 
 exporters:
   - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.161.0
+    type: debug
+    description: Debug exporter
   - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.161.0
+    type: otlp
+    description: OpenTelemetry Protocol exporter
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.161.0
+    type: prometheusremotewrite
+    description: Prometheus Remote Write exporter
   - gomod: go.opentelemetry.io/collector/exporter/otlphttpexporter v0.161.0
+    type: otlphttp
+    description: OTLP HTTP exporter
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.161.0
+    type: file
+    description: File exporter
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.161.0
+    type: elasticsearch
+    description: Elasticsearch exporter
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.161.0
+    type: awss3
+    description: AWS S3 exporter
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter v0.161.0
+    type: kafka
+    description: Kafka exporter
   - gomod: github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0
     path: ./exporter/sacloudexporter
+    type: sacloud
+    description: SAKURA Cloud Monitoring Suite exporter
+    doc: "#sakuracloud-monitoring-suite"
   - gomod: github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.1
+    type: mackerelotlp
+    description: Mackerel OTLP exporter
 
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.161.0
+    type: batch
+    description: Batch processor
   - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.161.0
+    type: memorylimiter
+    description: Memory limiter processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.161.0
+    type: resource
+    description: Resource processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.161.0
+    type: attributes
+    description: Attributes processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.161.0
+    type: transform
+    description: Transform processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.161.0
+    type: filter
+    description: Filter processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/deltatocumulativeprocessor v0.161.0
+    type: delta_to_cumulative
+    description: Delta to cumulative processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor v0.161.0
+    type: resourcedetection
+    description: Resource detection processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor v0.161.0
+    type: tailsampling
+    description: Tail sampling processor
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.161.0
+    type: groupbyattrs
+    description: Group by attributes processor
 
 receivers:
   - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.161.0
+    type: otlp
+    description: OpenTelemetry Protocol receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.161.0
+    type: prometheus
+    description: Prometheus metrics receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.161.0
+    type: hostmetrics
+    description: Host metrics receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver v0.161.0
+    type: jaeger
+    description: Jaeger traces receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.161.0
+    type: kafka
+    description: Kafka receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.161.0
+    type: filelog
+    description: File log receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.161.0
+    type: fluentforward
+    description: Fluent Forward receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.161.0
+    type: journald
+    description: Journald receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.161.0
+    type: windowseventlog
+    description: Windows Event Log receiver (Windows only)
   - gomod: github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0
     path: ./receiver/selfmetricsreceiver
+    type: selfmetrics
+    description: Collector self-monitoring metrics receiver
 
 providers:
   - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.67.0
@@ -50,4 +111,8 @@ providers:
 
 extensions:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.161.0
+    type: health_check
+    description: Health check extension
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage v0.161.0
+    type: file_storage
+    description: File storage extension

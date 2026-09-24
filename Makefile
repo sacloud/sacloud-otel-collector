@@ -19,15 +19,17 @@ build-src: ocb
 	# Fix absolute paths in replace directives to relative paths
 	perl -pi -E 's{=> \S+/((?:exporter|receiver)/[\w-]+)$$}{=> ../../$$1}' cmd/sacloud-otel-collector/go.mod
 	cd cmd/sacloud-otel-collector && go fmt ./...
-	./scripts/update-readme-links.pl
+	$(MAKE) readme
 
-.PHONY: readme-links
-readme-links:
-	./scripts/update-readme-links.pl
+# Generate the component tables in README.md from builder-config.yaml
+.PHONY: readme
+readme:
+	go -C tools/readmegen run . -config ../../builder-config.yaml -readme ../../README.md
 
-.PHONY: check-readme-links
-check-readme-links:
-	./scripts/update-readme-links.pl --check
+.PHONY: check-readme
+check-readme:
+	go -C tools/readmegen test ./...
+	go -C tools/readmegen run . -config ../../builder-config.yaml -readme ../../README.md -check
 
 sacloud-otel-collector: cmd/sacloud-otel-collector/*.go cmd/sacloud-otel-collector/go.* exporter/sacloudexporter/*.go exporter/sacloudexporter/* receiver/selfmetricsreceiver/*.go receiver/selfmetricsreceiver/*
 	cd cmd/sacloud-otel-collector && go build -o ../../sacloud-otel-collector .
