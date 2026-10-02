@@ -11,6 +11,7 @@ import (
 	elasticsearchexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter"
 	fileexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter"
 	kafkaexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter"
+	loadbalancingexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
 	prometheusremotewriteexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter"
 	healthcheckextension "github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension"
 	filestorage "github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage"
@@ -120,6 +121,7 @@ func components() (otelcol.Factories, error) {
 		elasticsearchexporter.NewFactory(),
 		awss3exporter.NewFactory(),
 		kafkaexporter.NewFactory(),
+		loadbalancingexporter.NewFactory(),
 		sacloudexporter.NewFactory(),
 		mackerelotlpexporter.NewFactory(),
 	)
@@ -135,6 +137,7 @@ func components() (otelcol.Factories, error) {
 		elasticsearchexporter.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.161.0",
 		awss3exporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.161.0",
 		kafkaexporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter v0.161.0",
+		loadbalancingexporter.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter v0.161.0",
 		sacloudexporter.NewFactory().Type():               "github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0",
 		mackerelotlpexporter.NewFactory().Type():          "github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.1",
 	})

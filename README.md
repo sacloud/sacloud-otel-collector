@@ -155,6 +155,7 @@ For more details, see [builder-config.yaml](builder-config.yaml). Documentation 
 | elasticsearch | Elasticsearch exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/elasticsearchexporter/v0.161.0/exporter/elasticsearchexporter) |
 | awss3 | AWS S3 exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/awss3exporter/v0.161.0/exporter/awss3exporter) |
 | kafka | Kafka exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/kafkaexporter/v0.161.0/exporter/kafkaexporter) |
+| load_balancing | Load balancing exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/loadbalancingexporter/v0.161.0/exporter/loadbalancingexporter) |
 | sacloud | SAKURA Cloud Monitoring Suite exporter | [Documentation](#sakuracloud-monitoring-suite) |
 | mackerelotlp | Mackerel OTLP exporter | [Documentation](https://github.com/mackerelio/opentelemetry-collector-mackerel/tree/exporter/mackerelotlpexporter/v0.15.1/exporter/mackerelotlpexporter) |
 
