@@ -2,3 +2,33 @@ changelog:
   exclude:
     labels:
       - tagpr
+  # A PR is listed under the first category that matches its labels.
+  # Keep this in sync with the "Pull Request Labels" section in AGENTS.md.
+  categories:
+    - title: ⚠️ Breaking Changes
+      labels:
+        - breaking-change
+    - title: 🧩 New Components
+      labels:
+        - new-component
+    - title: 🚀 Enhancements
+      labels:
+        - enhancement
+    - title: 🐛 Bug Fixes
+      labels:
+        - bug
+    - title: 📝 Documentation
+      labels:
+        - documentation
+    # Before Dependencies so that Dependabot's GitHub Actions bumps
+    # (labeled both dependencies and github_actions) land here
+    - title: 🔧 Maintenance
+      labels:
+        - ci
+        - github_actions
+    - title: 📦 Dependencies
+      labels:
+        - dependencies
+    - title: Other Changes
+      labels:
+        - "*"
