@@ -4,6 +4,9 @@ package main
 
 import (
 	mackerelotlpexporter "github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter"
+	countconnector "github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector"
+	routingconnector "github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector"
+	spanmetricsconnector "github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector"
 	awss3exporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter"
 	elasticsearchexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter"
 	fileexporter "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter"
@@ -161,11 +164,19 @@ func components() (otelcol.Factories, error) {
 		groupbyattrsprocessor.NewFactory().Type():      "github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.161.0",
 	})
 
-	factories.Connectors, err = otelcol.MakeFactoryMap[connector.Factory]()
+	factories.Connectors, err = otelcol.MakeFactoryMap[connector.Factory](
+		spanmetricsconnector.NewFactory(),
+		countconnector.NewFactory(),
+		routingconnector.NewFactory(),
+	)
 	if err != nil {
 		return otelcol.Factories{}, err
 	}
-	factories.ConnectorModules = makeModulesMap(factories.Connectors, map[component.Type]string{})
+	factories.ConnectorModules = makeModulesMap(factories.Connectors, map[component.Type]string{
+		spanmetricsconnector.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector v0.161.0",
+		countconnector.NewFactory().Type():       "github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector v0.161.0",
+		routingconnector.NewFactory().Type():     "github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector v0.161.0",
+	})
 
 	return factories, nil
 }

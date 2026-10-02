@@ -6,6 +6,9 @@ go 1.26.0
 
 require (
 	github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.1
+	github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector v0.161.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector v0.161.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector v0.161.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.161.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.161.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.161.0

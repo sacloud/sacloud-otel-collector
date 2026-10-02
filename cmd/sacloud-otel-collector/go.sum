@@ -579,6 +579,12 @@ github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f h1:KUppIJq7/+
 github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/oklog/ulid/v2 v2.1.2 h1:IEclFb9JNvzYA6MW2SCxbLzcHTVsfqm3PrqGQJH5zec=
 github.com/oklog/ulid/v2 v2.1.2/go.mod h1:rcEKHmBBKfef9DhnvX7y1HZBYxjXb0cP5ExxNsTT1QQ=
+github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector v0.161.0 h1:oAWUukwSBH4kgxfeitTEcOB18ZFrUgDtB7EfJKIfig4=
+github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector v0.161.0/go.mod h1:RoQ3gOdD1h7QoDU+cwJlklgeQM0GCcqJD3zSEv0G9eQ=
+github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector v0.161.0 h1:brgI6Zc26Oulo1a3NsiPPgEnoSe8mc6Cd59pEmsUZTE=
+github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector v0.161.0/go.mod h1:vnALUi5otsp1bJM0UTarPYVtHR588vGrUOcLqtAK8d4=
+github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector v0.161.0 h1:9JtpEZvAiiOXnu6Zy8N9lo1myLP8fQ1mWXa3xnrQ/aI=
+github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector v0.161.0/go.mod h1:71Mk3AdRyw62Vr+G6cB+5keXizONgv6gQsgM0LhHEz0=
 github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.161.0 h1:LFhO63l2L+9LnZXgjnioisg8qIhIc9oyhGDEv1djyiE=
 github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.161.0/go.mod h1:RyubTpsMGRnTWCfyY0nhCL2I2rLzHYginD8d8oHElF4=
 github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.161.0 h1:uvzTBPtMbdATDucKfF3aIds4udfuRMy+09BAue28k5M=
