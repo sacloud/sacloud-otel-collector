@@ -28,6 +28,9 @@ exporters:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter v0.161.0
     type: kafka
     description: Kafka exporter
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter v0.161.0
+    type: load_balancing
+    description: Load balancing exporter
   - gomod: github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0
     path: ./exporter/sacloudexporter
     type: sacloud
