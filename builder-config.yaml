@@ -91,6 +91,9 @@ receivers:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.161.0
     type: fluentforward
     description: Fluent Forward receiver
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.161.0
+    type: syslog
+    description: Syslog receiver
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.161.0
     type: journald
     description: Journald receiver

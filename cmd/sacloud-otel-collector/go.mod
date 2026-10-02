@@ -31,6 +31,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.161.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.161.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.161.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.161.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.161.0
 	github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0
 	github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0

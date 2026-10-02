@@ -91,6 +91,19 @@ Reload configuration after changes:
 sudo systemctl reload sacloud-otel-collector
 ```
 
+#### Listening on privileged ports
+
+The service runs as the unprivileged `sacloud-otelcol` user, so receivers cannot bind to ports below 1024 (e.g. syslog on port 514). Either configure the receiver to listen on a port of 1024 or above (e.g. `5140`), or grant the capability with a systemd drop-in:
+
+```bash
+sudo systemctl edit sacloud-otel-collector
+```
+
+```ini
+[Service]
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+```
+
 ## Components
 
 The sacloud-otel-collector includes the following OpenTelemetry components:
@@ -110,6 +123,7 @@ For more details, see [builder-config.yaml](builder-config.yaml). Documentation 
 | kafka | Kafka receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/kafkareceiver/v0.161.0/receiver/kafkareceiver) |
 | filelog | File log receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/filelogreceiver/v0.161.0/receiver/filelogreceiver) |
 | fluentforward | Fluent Forward receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/fluentforwardreceiver/v0.161.0/receiver/fluentforwardreceiver) |
+| syslog | Syslog receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/syslogreceiver/v0.161.0/receiver/syslogreceiver) |
 | journald | Journald receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/journaldreceiver/v0.161.0/receiver/journaldreceiver) |
 | windowseventlog | Windows Event Log receiver (Windows only) | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/windowseventlogreceiver/v0.161.0/receiver/windowseventlogreceiver) |
 | selfmetrics | Collector self-monitoring metrics receiver | [Documentation](receiver/selfmetricsreceiver/README.md) |

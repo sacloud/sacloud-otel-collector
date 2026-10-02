@@ -29,6 +29,7 @@ import (
 	journaldreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver"
 	kafkareceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver"
 	prometheusreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver"
+	syslogreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver"
 	windowseventlogreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver"
 	sacloudexporter "github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter"
 	selfmetricsreceiver "github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver"
@@ -88,6 +89,7 @@ func components() (otelcol.Factories, error) {
 		kafkareceiver.NewFactory(),
 		filelogreceiver.NewFactory(),
 		fluentforwardreceiver.NewFactory(),
+		syslogreceiver.NewFactory(),
 		journaldreceiver.NewFactory(),
 		windowseventlogreceiver.NewFactory(),
 		selfmetricsreceiver.NewFactory(),
@@ -103,6 +105,7 @@ func components() (otelcol.Factories, error) {
 		kafkareceiver.NewFactory().Type():           "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.161.0",
 		filelogreceiver.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.161.0",
 		fluentforwardreceiver.NewFactory().Type():   "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.161.0",
+		syslogreceiver.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.161.0",
 		journaldreceiver.NewFactory().Type():        "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.161.0",
 		windowseventlogreceiver.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.161.0",
 		selfmetricsreceiver.NewFactory().Type():     "github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0",
