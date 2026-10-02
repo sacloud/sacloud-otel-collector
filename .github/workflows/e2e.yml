@@ -10,6 +10,8 @@ jobs:
   e2e:
     name: e2e (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    env:
+      GO_VERSION: "1.27"
     strategy:
       fail-fast: false
       matrix:
@@ -21,7 +23,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
-          go-version: "1.27"
+          go-version: ${{ env.GO_VERSION }}
           # setup-go's cache matches keys exactly, and almost every change
           # in this repo updates go.sum, so it would rarely hit. Use
           # actions/cache below with restore-keys for prefix fallback.
@@ -40,9 +42,11 @@ jobs:
           path: |
             ${{ steps.go-env.outputs.gocache }}
             ${{ steps.go-env.outputs.gomodcache }}
-          key: go-${{ runner.os }}-go1.26-${{ hashFiles('**/go.sum') }}
+          # test.yml restores this cache on pull requests, so the key must
+          # match the Go version actually used
+          key: go-${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('**/go.sum') }}
           restore-keys: |
-            go-${{ runner.os }}-go1.26-
+            go-${{ runner.os }}-go${{ env.GO_VERSION }}-
 
       - name: Build collector
         shell: bash
