@@ -144,6 +144,14 @@ For more details, see [builder-config.yaml](builder-config.yaml). Documentation 
 | sacloud | SAKURA Cloud Monitoring Suite exporter | [Documentation](#sakuracloud-monitoring-suite) |
 | mackerelotlp | Mackerel OTLP exporter | [Documentation](https://github.com/mackerelio/opentelemetry-collector-mackerel/tree/exporter/mackerelotlpexporter/v0.15.1/exporter/mackerelotlpexporter) |
 
+### Connectors
+
+| Component | Description | Documentation |
+|-----------|-------------|---------------|
+| span_metrics | Span metrics connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/spanmetricsconnector/v0.161.0/connector/spanmetricsconnector) |
+| count | Count connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/countconnector/v0.161.0/connector/countconnector) |
+| routing | Routing connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/routingconnector/v0.161.0/connector/routingconnector) |
+
 ### Extensions
 
 | Component | Description | Documentation |

@@ -102,6 +102,17 @@ receivers:
     type: selfmetrics
     description: Collector self-monitoring metrics receiver
 
+connectors:
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector v0.161.0
+    type: span_metrics
+    description: Span metrics connector
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector v0.161.0
+    type: count
+    description: Count connector
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector v0.161.0
+    type: routing
+    description: Routing connector
+
 providers:
   - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.67.0
   - gomod: go.opentelemetry.io/collector/confmap/provider/fileprovider v1.67.0
