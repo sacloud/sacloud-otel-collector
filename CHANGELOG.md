@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.8.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.8.0...v0.8.1) - 2026-10-02
+
+### 🧩 New Components
+- Add span_metrics, count and routing connectors by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/155
+- Add syslog receiver by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/156
+- Add load_balancing exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/157
+### 🔧 Maintenance
+- Fix Go version in Windows CI cache key by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/149
+- Link upgrading guide from release notes automatically by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/148
+- Generate README component tables from builder-config.yaml by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/151
+- build(deps): bump Songmu/tagpr from 1.20.2 to 1.21.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/154
+- build(deps): bump docker/setup-qemu-action from 4.2.0 to 4.4.0 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/153
+- build(deps): bump docker/setup-buildx-action from 4.3.0 to 4.4.1 by @dependabot[bot] in https://github.com/sacloud/sacloud-otel-collector/pull/152
+- Fix Go cache sharing between main and pull request CI by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/158
+- Group release notes by PR labels by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/159
+
 ## [v0.8.0](https://github.com/sacloud/sacloud-otel-collector/compare/v0.7.6...v0.8.0) - 2026-09-19
 
 - Add sending_queue.storage support to sacloud exporter by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/137
