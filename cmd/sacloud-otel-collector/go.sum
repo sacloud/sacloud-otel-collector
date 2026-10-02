@@ -701,6 +701,8 @@ github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.161.0/go.mod h1:JL98ay6BzVswSiXYYQt4PoqKce2FXGlLWWpvJgyE++A=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.161.0 h1:LfC1X0vB1eQJ8cfX9gCr1WPGWlFiNWaVlHA6fFrrR0Y=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.161.0/go.mod h1:ZuNCN6RranbSQl4KBYg4VgZrp307z39J++qRtUG3LV8=
+github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.161.0 h1:SZVKTGMYvxQRUqiVQqwzC6ckg7rRUG+l29uJrHFURS4=
+github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.161.0/go.mod h1:0OqBVPmazApAol3cFVnPiEjoe++bNgn/mXW7naWWs/w=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.161.0 h1:cewYGGqwYCCLFS6RXe9coztcLLgoGLGRg1ztVCHDThY=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.161.0/go.mod h1:Id2Foi2vNsgiDCDotpDcTwztP5dL8xc3MLSBe6D6/bw=
 github.com/opencontainers/go-digest v1.0.0 h1:apOUWs51W5PlhuyGyz9FCeeBIOUDA/6nW8Oi/yOhh5U=
