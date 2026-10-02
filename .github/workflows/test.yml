@@ -34,8 +34,12 @@ jobs:
           echo "gocache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
           echo "gomodcache=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
 
+      # Restore only: caches saved by pull_request runs are scoped to the
+      # PR and cannot be shared with other PRs, while saving them is slow
+      # (especially on Windows) and evicts the main branch caches. The
+      # main branch caches are saved by e2e.yml.
       - name: Restore Go caches
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             ${{ steps.go-env.outputs.gocache }}
@@ -43,6 +47,7 @@ jobs:
           key: go-${{ runner.os }}-go${{ matrix.go-version }}-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             go-${{ runner.os }}-go${{ matrix.go-version }}-
+            go-${{ runner.os }}-
 
       - name: check README component tables
         run: make check-readme
@@ -85,8 +90,12 @@ jobs:
           echo "gocache=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
           echo "gomodcache=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
 
+      # Restore only: caches saved by pull_request runs are scoped to the
+      # PR and cannot be shared with other PRs, while saving them is slow
+      # (especially on Windows) and evicts the main branch caches. The
+      # main branch caches are saved by e2e.yml.
       - name: Restore Go caches
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             ${{ steps.go-env.outputs.gocache }}
@@ -94,6 +103,7 @@ jobs:
           key: go-${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             go-${{ runner.os }}-go${{ env.GO_VERSION }}-
+            go-${{ runner.os }}-
 
       - name: build
         shell: bash
