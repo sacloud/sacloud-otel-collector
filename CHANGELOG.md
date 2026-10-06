@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.8.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.8.1...v0.8.2) - 2026-10-06
+
+### 🐛 Bug Fixes
+- Fix sacloud exporter not sending metrics to the configured endpoint by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/160
+### 🔧 Maintenance
+- Cover metrics exporter timeout in e2e with sakumock data plane latency by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/162
+
 ## [v0.8.1](https://github.com/sacloud/sacloud-otel-collector/compare/v0.8.0...v0.8.1) - 2026-10-02
 
 ### 🧩 New Components
