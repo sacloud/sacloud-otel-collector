@@ -44,7 +44,7 @@ If only an identifier is provided, it will be expanded to the full URL (with `ht
 
 | Field | Default | Description |
 |-------|---------|-------------|
-| `timeout` | `30s` | HTTP request timeout |
+| `timeout` | `30s` | Timeout for each HTTP request. The total time including retries is bounded by `retry_on_failure.max_elapsed_time` |
 | `retry_on_failure.enabled` | `true` | Enable retry on failure |
 | `retry_on_failure.initial_interval` | `5s` | Initial retry interval |
 | `retry_on_failure.max_interval` | `30s` | Maximum retry interval |

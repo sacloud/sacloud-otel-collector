@@ -1,8 +1,10 @@
 // Package e2e runs the built sacloud-otel-collector binary against the
-// sakumock monitoring-suite data plane (https://github.com/sacloud/sakumock):
-// a filelog receiver tails a file, the sacloud exporter forwards its lines as
-// OTLP/HTTP logs to the mock, and the test asserts the mock's JSON dump
-// contains what was written.
+// sakumock monitoring-suite data plane (https://github.com/sacloud/sakumock)
+// and asserts the mock's JSON dump contains what was sent:
+//   - logs: a filelog receiver tails a file and the sacloud exporter forwards
+//     its lines as OTLP/HTTP logs.
+//   - metrics: an OTLP/HTTP metric is posted to the otlp receiver and the
+//     sacloud exporter forwards it with Prometheus remote write.
 //
 // It skips unless ../sacloud-otel-collector (built by `make`) exists and
 // sakumock is on PATH (CI downloads the release binary; locally either grab
@@ -11,10 +13,12 @@
 package e2e_test
 
 import (
+	"bytes"
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
 	"net"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -76,6 +80,69 @@ service:
 
 	if !waitForDumpContaining(dumpDir, "otlp-logs-", marker, 60*time.Second) {
 		t.Errorf("no otlp-logs-* dump containing %q in %s; collector log:\n%s",
+			marker, dumpDir, readFile(collectorLog))
+	}
+}
+
+func TestMetricsToSakumock(t *testing.T) {
+	collector, sakumock := findBinaries(t)
+
+	dataPlaneAddr := freeLoopbackAddr(t)
+	otlpAddr := freeLoopbackAddr(t)
+	healthCheckAddr := freeLoopbackAddr(t)
+
+	dumpDir := t.TempDir()
+	startProcess(t, "sakumock", sakumock, "monitoringsuite",
+		"--enable-data-plane",
+		"--data-plane-addr", dataPlaneAddr,
+		"--data-plane-dump-dir", dumpDir,
+	)
+	waitListen(t, dataPlaneAddr, 30*time.Second)
+
+	cfg := fmt.Sprintf(`
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: %s
+exporters:
+  sacloud:
+    metrics:
+      endpoint: http://%s/prometheus/api/v1/write
+      token: metrics-dummy
+extensions:
+  health_check:
+    endpoint: %s
+service:
+  telemetry:
+    metrics:
+      level: none
+  extensions: [health_check]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [sacloud]
+`, otlpAddr, dataPlaneAddr, healthCheckAddr)
+	cfgFile := writeConfigFile(t, cfg)
+
+	collectorLog := startProcess(t, "collector", collector, "--config", cfgFile)
+	waitListen(t, healthCheckAddr, 60*time.Second)
+	waitListen(t, otlpAddr, 30*time.Second)
+
+	marker := "sacloud_otel_collector_e2e_" + randomHex(t)
+	body := fmt.Sprintf(`{"resourceMetrics":[{"scopeMetrics":[{"metrics":[{"name":%q,"gauge":{"dataPoints":[{"asDouble":1,"timeUnixNano":"%d"}]}}]}]}]}`,
+		marker, time.Now().UnixNano())
+	resp, err := http.Post("http://"+otlpAddr+"/v1/metrics", "application/json", bytes.NewBufferString(body))
+	if err != nil {
+		t.Fatal(err)
+	}
+	_ = resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("POST /v1/metrics status = %d", resp.StatusCode)
+	}
+
+	if !waitForDumpContaining(dumpDir, "metrics-remotewrite-", marker, 60*time.Second) {
+		t.Errorf("no metrics-remotewrite-* dump containing %q in %s; collector log:\n%s",
 			marker, dumpDir, readFile(collectorLog))
 	}
 }

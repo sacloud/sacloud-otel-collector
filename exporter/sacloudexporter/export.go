@@ -17,29 +17,10 @@ import (
 // newMetricsExporter creates a new metrics exporter using prometheusremotewriteexporter.
 func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config) (exporter.Metrics, error) {
 	factory := prometheusremotewriteexporter.NewFactory()
-	defaultCfg := factory.CreateDefaultConfig()
-	prwCfg, ok := defaultCfg.(*prometheusremotewriteexporter.Config)
-	if !ok {
-		return nil, fmt.Errorf("failed to cast to prometheusremotewriteexporter.Config")
+	prwCfg, err := metricsExporterConfig(factory, cfg)
+	if err != nil {
+		return nil, err
 	}
-
-	// Configure endpoint
-	prwCfg.ClientConfig.Endpoint = cfg.MetricsEndpointURL()
-
-	// Configure timeout
-	prwCfg.ClientConfig.Timeout = cfg.GetTimeout()
-
-	// Configure authentication header
-	prwCfg.ClientConfig.Headers.Set("Authorization", configopaque.String("Bearer "+string(cfg.Metrics.Token)))
-
-	// Enable compression (snappy is required by Prometheus remote write protocol)
-	prwCfg.ClientConfig.Compression = configcompression.TypeSnappy
-
-	// Convert all resource attributes to metric labels
-	prwCfg.ResourceConstantLabels.Included = []string{"*"}
-
-	// Apply retry configuration
-	prwCfg.BackOffConfig = cfg.GetRetryConfig()
 
 	// The prometheusremotewrite exporter's queue has no storage extension
 	// support, so sending_queue.storage cannot be applied to metrics.
@@ -55,14 +36,6 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 		}
 	}
 
-	// Apply remote write queue configuration
-	prwCfg.RemoteWriteQueue.Enabled = true
-	prwCfg.RemoteWriteQueue.QueueSize = defaultRemoteWriteQueueSize
-	prwCfg.RemoteWriteQueue.NumConsumers = defaultRemoteWriteNumConsumers
-
-	// Apply remote write batch configuration
-	prwCfg.MaxBatchSizeBytes = defaultRemoteWriteBatchSizeBytes
-
 	// Create new settings with the correct component type
 	prwSet := exporter.Settings{
 		ID:                component.NewIDWithName(factory.Type(), set.ID.Name()),
@@ -71,6 +44,44 @@ func newMetricsExporter(ctx context.Context, set exporter.Settings, cfg *Config)
 	}
 
 	return factory.CreateMetrics(ctx, prwSet, prwCfg)
+}
+
+// metricsExporterConfig builds the prometheusremotewriteexporter config.
+func metricsExporterConfig(factory exporter.Factory, cfg *Config) (*prometheusremotewriteexporter.Config, error) {
+	prwCfg, ok := factory.CreateDefaultConfig().(*prometheusremotewriteexporter.Config)
+	if !ok {
+		return nil, fmt.Errorf("failed to cast to prometheusremotewriteexporter.Config")
+	}
+
+	// HTTP client settings must go to the nested HTTP block. The exporter
+	// only reads cfg.HTTP; the deprecated squashed ClientConfig is copied
+	// into it only when the config is unmarshaled from YAML.
+	prwCfg.HTTP.Endpoint = cfg.MetricsEndpointURL()
+	prwCfg.HTTP.Timeout = cfg.GetTimeout()
+	prwCfg.HTTP.Headers.Set("Authorization", configopaque.String("Bearer "+string(cfg.Metrics.Token)))
+	// Snappy compression required by the Prometheus remote write protocol
+	// is applied by the exporter itself, not by the HTTP client.
+
+	// Disable the exporterhelper timeout (default 5s) that wraps the whole
+	// push including retries, as the otlphttp exporter does. Each request is
+	// bounded by HTTP.Timeout and retries by retry_on_failure.max_elapsed_time.
+	prwCfg.TimeoutSettings.Timeout = 0
+
+	// Convert all resource attributes to metric labels
+	prwCfg.ResourceConstantLabels.Included = []string{"*"}
+
+	// Apply retry configuration
+	prwCfg.BackOffConfig = cfg.GetRetryConfig()
+
+	// Apply remote write queue configuration
+	prwCfg.RemoteWriteQueue.Enabled = true
+	prwCfg.RemoteWriteQueue.QueueSize = defaultRemoteWriteQueueSize
+	prwCfg.RemoteWriteQueue.NumConsumers = defaultRemoteWriteNumConsumers
+
+	// Apply remote write batch configuration
+	prwCfg.MaxBatchSizeBytes = defaultRemoteWriteBatchSizeBytes
+
+	return prwCfg, nil
 }
 
 // newLogsExporter creates a new logs exporter using otlphttpexporter.
