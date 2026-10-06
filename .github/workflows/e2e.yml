@@ -79,7 +79,7 @@ jobs:
           fi
           echo "$RUNNER_TEMP/sakumock-bin" >> "$GITHUB_PATH"
         env:
-          SAKUMOCK_VERSION: v0.7.1
+          SAKUMOCK_VERSION: v0.13.0
           GH_TOKEN: ${{ github.token }}
 
       - name: Run e2e test
