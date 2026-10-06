@@ -2,11 +2,18 @@ package sacloudexporter
 
 import (
 	"context"
+	"net/http"
+	"net/http/httptest"
 	"testing"
+	"time"
+
+	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/exporter"
+	"go.opentelemetry.io/collector/pdata/pcommon"
+	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest/observer"
@@ -106,5 +113,81 @@ func TestNewMetricsExporter_NoDeprecatedResourceToTelemetry(t *testing.T) {
 
 	if logs := observed.FilterMessageSnippet("resource_to_telemetry_conversion").All(); len(logs) != 0 {
 		t.Fatalf("expected no resource_to_telemetry_conversion deprecation log, got %v", logs)
+	}
+}
+
+func TestMetricsExporterConfig(t *testing.T) {
+	cfg := &Config{
+		Metrics: MetricsEndpointConfig{Endpoint: "123456789012", Token: "token"},
+	}
+	prwCfg, err := metricsExporterConfig(prometheusremotewriteexporter.NewFactory(), cfg)
+	if err != nil {
+		t.Fatalf("metricsExporterConfig() error = %v", err)
+	}
+
+	// The exporter only reads the nested HTTP block.
+	wantEndpoint := "https://123456789012.metrics.monitoring.global.api.sacloud.jp/prometheus/api/v1/write"
+	if prwCfg.HTTP.Endpoint != wantEndpoint {
+		t.Errorf("HTTP.Endpoint = %q, want %q", prwCfg.HTTP.Endpoint, wantEndpoint)
+	}
+	if prwCfg.HTTP.Timeout != defaultTimeout {
+		t.Errorf("HTTP.Timeout = %v, want %v", prwCfg.HTTP.Timeout, defaultTimeout)
+	}
+	if v, ok := prwCfg.HTTP.Headers.Get("Authorization"); !ok || v != "Bearer token" {
+		t.Errorf("HTTP.Headers[Authorization] = %q, want %q", v, "Bearer token")
+	}
+	if prwCfg.TimeoutSettings.Timeout != 0 {
+		t.Errorf("TimeoutSettings.Timeout = %v, want 0", prwCfg.TimeoutSettings.Timeout)
+	}
+}
+
+func TestMetricsExporter_SendsToEndpoint(t *testing.T) {
+	gotAuth := make(chan string, 1)
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		select {
+		case gotAuth <- r.Header.Get("Authorization"):
+		default:
+		}
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer srv.Close()
+
+	set := exporter.Settings{
+		ID:                component.NewID(component.MustNewType("sacloud")),
+		TelemetrySettings: componenttest.NewNopTelemetrySettings(),
+	}
+	cfg := &Config{
+		Metrics: MetricsEndpointConfig{Endpoint: srv.URL + "/prometheus/api/v1/write", Token: "token"},
+	}
+	exp, err := newMetricsExporter(context.Background(), set, cfg)
+	if err != nil {
+		t.Fatalf("newMetricsExporter() error = %v", err)
+	}
+	if err := exp.Start(context.Background(), componenttest.NewNopHost()); err != nil {
+		t.Fatalf("Start() error = %v", err)
+	}
+	defer func() {
+		if err := exp.Shutdown(context.Background()); err != nil {
+			t.Errorf("Shutdown() error = %v", err)
+		}
+	}()
+
+	md := pmetric.NewMetrics()
+	m := md.ResourceMetrics().AppendEmpty().ScopeMetrics().AppendEmpty().Metrics().AppendEmpty()
+	m.SetName("test_gauge")
+	dp := m.SetEmptyGauge().DataPoints().AppendEmpty()
+	dp.SetDoubleValue(1)
+	dp.SetTimestamp(pcommon.NewTimestampFromTime(time.Now()))
+	if err := exp.ConsumeMetrics(context.Background(), md); err != nil {
+		t.Fatalf("ConsumeMetrics() error = %v", err)
+	}
+
+	select {
+	case auth := <-gotAuth:
+		if auth != "Bearer token" {
+			t.Errorf("Authorization = %q, want %q", auth, "Bearer token")
+		}
+	case <-time.After(10 * time.Second):
+		t.Fatal("no remote write request received by the endpoint")
 	}
 }
