@@ -96,6 +96,9 @@ func TestMetricsToSakumock(t *testing.T) {
 		"--enable-data-plane",
 		"--data-plane-addr", dataPlaneAddr,
 		"--data-plane-dump-dir", dumpDir,
+		// Slower than the exporterhelper default timeout (5s): the push
+		// must be bounded only by the sacloud exporter timeout (30s).
+		"--data-plane-latency", "6s",
 	)
 	waitListen(t, dataPlaneAddr, 30*time.Second)
 
@@ -115,6 +118,8 @@ extensions:
     endpoint: %s
 service:
   telemetry:
+    logs:
+      level: debug
     metrics:
       level: none
   extensions: [health_check]
@@ -144,6 +149,11 @@ service:
 	if !waitForDumpContaining(dumpDir, "metrics-remotewrite-", marker, 60*time.Second) {
 		t.Errorf("no metrics-remotewrite-* dump containing %q in %s; collector log:\n%s",
 			marker, dumpDir, readFile(collectorLog))
+	}
+	// The mock may record the payload even if the exporter gave up waiting
+	// for the delayed response, so also require the exporter to see success.
+	if !waitForFileContaining(collectorLog, "remote write request successful", 60*time.Second) {
+		t.Errorf("remote write request did not succeed; collector log:\n%s", readFile(collectorLog))
 	}
 }
 
@@ -250,6 +260,18 @@ func waitListen(t *testing.T, addr string, timeout time.Duration) {
 		time.Sleep(200 * time.Millisecond)
 	}
 	t.Fatalf("timed out waiting for %s to listen", addr)
+}
+
+// waitForFileContaining polls path until it contains the marker string.
+func waitForFileContaining(path, marker string, timeout time.Duration) bool {
+	deadline := time.Now().Add(timeout)
+	for time.Now().Before(deadline) {
+		if strings.Contains(readFile(path), marker) {
+			return true
+		}
+		time.Sleep(300 * time.Millisecond)
+	}
+	return false
 }
 
 // waitForDumpContaining polls dir until a file with the given name prefix

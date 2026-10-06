@@ -12,6 +12,7 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/exporter"
+	"go.opentelemetry.io/collector/exporter/exporterhelper"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.uber.org/zap"
@@ -135,6 +136,24 @@ func TestMetricsExporterConfig(t *testing.T) {
 	}
 	if v, ok := prwCfg.HTTP.Headers.Get("Authorization"); !ok || v != "Bearer token" {
 		t.Errorf("HTTP.Headers[Authorization] = %q, want %q", v, "Bearer token")
+	}
+	if prwCfg.TimeoutSettings.Timeout != 0 {
+		t.Errorf("TimeoutSettings.Timeout = %v, want 0", prwCfg.TimeoutSettings.Timeout)
+	}
+}
+
+func TestMetricsExporterConfig_CustomTimeout(t *testing.T) {
+	cfg := &Config{
+		TimeoutConfig: exporterhelper.TimeoutConfig{Timeout: 2 * time.Second},
+		Metrics:       MetricsEndpointConfig{Endpoint: "123456789012", Token: "token"},
+	}
+	prwCfg, err := metricsExporterConfig(prometheusremotewriteexporter.NewFactory(), cfg)
+	if err != nil {
+		t.Fatalf("metricsExporterConfig() error = %v", err)
+	}
+
+	if prwCfg.HTTP.Timeout != 2*time.Second {
+		t.Errorf("HTTP.Timeout = %v, want %v", prwCfg.HTTP.Timeout, 2*time.Second)
 	}
 	if prwCfg.TimeoutSettings.Timeout != 0 {
 		t.Errorf("TimeoutSettings.Timeout = %v, want 0", prwCfg.TimeoutSettings.Timeout)

@@ -348,7 +348,7 @@ CI runs an end-to-end test on Linux, macOS and Windows for each push to the `mai
 
 ```bash
 make
-go install github.com/sacloud/sakumock/monitoringsuite/cmd/sakumock-monitoringsuite@v0.6.0
+go install github.com/sacloud/sakumock/cmd/sakumock@v0.13.0
 cd e2e && go test -v ./...
 ```
 
