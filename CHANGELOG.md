@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.8.3](https://github.com/sacloud/sacloud-otel-collector/compare/v0.8.2...v0.8.3) - 2026-11-26
+
+### 📝 Documentation
+- Require an upgrade guide for every minor version bump by @fujiwara in https://github.com/sacloud/sacloud-otel-collector/pull/166
+
 ## [v0.8.2](https://github.com/sacloud/sacloud-otel-collector/compare/v0.8.1...v0.8.2) - 2026-10-06
 
 ### 🐛 Bug Fixes
