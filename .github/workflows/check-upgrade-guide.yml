@@ -1,0 +1,32 @@
+name: check-upgrade-guide
+# Checks that a release PR bumping the minor version ships with an upgrade
+# guide. It runs on pull requests that change the version file, which are the
+# release PRs created by tagpr (tagpr-from-vX.Y.Z). Workflows on those PRs do
+# not start automatically: start them from the PR page, or run this workflow
+# manually choosing the release branch in "Use workflow from".
+on:
+  pull_request:
+    paths:
+      - cmd/sacloud-otel-collector/version.go
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: check upgrade guide
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check upgrade guide
+        run: |
+          git fetch --depth=1 origin "$BASE_BRANCH"
+          version_of() { grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -n 1; }
+          current=$(git show "FETCH_HEAD:$VERSION_FILE" | version_of)
+          next=$(version_of < "$VERSION_FILE")
+          .github/scripts/check-upgrade-guide.sh "$current" "$next"
+        env:
+          BASE_BRANCH: ${{ github.base_ref || 'main' }}
+          VERSION_FILE: cmd/sacloud-otel-collector/version.go
