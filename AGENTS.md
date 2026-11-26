@@ -56,6 +56,15 @@ To add new components to the collector:
 - Do not use `name` for this metadata: ocb uses it as the Go import alias
 - Configuration details for each component should reference the official OpenTelemetry documentation
 
+## Upgrade Guides
+
+Every minor version bump must ship with an upgrade guide, without exception. Add the guide in the same PR that causes the minor bump.
+
+- Name it `docs/UPGRADE_vX.Y_to_vX.Z.md` (e.g. `UPGRADE_v0.7_to_v0.8.md`). The release workflow automatically links it from the release notes of `vX.Z.0`
+- Write one even when the OpenTelemetry Collector version is unchanged or no user action is required. State that explicitly and describe what changed (e.g. `UPGRADE_v0.3_to_v0.4.md`), so that a missing guide never has to be interpreted
+- Always state the OpenTelemetry Collector version each side is based on
+- The `check-upgrade-guide` workflow runs on tagpr release PRs (`tagpr-from-vX.Y.Z`) and fails when the minor version is bumped without the guide. Workflows do not start automatically on PRs created by tagpr, so start them from the PR page before merging
+
 ## Upgrading OpenTelemetry Collector Version
 
 When upgrading to a new OpenTelemetry Collector version:
@@ -72,8 +81,7 @@ When upgrading to a new OpenTelemetry Collector version:
 
 4. **Fix replace directives** - After `make build-src`, check `cmd/sacloud-otel-collector/go.mod` for absolute paths in replace directives. They should be relative paths like `../../exporter/sacloudexporter`.
 
-5. **Document breaking changes** - Create/update `docs/UPGRADE_vX_to_vY.md` for significant version upgrades with breaking changes.
-   - Name it `docs/UPGRADE_vX.Y_to_vX.Z.md` (e.g. `UPGRADE_v0.7_to_v0.8.md`). The release workflow automatically links it from the release notes of `vX.Z.0`.
+5. **Write the upgrade guide** - An OpenTelemetry Collector upgrade is a minor version bump, so it needs an upgrade guide (see [Upgrade Guides](#upgrade-guides)). Document the breaking changes of every bundled component.
 
 6. **Verify documentation** - After writing upgrade documentation, fetch each URL and verify that the linked PR/issue content matches the description. PR numbers from changelogs are often incorrect.
 
