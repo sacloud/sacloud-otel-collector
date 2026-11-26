@@ -116,46 +116,46 @@ For more details, see [builder-config.yaml](builder-config.yaml). Documentation 
 
 | Component | Description | Documentation |
 |-----------|-------------|---------------|
-| otlp | OpenTelemetry Protocol receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/receiver/otlpreceiver/v0.161.0/receiver/otlpreceiver) |
-| prometheus | Prometheus metrics receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/prometheusreceiver/v0.161.0/receiver/prometheusreceiver) |
-| hostmetrics | Host metrics receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/hostmetricsreceiver/v0.161.0/receiver/hostmetricsreceiver) |
-| jaeger | Jaeger traces receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/jaegerreceiver/v0.161.0/receiver/jaegerreceiver) |
-| kafka | Kafka receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/kafkareceiver/v0.161.0/receiver/kafkareceiver) |
-| filelog | File log receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/filelogreceiver/v0.161.0/receiver/filelogreceiver) |
-| fluentforward | Fluent Forward receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/fluentforwardreceiver/v0.161.0/receiver/fluentforwardreceiver) |
-| syslog | Syslog receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/syslogreceiver/v0.161.0/receiver/syslogreceiver) |
-| journald | Journald receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/journaldreceiver/v0.161.0/receiver/journaldreceiver) |
-| windowseventlog | Windows Event Log receiver (Windows only) | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/windowseventlogreceiver/v0.161.0/receiver/windowseventlogreceiver) |
+| otlp | OpenTelemetry Protocol receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/receiver/otlpreceiver/v0.166.0/receiver/otlpreceiver) |
+| prometheus | Prometheus metrics receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/prometheusreceiver/v0.166.0/receiver/prometheusreceiver) |
+| hostmetrics | Host metrics receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/hostmetricsreceiver/v0.166.0/receiver/hostmetricsreceiver) |
+| jaeger | Jaeger traces receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/jaegerreceiver/v0.166.0/receiver/jaegerreceiver) |
+| kafka | Kafka receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/kafkareceiver/v0.166.0/receiver/kafkareceiver) |
+| filelog | File log receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/filelogreceiver/v0.166.0/receiver/filelogreceiver) |
+| fluentforward | Fluent Forward receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/fluentforwardreceiver/v0.166.0/receiver/fluentforwardreceiver) |
+| syslog | Syslog receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/syslogreceiver/v0.166.0/receiver/syslogreceiver) |
+| journald | Journald receiver | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/journaldreceiver/v0.166.0/receiver/journaldreceiver) |
+| windowseventlog | Windows Event Log receiver (Windows only) | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/receiver/windowseventlogreceiver/v0.166.0/receiver/windowseventlogreceiver) |
 | selfmetrics | Collector self-monitoring metrics receiver | [Documentation](receiver/selfmetricsreceiver/README.md) |
 
 ### Processors
 
 | Component | Description | Documentation |
 |-----------|-------------|---------------|
-| batch | Batch processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/processor/batchprocessor/v0.161.0/processor/batchprocessor) |
-| memorylimiter | Memory limiter processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/processor/memorylimiterprocessor/v0.161.0/processor/memorylimiterprocessor) |
-| resource | Resource processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/resourceprocessor/v0.161.0/processor/resourceprocessor) |
-| attributes | Attributes processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/attributesprocessor/v0.161.0/processor/attributesprocessor) |
-| transform | Transform processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/transformprocessor/v0.161.0/processor/transformprocessor) |
-| filter | Filter processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/filterprocessor/v0.161.0/processor/filterprocessor) |
-| delta_to_cumulative | Delta to cumulative processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/deltatocumulativeprocessor/v0.161.0/processor/deltatocumulativeprocessor) |
-| resourcedetection | Resource detection processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/resourcedetectionprocessor/v0.161.0/processor/resourcedetectionprocessor) |
-| tailsampling | Tail sampling processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/tailsamplingprocessor/v0.161.0/processor/tailsamplingprocessor) |
-| groupbyattrs | Group by attributes processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/groupbyattrsprocessor/v0.161.0/processor/groupbyattrsprocessor) |
+| batch | Batch processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/processor/batchprocessor/v0.166.0/processor/batchprocessor) |
+| memorylimiter | Memory limiter processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/processor/memorylimiterprocessor/v0.166.0/processor/memorylimiterprocessor) |
+| resource | Resource processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/resourceprocessor/v0.166.0/processor/resourceprocessor) |
+| attributes | Attributes processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/attributesprocessor/v0.166.0/processor/attributesprocessor) |
+| transform | Transform processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/transformprocessor/v0.166.0/processor/transformprocessor) |
+| filter | Filter processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/filterprocessor/v0.166.0/processor/filterprocessor) |
+| delta_to_cumulative | Delta to cumulative processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/deltatocumulativeprocessor/v0.166.0/processor/deltatocumulativeprocessor) |
+| resourcedetection | Resource detection processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/resourcedetectionprocessor/v0.166.0/processor/resourcedetectionprocessor) |
+| tailsampling | Tail sampling processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/tailsamplingprocessor/v0.166.0/processor/tailsamplingprocessor) |
+| groupbyattrs | Group by attributes processor | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/processor/groupbyattrsprocessor/v0.166.0/processor/groupbyattrsprocessor) |
 
 ### Exporters
 
 | Component | Description | Documentation |
 |-----------|-------------|---------------|
-| debug | Debug exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/exporter/debugexporter/v0.161.0/exporter/debugexporter) |
-| otlp | OpenTelemetry Protocol exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/exporter/otlpexporter/v0.161.0/exporter/otlpexporter) |
-| prometheusremotewrite | Prometheus Remote Write exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/prometheusremotewriteexporter/v0.161.0/exporter/prometheusremotewriteexporter) |
-| otlphttp | OTLP HTTP exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/exporter/otlphttpexporter/v0.161.0/exporter/otlphttpexporter) |
-| file | File exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/fileexporter/v0.161.0/exporter/fileexporter) |
-| elasticsearch | Elasticsearch exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/elasticsearchexporter/v0.161.0/exporter/elasticsearchexporter) |
-| awss3 | AWS S3 exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/awss3exporter/v0.161.0/exporter/awss3exporter) |
-| kafka | Kafka exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/kafkaexporter/v0.161.0/exporter/kafkaexporter) |
-| load_balancing | Load balancing exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/loadbalancingexporter/v0.161.0/exporter/loadbalancingexporter) |
+| debug | Debug exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/exporter/debugexporter/v0.166.0/exporter/debugexporter) |
+| otlp | OpenTelemetry Protocol exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/exporter/otlpexporter/v0.166.0/exporter/otlpexporter) |
+| prometheusremotewrite | Prometheus Remote Write exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/prometheusremotewriteexporter/v0.166.0/exporter/prometheusremotewriteexporter) |
+| otlphttp | OTLP HTTP exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector/tree/exporter/otlphttpexporter/v0.166.0/exporter/otlphttpexporter) |
+| file | File exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/fileexporter/v0.166.0/exporter/fileexporter) |
+| elasticsearch | Elasticsearch exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/elasticsearchexporter/v0.166.0/exporter/elasticsearchexporter) |
+| awss3 | AWS S3 exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/awss3exporter/v0.166.0/exporter/awss3exporter) |
+| kafka | Kafka exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/kafkaexporter/v0.166.0/exporter/kafkaexporter) |
+| load_balancing | Load balancing exporter | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/exporter/loadbalancingexporter/v0.166.0/exporter/loadbalancingexporter) |
 | sacloud | SAKURA Cloud Monitoring Suite exporter | [Documentation](#sakuracloud-monitoring-suite) |
 | mackerelotlp | Mackerel OTLP exporter | [Documentation](https://github.com/mackerelio/opentelemetry-collector-mackerel/tree/exporter/mackerelotlpexporter/v0.15.1/exporter/mackerelotlpexporter) |
 
@@ -163,16 +163,16 @@ For more details, see [builder-config.yaml](builder-config.yaml). Documentation 
 
 | Component | Description | Documentation |
 |-----------|-------------|---------------|
-| span_metrics | Span metrics connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/spanmetricsconnector/v0.161.0/connector/spanmetricsconnector) |
-| count | Count connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/countconnector/v0.161.0/connector/countconnector) |
-| routing | Routing connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/routingconnector/v0.161.0/connector/routingconnector) |
+| span_metrics | Span metrics connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/spanmetricsconnector/v0.166.0/connector/spanmetricsconnector) |
+| count | Count connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/countconnector/v0.166.0/connector/countconnector) |
+| routing | Routing connector | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/connector/routingconnector/v0.166.0/connector/routingconnector) |
 
 ### Extensions
 
 | Component | Description | Documentation |
 |-----------|-------------|---------------|
-| health_check | Health check extension | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/extension/healthcheckextension/v0.161.0/extension/healthcheckextension) |
-| file_storage | File storage extension | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/extension/storage/filestorage/v0.161.0/extension/storage/filestorage) |
+| health_check | Health check extension | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/extension/healthcheckextension/v0.166.0/extension/healthcheckextension) |
+| file_storage | File storage extension | [Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/extension/storage/filestorage/v0.166.0/extension/storage/filestorage) |
 
 <!-- END COMPONENTS -->
 
