@@ -11,6 +11,7 @@ import (
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
+	"go.opentelemetry.io/collector/config/configstorage"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 )
 
@@ -199,11 +200,15 @@ func (cfg *Config) TracesEndpointURL() string {
 // defaults that ensure safe operation within SAKURA Cloud Monitoring Suite
 // limits, plus the user-configured storage extension if any.
 func (cfg *Config) sendingQueueConfig() exporterhelper.QueueBatchConfig {
+	storageID := configoptional.None[configstorage.ID]()
+	if cfg.SendingQueue.Storage != nil {
+		storageID = configoptional.Some(configstorage.ID(*cfg.SendingQueue.Storage))
+	}
 	return exporterhelper.QueueBatchConfig{
 		Sizer:        exporterhelper.RequestSizerTypeBytes,
 		QueueSize:    defaultSendingQueueSize,
 		NumConsumers: defaultSendingNumConsumers,
-		StorageID:    cfg.SendingQueue.Storage,
+		StorageID:    storageID,
 		Batch: configoptional.Some(exporterhelper.BatchConfig{
 			FlushTimeout: defaultBatchFlushTimeout,
 			Sizer:        exporterhelper.RequestSizerTypeBytes,

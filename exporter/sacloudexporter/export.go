@@ -62,10 +62,12 @@ func metricsExporterConfig(factory exporter.Factory, cfg *Config) (*prometheusre
 	// Snappy compression required by the Prometheus remote write protocol
 	// is applied by the exporter itself, not by the HTTP client.
 
-	// Disable the exporterhelper timeout (default 5s) that wraps the whole
-	// push including retries, as the otlphttp exporter does. Each request is
-	// bounded by HTTP.Timeout and retries by retry_on_failure.max_elapsed_time.
-	prwCfg.TimeoutSettings.Timeout = 0
+	// The exporter timeout bounds each attempt to send a request, as
+	// HTTP.Timeout does, and retries are bounded by
+	// retry_on_failure.max_elapsed_time. Keep both timeouts in sync: the
+	// exporter does that only when the config is unmarshaled from YAML, and
+	// its default (5s) would otherwise cap a longer timeout.
+	prwCfg.TimeoutSettings.Timeout = cfg.GetTimeout()
 
 	// Convert all resource attributes to metric labels
 	prwCfg.ResourceConstantLabels.Included = []string{"*"}

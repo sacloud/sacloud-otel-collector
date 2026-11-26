@@ -487,8 +487,12 @@ func TestConfig_SendingQueueConfig(t *testing.T) {
 				SendingQueue: SendingQueueConfig{Storage: tt.storage},
 			}
 			got := cfg.sendingQueueConfig()
-			if got.StorageID != tt.storage {
-				t.Errorf("sendingQueueConfig().StorageID = %v, want %v", got.StorageID, tt.storage)
+			if tt.storage == nil {
+				if got.StorageID.HasValue() {
+					t.Errorf("sendingQueueConfig().StorageID = %v, want none", got.StorageID.Get())
+				}
+			} else if id := got.StorageID.Get(); id == nil || id.ComponentID() != *tt.storage {
+				t.Errorf("sendingQueueConfig().StorageID = %v, want %v", id, tt.storage)
 			}
 			// Fixed defaults must not change regardless of storage
 			if got.QueueSize != defaultSendingQueueSize {

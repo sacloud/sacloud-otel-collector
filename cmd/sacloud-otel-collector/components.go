@@ -78,8 +78,8 @@ func components() (otelcol.Factories, error) {
 		return otelcol.Factories{}, err
 	}
 	factories.ExtensionModules = makeModulesMap(factories.Extensions, map[component.Type]string{
-		healthcheckextension.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.161.0",
-		filestorage.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage v0.161.0",
+		healthcheckextension.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.166.0",
+		filestorage.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage v0.166.0",
 	})
 
 	factories.Receivers, err = otelcol.MakeFactoryMap[receiver.Factory](
@@ -99,16 +99,16 @@ func components() (otelcol.Factories, error) {
 		return otelcol.Factories{}, err
 	}
 	factories.ReceiverModules = makeModulesMap(factories.Receivers, map[component.Type]string{
-		otlpreceiver.NewFactory().Type():            "go.opentelemetry.io/collector/receiver/otlpreceiver v0.161.0",
-		prometheusreceiver.NewFactory().Type():      "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.161.0",
-		hostmetricsreceiver.NewFactory().Type():     "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.161.0",
-		jaegerreceiver.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver v0.161.0",
-		kafkareceiver.NewFactory().Type():           "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.161.0",
-		filelogreceiver.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.161.0",
-		fluentforwardreceiver.NewFactory().Type():   "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.161.0",
-		syslogreceiver.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.161.0",
-		journaldreceiver.NewFactory().Type():        "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.161.0",
-		windowseventlogreceiver.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.161.0",
+		otlpreceiver.NewFactory().Type():            "go.opentelemetry.io/collector/receiver/otlpreceiver v0.166.0",
+		prometheusreceiver.NewFactory().Type():      "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.166.0",
+		hostmetricsreceiver.NewFactory().Type():     "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.166.0",
+		jaegerreceiver.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver v0.166.0",
+		kafkareceiver.NewFactory().Type():           "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver v0.166.0",
+		filelogreceiver.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.166.0",
+		fluentforwardreceiver.NewFactory().Type():   "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver v0.166.0",
+		syslogreceiver.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.166.0",
+		journaldreceiver.NewFactory().Type():        "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.166.0",
+		windowseventlogreceiver.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver v0.166.0",
 		selfmetricsreceiver.NewFactory().Type():     "github.com/sacloud/sacloud-otel-collector/receiver/selfmetricsreceiver v0.0.0",
 	})
 
@@ -129,15 +129,15 @@ func components() (otelcol.Factories, error) {
 		return otelcol.Factories{}, err
 	}
 	factories.ExporterModules = makeModulesMap(factories.Exporters, map[component.Type]string{
-		debugexporter.NewFactory().Type():                 "go.opentelemetry.io/collector/exporter/debugexporter v0.161.0",
-		otlpexporter.NewFactory().Type():                  "go.opentelemetry.io/collector/exporter/otlpexporter v0.161.0",
-		prometheusremotewriteexporter.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.161.0",
-		otlphttpexporter.NewFactory().Type():              "go.opentelemetry.io/collector/exporter/otlphttpexporter v0.161.0",
-		fileexporter.NewFactory().Type():                  "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.161.0",
-		elasticsearchexporter.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.161.0",
-		awss3exporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.161.0",
-		kafkaexporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter v0.161.0",
-		loadbalancingexporter.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter v0.161.0",
+		debugexporter.NewFactory().Type():                 "go.opentelemetry.io/collector/exporter/debugexporter v0.166.0",
+		otlpexporter.NewFactory().Type():                  "go.opentelemetry.io/collector/exporter/otlpexporter v0.166.0",
+		prometheusremotewriteexporter.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.166.0",
+		otlphttpexporter.NewFactory().Type():              "go.opentelemetry.io/collector/exporter/otlphttpexporter v0.166.0",
+		fileexporter.NewFactory().Type():                  "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.166.0",
+		elasticsearchexporter.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter v0.166.0",
+		awss3exporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.166.0",
+		kafkaexporter.NewFactory().Type():                 "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter v0.166.0",
+		loadbalancingexporter.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter v0.166.0",
 		sacloudexporter.NewFactory().Type():               "github.com/sacloud/sacloud-otel-collector/exporter/sacloudexporter v0.0.0",
 		mackerelotlpexporter.NewFactory().Type():          "github.com/mackerelio/opentelemetry-collector-mackerel/exporter/mackerelotlpexporter v0.15.1",
 	})
@@ -158,16 +158,16 @@ func components() (otelcol.Factories, error) {
 		return otelcol.Factories{}, err
 	}
 	factories.ProcessorModules = makeModulesMap(factories.Processors, map[component.Type]string{
-		batchprocessor.NewFactory().Type():             "go.opentelemetry.io/collector/processor/batchprocessor v0.161.0",
-		memorylimiterprocessor.NewFactory().Type():     "go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.161.0",
-		resourceprocessor.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.161.0",
-		attributesprocessor.NewFactory().Type():        "github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.161.0",
-		transformprocessor.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.161.0",
-		filterprocessor.NewFactory().Type():            "github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.161.0",
-		deltatocumulativeprocessor.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/processor/deltatocumulativeprocessor v0.161.0",
-		resourcedetectionprocessor.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor v0.161.0",
-		tailsamplingprocessor.NewFactory().Type():      "github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor v0.161.0",
-		groupbyattrsprocessor.NewFactory().Type():      "github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.161.0",
+		batchprocessor.NewFactory().Type():             "go.opentelemetry.io/collector/processor/batchprocessor v0.166.0",
+		memorylimiterprocessor.NewFactory().Type():     "go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.166.0",
+		resourceprocessor.NewFactory().Type():          "github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.166.0",
+		attributesprocessor.NewFactory().Type():        "github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.166.0",
+		transformprocessor.NewFactory().Type():         "github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.166.0",
+		filterprocessor.NewFactory().Type():            "github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.166.0",
+		deltatocumulativeprocessor.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/processor/deltatocumulativeprocessor v0.166.0",
+		resourcedetectionprocessor.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor v0.166.0",
+		tailsamplingprocessor.NewFactory().Type():      "github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor v0.166.0",
+		groupbyattrsprocessor.NewFactory().Type():      "github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.166.0",
 	})
 
 	factories.Connectors, err = otelcol.MakeFactoryMap[connector.Factory](
@@ -179,9 +179,9 @@ func components() (otelcol.Factories, error) {
 		return otelcol.Factories{}, err
 	}
 	factories.ConnectorModules = makeModulesMap(factories.Connectors, map[component.Type]string{
-		spanmetricsconnector.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector v0.161.0",
-		countconnector.NewFactory().Type():       "github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector v0.161.0",
-		routingconnector.NewFactory().Type():     "github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector v0.161.0",
+		spanmetricsconnector.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector v0.166.0",
+		countconnector.NewFactory().Type():       "github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector v0.166.0",
+		routingconnector.NewFactory().Type():     "github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector v0.166.0",
 	})
 
 	return factories, nil

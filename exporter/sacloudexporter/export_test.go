@@ -137,8 +137,8 @@ func TestMetricsExporterConfig(t *testing.T) {
 	if v, ok := prwCfg.HTTP.Headers.Get("Authorization"); !ok || v != "Bearer token" {
 		t.Errorf("HTTP.Headers[Authorization] = %q, want %q", v, "Bearer token")
 	}
-	if prwCfg.TimeoutSettings.Timeout != 0 {
-		t.Errorf("TimeoutSettings.Timeout = %v, want 0", prwCfg.TimeoutSettings.Timeout)
+	if prwCfg.TimeoutSettings.Timeout != cfg.GetTimeout() {
+		t.Errorf("TimeoutSettings.Timeout = %v, want %v", prwCfg.TimeoutSettings.Timeout, cfg.GetTimeout())
 	}
 }
 
@@ -155,8 +155,8 @@ func TestMetricsExporterConfig_CustomTimeout(t *testing.T) {
 	if prwCfg.HTTP.Timeout != 2*time.Second {
 		t.Errorf("HTTP.Timeout = %v, want %v", prwCfg.HTTP.Timeout, 2*time.Second)
 	}
-	if prwCfg.TimeoutSettings.Timeout != 0 {
-		t.Errorf("TimeoutSettings.Timeout = %v, want 0", prwCfg.TimeoutSettings.Timeout)
+	if prwCfg.TimeoutSettings.Timeout != 2*time.Second {
+		t.Errorf("TimeoutSettings.Timeout = %v, want %v", prwCfg.TimeoutSettings.Timeout, 2*time.Second)
 	}
 }
 
