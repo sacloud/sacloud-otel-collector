@@ -8,6 +8,10 @@ builds:
       - CGO_ENABLED=0
     dir: ./cmd/sacloud-otel-collector
     binary: sacloud-otel-collector
+    # The release workflow builds each target in a separate job and sets
+    # GORELEASER_GO_TOOL to .github/scripts/use-prebuilt-binary.sh, which
+    # copies those binaries instead of compiling all targets again.
+    tool: '{{ envOrDefault "GORELEASER_GO_TOOL" "go" }}'
     goos:
       - linux
       - windows
